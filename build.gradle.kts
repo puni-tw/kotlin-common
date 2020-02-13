@@ -15,8 +15,7 @@ plugins {
   jacoco
 }
 
-group = "puni-tw"
-version = "0.0.1"
+group = "puni"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
