@@ -29,7 +29,7 @@ publishing {
   repositories {
     maven {
       name = "GitHubPackages"
-      url = uri("https://maven.pkg.github.com")
+      url = uri("https://maven.pkg.github.com/puni-tw/kotlin-common")
       credentials {
         username = System.getenv("PUNI_GH_PUBLISH_USER") ?: System.getenv("GITHUB_ACTOR")
         password = System.getenv("PUNI_GH_PUBLISH_TOKEN") ?: System.getenv("GITHUB_TOKEN")
