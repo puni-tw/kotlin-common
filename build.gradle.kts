@@ -66,6 +66,13 @@ val dokkaJar by tasks.creating(Jar::class) {
   from(tasks.dokka)
 }
 
+val sourceJar by tasks.creating(Jar::class) {
+  group = JavaBasePlugin.DOCUMENTATION_GROUP
+  description = "Source"
+  archiveClassifier.set("sources")
+  from(sourceSets.getByName("main").allSource)
+}
+
 tasks.detekt {
   detekt {
     input = files("src/*/kotlin")
@@ -86,6 +93,7 @@ publishing {
   publications {
     create<MavenPublication>("default") {
       from(components["java"])
+      artifact(sourceJar)
       artifact(dokkaJar)
     }
   }
