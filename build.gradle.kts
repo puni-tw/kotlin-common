@@ -15,7 +15,7 @@ plugins {
   jacoco
 }
 
-group = "puni"
+group = "puni-tw"
 version = "0.0.1"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
@@ -29,7 +29,7 @@ publishing {
   repositories {
     maven {
       name = "GitHubPackages"
-      url = uri("https://maven.pkg.github.com/puni-tw/kotlin-common")
+      url = uri("https://maven.pkg.github.com")
       credentials {
         username = System.getenv("PUNI_GH_PUBLISH_USER") ?: System.getenv("GITHUB_ACTOR")
         password = System.getenv("PUNI_GH_PUBLISH_TOKEN") ?: System.getenv("GITHUB_TOKEN")
