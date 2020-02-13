@@ -26,11 +26,8 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Build with Gradle
         run: ./gradlew build
-
-  release-notes:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Release Drafter
-        uses: release-drafter/release-drafter@v5
+      - name: Publish artifact
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ./gradlew -Pversion=0.0.${GITHUB_RUN_NUMBER} publish
