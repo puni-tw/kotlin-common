@@ -10,6 +10,8 @@ buildscript {
 
 plugins {
   id("org.jlleitschuh.gradle.ktlint") version "9.1.1"
+  id("org.jetbrains.dokka") version "0.10.0"
+  id("io.gitlab.arturbosch.detekt") version "1.3.1"
   kotlin("jvm") version "1.3.61"
   `maven-publish`
   jacoco
@@ -22,24 +24,6 @@ repositories {
   mavenCentral()
   jcenter()
   maven("https://jitpack.io")
-}
-
-publishing {
-  repositories {
-    maven {
-      name = "GitHubPackages"
-      url = uri("https://maven.pkg.github.com/puni-tw/kotlin-common")
-      credentials {
-        username = System.getenv("PUNI_GH_PUBLISH_USER") ?: System.getenv("GITHUB_ACTOR")
-        password = System.getenv("PUNI_GH_PUBLISH_TOKEN") ?: System.getenv("GITHUB_TOKEN")
-      }
-    }
-  }
-  publications {
-    create<MavenPublication>("default") {
-      from(components["java"])
-    }
-  }
 }
 
 dependencies {
@@ -67,5 +51,42 @@ tasks.jacocoTestReport {
   reports {
     html.isEnabled = true
     xml.isEnabled = true
+  }
+}
+
+tasks.dokka {
+  outputFormat = "html"
+  outputDirectory = "$buildDir/javadoc"
+}
+
+val dokkaJar by tasks.creating(Jar::class) {
+  group = JavaBasePlugin.DOCUMENTATION_GROUP
+  description = "Assembles Kotlin docs with Dokka"
+  archiveClassifier.set("javadoc")
+  from(tasks.dokka)
+}
+
+tasks.detekt {
+  detekt {
+    input = files("src/*/kotlin")
+  }
+}
+
+publishing {
+  repositories {
+    maven {
+      name = "GitHubPackages"
+      url = uri("https://maven.pkg.github.com/puni-tw/kotlin-common")
+      credentials {
+        username = System.getenv("PUNI_GH_PUBLISH_USER") ?: System.getenv("GITHUB_ACTOR")
+        password = System.getenv("PUNI_GH_PUBLISH_TOKEN") ?: System.getenv("GITHUB_TOKEN")
+      }
+    }
+  }
+  publications {
+    create<MavenPublication>("default") {
+      from(components["java"])
+      artifact(dokkaJar)
+    }
   }
 }
