@@ -29,10 +29,10 @@ repositories {
 dependencies {
   implementation("org.jetbrains.kotlin:kotlin-reflect")
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+  testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.2")
 }
 
 ktlint {
-  // debug.set(true)
   enableExperimentalRules.set(true)
 }
 
