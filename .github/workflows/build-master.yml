@@ -17,7 +17,7 @@ jobs:
         with:
           java-version: 8
 
-      - name: Setup Codeclimate Cache
+      - name: Setup Build Tools Cache
         uses: actions/cache@v1
         with:
           path: ./cc-test-reporter
@@ -43,12 +43,13 @@ jobs:
           CC_TEST_REPORTER_ID: ${{secrets.CODE_CLIMATE_REPORTER_ID}}
           JACOCO_SOURCE_PATH: src/main/kotlin
         run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
-          ./cc-test-reporter before-build
+          mkdir -p cc-test-reporter
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter/bin
+          chmod +x ./cc-test-reporter/bin
+          ./cc-test-reporter/bin before-build
           ./gradlew check jacocoTestReport
-          ./cc-test-reporter format-coverage build/reports/jacoco/test/jacocoTestReport.xml --input-type jacoco
-          ./cc-test-reporter upload-coverage
+          ./cc-test-reporter/bin format-coverage build/reports/jacoco/test/jacocoTestReport.xml --input-type jacoco
+          ./cc-test-reporter/bin upload-coverage
       - name: Build with Gradle
         run: ./gradlew build
       - name: Upload coverage to Codecov
