@@ -47,7 +47,8 @@ jobs:
           chmod +x ./cc-test-reporter/bin
           ./cc-test-reporter/bin before-build
           ./gradlew check covAll
-          JACOCO_SOURCE_PATH=$(./gradlew -q collectJacocoSourcePath | tail -n 1) && ./cc-test-reporter/bin format-coverage build/reports/jacoco/covAll/covAll.xml --input-type jacoco
+          export JACOCO_SOURCE_PATH=$(./gradlew -q collectJacocoSourcePath | tail -n 1)
+          ./cc-test-reporter/bin format-coverage build/reports/jacoco/covAll/covAll.xml --input-type jacoco
           ./cc-test-reporter/bin upload-coverage
       - name: Build with Gradle
         run: ./gradlew build
