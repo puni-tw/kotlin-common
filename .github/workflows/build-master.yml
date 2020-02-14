@@ -17,11 +17,11 @@ jobs:
         with:
           java-version: 8
 
-      - name: Setup Build Tools Cache
+      - name: Setup Codeclimate Cache
         uses: actions/cache@v1
         with:
           path: ./cc-test-reporter
-          key: ${{ runner.os }}-cc-test-reporter
+          key: ${{ runner.os }}-cc-test-reporter-${{ hashFiles('**/.github/workflows/build-master.yml') }}
           restore-keys: |
             ${{ runner.os }}-cc-test-reporter
       - name: Setup build cache
@@ -44,7 +44,7 @@ jobs:
           JACOCO_SOURCE_PATH: src/main/kotlin
         run: |
           mkdir -p cc-test-reporter
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter/bin
+          [[ -e ./cc-test-reporter/bin ]] || curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter/bin
           chmod +x ./cc-test-reporter/bin
           ./cc-test-reporter/bin before-build
           ./gradlew check jacocoTestReport
