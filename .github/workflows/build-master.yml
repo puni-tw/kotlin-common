@@ -24,8 +24,15 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.4.0
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.CODE_CLIMATE_REPORTER_ID}}
+        with:
+          coverageCommand: ./gradlew check jacocoTestReport
+          debug: true
       - name: Build with Gradle
-        run: ./gradlew check build jacocoTestReport
+        run: ./gradlew build
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
