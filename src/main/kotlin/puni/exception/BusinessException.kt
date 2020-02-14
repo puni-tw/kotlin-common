@@ -14,16 +14,7 @@ class BusinessException : RuntimeException {
     this.errorCode = code
   }
 
-  constructor(code: ErrorCode, message: String, vararg args: Any) : super(message.replaceByArgs(*args)) {
-    this.errorCode = code
-  }
-
-  constructor(
-    code: ErrorCode,
-    cause: Throwable,
-    message: String,
-    vararg args: Any
-  ) : super(message.replaceByArgs(*args), cause) {
+  constructor(code: ErrorCode, message: String, vararg args: Any?) : super(message.replaceByArgs(*args)) {
     this.errorCode = code
   }
 }
