@@ -25,7 +25,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: Build with Gradle
-        run: ./gradlew build jacocoTestReport
+        run: ./gradlew check build jacocoTestReport
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
