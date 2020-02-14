@@ -1,3 +1,4 @@
+import io.gitlab.arturbosch.detekt.detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
@@ -18,84 +19,130 @@ plugins {
 }
 
 group = "puni"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
 
-repositories {
-  mavenCentral()
-  jcenter()
-  maven("https://jitpack.io")
-}
+allprojects {
+  apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
-dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-reflect")
-  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-  implementation("org.slf4j:slf4j-api:1.7.30")
-  testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.2")
-}
+  repositories {
+    mavenCentral()
+    jcenter()
+    maven("https://jitpack.io")
+  }
 
-ktlint {
-  enableExperimentalRules.set(true)
-}
-
-tasks.withType<Test> {
-  useJUnitPlatform()
-}
-
-tasks.withType<KotlinCompile> {
-  kotlinOptions {
-    freeCompilerArgs = listOf("-Xjsr305=strict")
-    jvmTarget = "1.8"
+  ktlint {
+    enableExperimentalRules.set(true)
   }
 }
 
-tasks.jacocoTestReport {
+subprojects {
+  apply(plugin = "kotlin")
+  apply(plugin = "org.jetbrains.kotlin.jvm")
+  apply(plugin = "org.jetbrains.dokka")
+  apply(plugin = "io.gitlab.arturbosch.detekt")
+  apply(plugin = "org.gradle.jacoco")
+  apply(plugin = "org.gradle.maven-publish")
+  val subproject = this
+
+  configure<JavaPluginExtension> {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+  }
+
+  tasks.withType<KotlinCompile> {
+    kotlinOptions {
+      freeCompilerArgs = listOf("-Xjsr305=strict")
+      jvmTarget = "1.8"
+    }
+  }
+
+  dependencies {
+    "implementation"("org.jetbrains.kotlin:kotlin-reflect")
+    "implementation"("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    "testImplementation"("io.kotlintest:kotlintest-runner-junit5:3.4.2")
+  }
+
+  task("housekeeping", Delete::class) {
+    delete(file("out"))
+  }
+
+  tasks.getByName("clean").finalizedBy("housekeeping")
+  tasks.getByName("test").finalizedBy("jacocoTestReport")
+
+  tasks.withType<Test> {
+    useJUnitPlatform()
+  }
+
+  tasks.withType<JacocoReport> {
+    reports {
+      html.isEnabled = false
+      xml.isEnabled = false
+      csv.isEnabled = false
+    }
+  }
+
+  tasks.dokka {
+    outputFormat = "html"
+    outputDirectory = "$buildDir/javadoc"
+  }
+
+  val dokkaJar by tasks.creating(Jar::class) {
+    group = JavaBasePlugin.DOCUMENTATION_GROUP
+    description = "Assembles Kotlin docs with Dokka"
+    archiveClassifier.set("javadoc")
+    from(tasks.dokka)
+  }
+
+  val sourceJar by tasks.creating(Jar::class) {
+    group = JavaBasePlugin.DOCUMENTATION_GROUP
+    description = "Source"
+    archiveClassifier.set("sources")
+    from(subproject.sourceSets.getByName("main").allSource)
+  }
+
+  tasks.detekt {
+    detekt {
+      input = files("src/*/kotlin")
+    }
+  }
+
+  publishing {
+    repositories {
+      maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/puni-tw/kotlin-common")
+        credentials {
+          username = System.getenv("PUNI_GH_PUBLISH_USER") ?: System.getenv("GITHUB_ACTOR")
+          password = System.getenv("PUNI_GH_PUBLISH_TOKEN") ?: System.getenv("GITHUB_TOKEN")
+        }
+      }
+    }
+    publications {
+      create<MavenPublication>("default") {
+        from(components["java"])
+        artifact(sourceJar)
+        artifact(dokkaJar)
+      }
+    }
+  }
+}
+
+task("covAll", JacocoReport::class) {
+  executionData(
+    fileTree(rootDir.absolutePath).include("**/build/jacoco/*.exec")
+  )
+  sourceSets(
+    *subprojects
+      .map {
+        it.sourceSets.getByName("main")
+      }
+      .toTypedArray()
+  )
   reports {
     html.isEnabled = true
     xml.isEnabled = true
   }
-}
 
-tasks.dokka {
-  outputFormat = "html"
-  outputDirectory = "$buildDir/javadoc"
-}
-
-val dokkaJar by tasks.creating(Jar::class) {
-  group = JavaBasePlugin.DOCUMENTATION_GROUP
-  description = "Assembles Kotlin docs with Dokka"
-  archiveClassifier.set("javadoc")
-  from(tasks.dokka)
-}
-
-val sourceJar by tasks.creating(Jar::class) {
-  group = JavaBasePlugin.DOCUMENTATION_GROUP
-  description = "Source"
-  archiveClassifier.set("sources")
-  from(sourceSets.getByName("main").allSource)
-}
-
-tasks.detekt {
-  detekt {
-    input = files("src/*/kotlin")
-  }
-}
-
-publishing {
-  repositories {
-    maven {
-      name = "GitHubPackages"
-      url = uri("https://maven.pkg.github.com/puni-tw/kotlin-common")
-      credentials {
-        username = System.getenv("PUNI_GH_PUBLISH_USER") ?: System.getenv("GITHUB_ACTOR")
-        password = System.getenv("PUNI_GH_PUBLISH_TOKEN") ?: System.getenv("GITHUB_TOKEN")
-      }
-    }
-  }
-  publications {
-    create<MavenPublication>("default") {
-      from(components["java"])
-      artifact(sourceJar)
-      artifact(dokkaJar)
-    }
-  }
+  dependsOn(
+    *subprojects.map { it.tasks.getByName("test") }.toTypedArray()
+  )
 }
