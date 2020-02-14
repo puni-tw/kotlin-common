@@ -2,16 +2,8 @@ package puni.extension.exception
 
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
-import puni.exception.ErrorCode
 import puni.test.support.errCodeMatches
 import puni.test.support.errMessageMatches
-
-enum class TestErrorCode(
-  override val code: String,
-  override val message: String
-) : ErrorCode {
-  ERROR("999", "error")
-}
 
 class ExceptionExtensionsTest : StringSpec({
   "should able to catch errorCode" {
