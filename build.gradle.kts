@@ -151,5 +151,5 @@ task("collectJacocoSourcePath", Exec::class) {
   val paths = subprojects
     .flatMap { it.sourceSets.getByName("main").allJava.srcDirs }
     .joinToString(" ")
-  commandLine = listOf("export", "JACOCO_SOURCE_PATH=$paths")
+  commandLine = listOf("echo", paths)
 }

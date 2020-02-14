@@ -46,9 +46,8 @@ jobs:
           [[ -e ./cc-test-reporter/bin ]] || curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter/bin
           chmod +x ./cc-test-reporter/bin
           ./cc-test-reporter/bin before-build
-          ./gradlew check covAll collectJacocoSourcePath
-          echo $JACOCO_SOURCE_PATH
-          ./cc-test-reporter/bin format-coverage build/reports/jacoco/covAll/covAll.xml --input-type jacoco
+          ./gradlew check covAll
+          JACOCO_SOURCE_PATH=$(./gradlew -q collectJacocoSourcePath | tail -n 1) && ./cc-test-reporter/bin format-coverage build/reports/jacoco/covAll/covAll.xml --input-type jacoco
           ./cc-test-reporter/bin upload-coverage
       - name: Build with Gradle
         run: ./gradlew build
