@@ -31,8 +31,7 @@ jobs:
         with:
           coverageCommand: ./gradlew check jacocoTestReport
           debug: true
-          coverageLocations:
-            - ./build/reports/jacoco/test/jacocoTestReport.xml
+          coverageLocations: ./build/reports/jacoco/test/jacocoTestReport.xml
       - name: Build with Gradle
         run: ./gradlew build
       - name: Upload coverage to Codecov
