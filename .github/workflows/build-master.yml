@@ -27,6 +27,7 @@ jobs:
       - name: Test & Codeclimate
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CODE_CLIMATE_REPORTER_ID}}
+          JACOCO_SOURCE_PATH: src/main/kotlin
         run: |
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
           chmod +x ./cc-test-reporter
