@@ -146,3 +146,10 @@ task("covAll", JacocoReport::class) {
     *subprojects.map { it.tasks.getByName("test") }.toTypedArray()
   )
 }
+
+task("collectJacocoSourcePath", Exec::class) {
+  val paths = subprojects
+    .flatMap { it.sourceSets.getByName("main").allJava.srcDirs }
+    .joinToString(" ")
+  commandLine = listOf("export", "JACOCO_SOURCE_PATH=$paths")
+}
