@@ -18,9 +18,8 @@ plugins {
   jacoco
 }
 
-group = "puni"
-
 allprojects {
+  group = "puni"
   apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
   repositories {
