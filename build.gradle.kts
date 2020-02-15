@@ -1,3 +1,4 @@
+import com.jfrog.bintray.gradle.BintrayExtension
 import io.gitlab.arturbosch.detekt.detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -13,6 +14,7 @@ plugins {
   id("org.jlleitschuh.gradle.ktlint") version "9.1.1"
   id("org.jetbrains.dokka") version "0.10.0"
   id("io.gitlab.arturbosch.detekt") version "1.3.1"
+  id("com.jfrog.bintray") version "1.8.4"
   kotlin("jvm") version "1.3.61"
   `maven-publish`
   jacoco
@@ -40,6 +42,7 @@ subprojects {
   apply(plugin = "io.gitlab.arturbosch.detekt")
   apply(plugin = "org.gradle.jacoco")
   apply(plugin = "org.gradle.maven-publish")
+  apply(plugin = "com.jfrog.bintray")
   val subproject = this
 
   configure<JavaPluginExtension> {
@@ -123,6 +126,27 @@ subprojects {
       }
     }
   }
+
+  bintray {
+    user = System.getenv("PUNI_TW_BINTRAY_USER")
+    key = System.getenv("PUNI_TW_BINTRAY_API_KEY")
+    publish = true
+    setPublications("default")
+    pkg(
+      delegateClosureOf<BintrayExtension.PackageConfig> {
+        repo = "maven"
+        name = subproject.name
+        userOrg = "puni"
+        websiteUrl = "https://blog.simon-wirtz.de"
+        githubRepo = "puni-tw/kotlin-common"
+        vcsUrl = "https://github.com/puni-tw/kotlin-common"
+        description = "Kotlin common utils and extensions"
+        setLabels("kotlin")
+        setLicenses("Apache-2.0")
+        desc = description
+      }
+    )
+  }
 }
 
 task("covAll", JacocoReport::class) {
@@ -145,6 +169,8 @@ task("covAll", JacocoReport::class) {
     *subprojects.map { it.tasks.getByName("test") }.toTypedArray()
   )
 }
+
+tasks.getByName("bintrayUpload").enabled = false
 
 tasks.dokka {
   outputFormat = "html"

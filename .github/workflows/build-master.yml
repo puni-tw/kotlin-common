@@ -72,7 +72,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./gradlew -Pversion="0.0.${GITHUB_RUN_NUMBER}" publish
+          ./gradlew -Pversion="0.0.${GITHUB_RUN_NUMBER}" publish bintrayUpload
       - name: GH Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
