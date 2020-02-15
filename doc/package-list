@@ -9,6 +9,7 @@ $dokka.location:puni.extension.jackson$jsonStringToObject(kotlin.String, kotlin.
 $dokka.location:puni.extension.jackson$toJsonString(kotlin.Any)puni.extension.jackson/kotlin.-any/to-json-string.html
 $dokka.location:puni.extension.string$replaceByArgs(kotlin.String, kotlin.Array((kotlin.Any)))puni.extension.string/kotlin.-string/replace-by-args.html
 puni.data.dto
+puni.data.dto.base
 puni.exception
 puni.extension.exception
 puni.extension.jackson
@@ -16,3 +17,4 @@ puni.extension.string
 puni.log
 puni.spring.authconfigure
 puni.spring.web
+springfox.documentation.swagger.readers.operation
