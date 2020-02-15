@@ -18,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
  */
 @SpringBootApplication
 @EnableSwagger2
-@ComponentScan("puni.spring.web.controller")
+@ComponentScan("puni.spring.web.controller", "puni.spring.fixture.impl")
 class TestApplication {
 
   @Bean

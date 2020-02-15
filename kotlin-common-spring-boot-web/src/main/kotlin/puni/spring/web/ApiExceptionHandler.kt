@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import puni.data.dto.ApiErrorResponse
 import puni.exception.ApiErrorCode
 import puni.exception.BusinessException
+import puni.extension.general.fallbackWhenNull
 import puni.log.Loggable
 
 /**
@@ -29,13 +30,16 @@ open class ApiExceptionHandler(
     val bindingResult = e.bindingResult
     val errorMessages = bindingResult.fieldErrors
       .map { objectError ->
-        objectError.codes?.forEach {
-          try {
-            return@map messageSource.getMessage(it, objectError.arguments, locale)
-          } catch (ex: NoSuchMessageException) {
-            LOGGER.debug(ex.message)
+        objectError
+          .codes
+          .fallbackWhenNull(emptyArray())
+          .forEach {
+            try {
+              return@map messageSource.getMessage(it, objectError.arguments, locale)
+            } catch (ex: NoSuchMessageException) {
+              LOGGER.debug(ex.message)
+            }
           }
-        }
         "${objectError.field} ${objectError.defaultMessage}"
       }
 
