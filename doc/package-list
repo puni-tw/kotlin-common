@@ -1,7 +1,15 @@
 $dokka.format:html
 $dokka.linkExtension:html
+$dokka.location:puni.extension.jackson$jsonStringToList(kotlin.String)puni.extension.jackson/kotlin.-string/json-string-to-list.html
+$dokka.location:puni.extension.jackson$jsonStringToList(kotlin.String, kotlin.reflect.KClass((puni.extension.jackson.jsonStringToList.T)))puni.extension.jackson/kotlin.-string/json-string-to-list.html
+$dokka.location:puni.extension.jackson$jsonStringToMap(kotlin.String)puni.extension.jackson/kotlin.-string/json-string-to-map.html
+$dokka.location:puni.extension.jackson$jsonStringToMap(kotlin.String, kotlin.reflect.KClass((puni.extension.jackson.jsonStringToMap.K)), kotlin.reflect.KClass((puni.extension.jackson.jsonStringToMap.V)))puni.extension.jackson/kotlin.-string/json-string-to-map.html
+$dokka.location:puni.extension.jackson$jsonStringToObject(kotlin.String)puni.extension.jackson/kotlin.-string/json-string-to-object.html
+$dokka.location:puni.extension.jackson$jsonStringToObject(kotlin.String, kotlin.reflect.KClass((puni.extension.jackson.jsonStringToObject.T)))puni.extension.jackson/kotlin.-string/json-string-to-object.html
+$dokka.location:puni.extension.jackson$toJsonString(kotlin.Any)puni.extension.jackson/kotlin.-any/to-json-string.html
 $dokka.location:puni.extension.string$replaceByArgs(kotlin.String, kotlin.Array((kotlin.Any)))puni.extension.string/kotlin.-string/replace-by-args.html
 puni.exception
 puni.extension.exception
+puni.extension.jackson
 puni.extension.string
 puni.log
