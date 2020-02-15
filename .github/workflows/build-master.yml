@@ -71,6 +71,8 @@ jobs:
       - name: Publish artifact
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUNI_TW_BINTRAY_USER: ${{ secrets.PUNI_TW_BINTRAY_USER }}
+          PUNI_TW_BINTRAY_API_KEY: ${{ secrets.PUNI_TW_BINTRAY_API_KEY }}
         run: |
           ./gradlew -Pversion="0.0.${GITHUB_RUN_NUMBER}" publish bintrayUpload
       - name: GH Pages

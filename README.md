@@ -6,10 +6,10 @@
 
 ## Packages
 
-* kotlin-common
-[ ![Download](https://api.bintray.com/packages/puni/maven/kotlin-common/images/download.svg) ](https://bintray.com/puni/maven/kotlin-common/_latestVersion)
-* kotlin-common-log
-[ ![Download](https://api.bintray.com/packages/puni/maven/kotlin-common/images/download.svg) ](https://bintray.com/puni/maven/kotlin-common-log/_latestVersion)
+| First Header  | Second Header |
+| ------------- | ------------- |
+| kotlin-common  | [![Download](https://api.bintray.com/packages/puni/maven/kotlin-common/images/download.svg) ](https://bintray.com/puni/maven/kotlin-common/_latestVersion)  |
+| kotlin-common-log  | [![Download](https://api.bintray.com/packages/puni/maven/kotlin-common/images/download.svg) ](https://bintray.com/puni/maven/kotlin-common-log/_latestVersion)  |
 
 ### project setup
 
