@@ -180,6 +180,7 @@ task("covAll", JacocoReport::class) {
 
 tasks.getByName("bintrayUpload").enabled = false
 tasks.getByName("printCoverage").enabled = false
+tasks.getByName("bootJar").enabled = false
 
 tasks.dokka {
   outputFormat = "html"

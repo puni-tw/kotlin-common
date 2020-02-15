@@ -11,3 +11,6 @@ dependencies {
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   testApi(project(":kotlin-common-test-spring"))
 }
+
+tasks.getByName("bootJar").enabled = false
+tasks.getByName("jar").enabled = true
