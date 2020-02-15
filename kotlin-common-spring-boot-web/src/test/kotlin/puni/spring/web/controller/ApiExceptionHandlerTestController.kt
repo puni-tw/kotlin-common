@@ -58,4 +58,9 @@ class ApiExceptionHandlerTestController {
   fun runtimeExceptionEmpty() {
     throw RuntimeException()
   }
+
+  @GetMapping("re3")
+  fun runtimeExceptionNested() {
+    throw RuntimeException(RuntimeException(RuntimeException(RuntimeException())))
+  }
 }

@@ -71,9 +71,11 @@ open class ApiExceptionHandler(
 
   @ExceptionHandler(Throwable::class)
   fun handleThrowable(t: Throwable): ResponseEntity<ApiErrorResponse> {
-    return t.cause
-      ?.let { handleThrowableInternal(it, this::handleThrowable) }
-      ?: handleThrowableInternal(t) {
+    val cause = t.cause
+    return if (cause != null) {
+      handleThrowableInternal(cause, this::handleThrowable)
+    } else {
+      handleThrowableInternal(t) {
         LOGGER.error(t.message, t)
         ResponseEntity(
           ApiErrorResponse(
@@ -83,6 +85,7 @@ open class ApiExceptionHandler(
           HttpStatus.INTERNAL_SERVER_ERROR
         )
       }
+    }
   }
 
   protected fun handleThrowableInternal(

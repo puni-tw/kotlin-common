@@ -85,4 +85,11 @@ class ApiExceptionHandlerTest(
       this?.name shouldBe SERVER_ERROR.name
     }
   }
+  "should be SERVER_ERROR when nested RuntimeException" {
+    testRestTemplate.getForObject<ApiErrorResponse>("/re3").apply {
+      this?.messages?.first() shouldBe "RuntimeException"
+      this?.code shouldBe SERVER_ERROR.code
+      this?.name shouldBe SERVER_ERROR.name
+    }
+  }
 })
