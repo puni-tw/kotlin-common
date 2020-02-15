@@ -12,9 +12,11 @@ puni.data.dto
 puni.data.dto.base
 puni.exception
 puni.extension.exception
+puni.extension.general
 puni.extension.jackson
 puni.extension.string
 puni.log
 puni.spring.authconfigure
+puni.spring.fixture
 puni.spring.web
 springfox.documentation.swagger.readers.operation
