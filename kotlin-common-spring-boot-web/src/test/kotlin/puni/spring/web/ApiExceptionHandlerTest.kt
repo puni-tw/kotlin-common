@@ -10,6 +10,7 @@ import org.springframework.test.context.TestPropertySource
 import puni.data.dto.ApiErrorResponse
 import puni.exception.ApiErrorCode.BAD_REQUEST
 import puni.exception.ApiErrorCode.SERVER_ERROR
+import puni.spring.web.controller.ApiExceptionHandlerTestController
 import puni.test.TestApplication
 
 /**

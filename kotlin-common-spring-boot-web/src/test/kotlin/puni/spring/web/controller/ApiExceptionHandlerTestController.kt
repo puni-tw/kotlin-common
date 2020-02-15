@@ -1,4 +1,4 @@
-package puni.spring.web
+package puni.spring.web.controller
 
 import javax.validation.Valid
 import javax.validation.constraints.Email

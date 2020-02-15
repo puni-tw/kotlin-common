@@ -7,6 +7,7 @@ dependencies {
   api(project(":kotlin-common-log"))
   api(project(":kotlin-common-jackson"))
   implementation("io.swagger:swagger-annotations:1.6.0")
+  implementation("io.springfox:springfox-swagger2:2.9.2")
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   testApi(project(":kotlin-common-test-spring"))
