@@ -15,6 +15,7 @@ plugins {
   id("org.jetbrains.dokka") version "0.10.0"
   id("io.gitlab.arturbosch.detekt") version "1.3.1"
   id("com.jfrog.bintray") version "1.8.4"
+  id("de.jansauer.printcoverage") version "2.0.0"
   kotlin("jvm") version "1.3.61"
   `maven-publish`
   jacoco
@@ -43,6 +44,7 @@ subprojects {
   apply(plugin = "org.gradle.jacoco")
   apply(plugin = "org.gradle.maven-publish")
   apply(plugin = "com.jfrog.bintray")
+  apply(plugin = "de.jansauer.printcoverage")
   val subproject = this
 
   configure<JavaPluginExtension> {
@@ -69,6 +71,7 @@ subprojects {
 
   tasks.getByName("clean").finalizedBy("housekeeping")
   tasks.getByName("test").finalizedBy("jacocoTestReport")
+  tasks.getByName("jacocoTestReport").finalizedBy("printCoverage")
 
   tasks.withType<Test> {
     useJUnitPlatform()
@@ -77,7 +80,7 @@ subprojects {
   tasks.withType<JacocoReport> {
     reports {
       html.isEnabled = true
-      xml.isEnabled = false
+      xml.isEnabled = true
       csv.isEnabled = false
     }
   }
@@ -171,6 +174,7 @@ task("covAll", JacocoReport::class) {
 }
 
 tasks.getByName("bintrayUpload").enabled = false
+tasks.getByName("printCoverage").enabled = false
 
 tasks.dokka {
   outputFormat = "html"
