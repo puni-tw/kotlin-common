@@ -150,6 +150,9 @@ tasks.dokka {
   outputFormat = "html"
   outputDirectory = "$buildDir/javadoc"
   subProjects = subprojects.map { it.name }
+  configuration {
+    moduleName = "doc"
+  }
 }
 
 task("collectJacocoSourcePath", Exec::class) {
