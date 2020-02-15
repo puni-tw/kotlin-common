@@ -1,0 +1,7 @@
+$dokka.format:html
+$dokka.linkExtension:html
+$dokka.location:puni.extension.string$replaceByArgs(kotlin.String, kotlin.Array((kotlin.Any)))puni.extension.string/kotlin.-string/replace-by-args.html
+puni.exception
+puni.extension.exception
+puni.extension.string
+puni.log
