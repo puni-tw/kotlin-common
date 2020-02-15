@@ -76,7 +76,7 @@ subprojects {
 
   tasks.withType<JacocoReport> {
     reports {
-      html.isEnabled = false
+      html.isEnabled = true
       xml.isEnabled = false
       csv.isEnabled = false
     }
