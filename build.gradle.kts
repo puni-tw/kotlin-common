@@ -7,6 +7,7 @@ buildscript {
     jcenter()
     mavenCentral()
     maven("https://plugins.gradle.org/m2/")
+    maven("https://repo.spring.io/plugins-release")
   }
 }
 
@@ -16,7 +17,10 @@ plugins {
   id("io.gitlab.arturbosch.detekt") version "1.3.1"
   id("com.jfrog.bintray") version "1.8.4"
   id("de.jansauer.printcoverage") version "2.0.0"
+  id("org.springframework.boot") version "2.2.2.RELEASE"
+  id("io.spring.dependency-management") version "1.0.8.RELEASE"
   kotlin("jvm") version "1.3.61"
+  kotlin("plugin.spring") version "1.3.61"
   `maven-publish`
   jacoco
 }
@@ -60,9 +64,10 @@ subprojects {
   }
 
   dependencies {
-    "implementation"("org.jetbrains.kotlin:kotlin-reflect")
-    "implementation"("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    "testImplementation"("io.kotlintest:kotlintest-runner-junit5:3.4.2")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.2")
+    testImplementation("io.mockk:mockk:1.9.3")
   }
 
   task("housekeeping", Delete::class) {
