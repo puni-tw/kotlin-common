@@ -61,7 +61,7 @@ jobs:
           ./cc-test-reporter/bin format-coverage build/reports/jacoco/covAll/covAll.xml --input-type jacoco
           ./cc-test-reporter/bin upload-coverage
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build dokka
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
@@ -73,6 +73,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ./gradlew -Pversion="0.0.${GITHUB_RUN_NUMBER}" publish
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.GH_PERSONAL_TOKEN }}
+          publish_dir: ./build/javadoc
       - name: Notify slack success
         if: success()
         env:
@@ -83,7 +88,6 @@ jobs:
           channel: ci
           status: SUCCESS
           color: good
-
       - name: Notify slack fail
         if: failure()
         env:

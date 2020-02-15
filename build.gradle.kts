@@ -146,6 +146,12 @@ task("covAll", JacocoReport::class) {
   )
 }
 
+tasks.dokka {
+  outputFormat = "html"
+  outputDirectory = "$buildDir/javadoc"
+  subProjects = subprojects.map { it.name }
+}
+
 task("collectJacocoSourcePath", Exec::class) {
   val paths = subprojects
     .flatMap { it.sourceSets.getByName("main").allJava.srcDirs }
