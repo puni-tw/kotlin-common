@@ -4,17 +4,17 @@ import puni.extension.string.replaceByArgs
 
 class BusinessException : RuntimeException {
 
-  val errorCode: ErrorCode
+  val code: ErrorCode
 
   constructor(code: ErrorCode) : super(code.message) {
-    this.errorCode = code
+    this.code = code
   }
 
   constructor(code: ErrorCode, cause: Throwable) : super(code.message, cause) {
-    this.errorCode = code
+    this.code = code
   }
 
   constructor(code: ErrorCode, message: String, vararg args: Any?) : super(message.replaceByArgs(*args)) {
-    this.errorCode = code
+    this.code = code
   }
 }

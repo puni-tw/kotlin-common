@@ -21,3 +21,5 @@ inline fun <reified T : Any> String.jsonStringToObject(): T = this.jsonStringToO
 fun <T : Any> String.jsonStringToObject(clazz: KClass<T>): T = JacksonCommon.withObjectMapper {
   it.readValue(this, clazz.java)
 }
+
+inline fun <reified T : Any> Map<*, *>.jsonMapToObject(): T = this.toJsonString().jsonStringToObject(T::class)

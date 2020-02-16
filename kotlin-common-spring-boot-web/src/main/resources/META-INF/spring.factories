@@ -1,4 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  puni.spring.authconfigure.PuniSpringWebConfig,\
-  puni.spring.authconfigure.PuniSpringFixtureConfig
+  puni.spring.autoconfigure.PuniSpringWebConfig,\
+  puni.spring.autoconfigure.PuniSpringFixtureConfig
 

@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.web.bind.annotation.RequestMethod
+import puni.spring.web.TestErrorFilter
 import springfox.documentation.builders.PathSelectors
 import springfox.documentation.builders.RequestHandlerSelectors
 import springfox.documentation.service.ApiInfo
@@ -20,6 +21,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
 @EnableSwagger2
 @ComponentScan("puni.spring.web.controller", "puni.spring.fixture.impl")
 class TestApplication {
+
+  @Bean
+  fun testErrorFilter(): TestErrorFilter = TestErrorFilter()
 
   @Bean
   fun docket(): Docket {

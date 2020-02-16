@@ -10,7 +10,7 @@ import puni.exception.ErrorCode
  * @author leo
  */
 inline fun TestContext.errCodeMatches(errorCode: ErrorCode, block: () -> Unit) {
-  shouldThrow<BusinessException> { block() }.errorCode shouldBe errorCode
+  shouldThrow<BusinessException> { block() }.code shouldBe errorCode
 }
 inline fun TestContext.errMessageMatches(message: String, block: () -> Unit) {
   shouldThrow<BusinessException> { block() }.message shouldBe message

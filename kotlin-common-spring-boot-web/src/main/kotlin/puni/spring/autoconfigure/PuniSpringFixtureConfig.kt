@@ -1,4 +1,4 @@
-package puni.spring.authconfigure
+package puni.spring.autoconfigure
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.ApplicationContext

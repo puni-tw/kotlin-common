@@ -1,4 +1,5 @@
 dependencies {
+  api(project(":kotlin-common"))
   implementation("io.kotlintest:kotlintest-runner-junit5:3.4.2")
   implementation("io.mockk:mockk:1.9.3")
 }

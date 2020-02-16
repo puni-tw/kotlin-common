@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  puni.spring.autoconfigure.PuniWebSecurityConfig
+

@@ -1,6 +1,5 @@
-package puni.spring.web
+package puni.spring.web.exception
 
-import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.MessageSource
 import org.springframework.context.NoSuchMessageException
@@ -20,9 +19,12 @@ import puni.log.Loggable
  * @author leo
  */
 @ControllerAdvice
-open class ApiExceptionHandler(
-  @Autowired val messageSource: MessageSource
-) : Loggable {
+class ApiExceptionHandler : Loggable {
+
+  @Autowired
+  private lateinit var messageSource: MessageSource
+  @Autowired
+  private lateinit var exceptionToBusinessExceptionMappers: List<ExceptionToBusinessExceptionMapper<*>>
 
   @ExceptionHandler(MethodArgumentNotValidException::class)
   fun handleValidationError(e: MethodArgumentNotValidException): ResponseEntity<ApiErrorResponse> {
@@ -55,22 +57,12 @@ open class ApiExceptionHandler(
   @ExceptionHandler(BusinessException::class)
   fun handleBusinessException(e: BusinessException): ResponseEntity<ApiErrorResponse> {
     LOGGER.error(e.message, e)
+    val code = e.code
     val res = ApiErrorResponse(
-      errorCode = e.errorCode,
+      errorCode = code,
       messages = listOfNotNull(e.message, e.cause?.message)
     )
-    return ResponseEntity(res, HttpStatus.EXPECTATION_FAILED)
-  }
-
-  @ExceptionHandler(MissingKotlinParameterException::class)
-  fun handleMissingKotlinParameterException(e: MissingKotlinParameterException): ResponseEntity<ApiErrorResponse> {
-    return ResponseEntity(
-      ApiErrorResponse(
-        errorCode = ApiErrorCode.BAD_REQUEST,
-        messages = listOf("missing parameter '${e.parameter.name}'")
-      ),
-      HttpStatus.BAD_REQUEST
-    )
+    return ResponseEntity(res, if (code is ApiErrorCode) code.httpStatus else HttpStatus.EXPECTATION_FAILED)
   }
 
   @ExceptionHandler(Throwable::class)
@@ -97,7 +89,13 @@ open class ApiExceptionHandler(
     onNoMatch: (t: Throwable) -> ResponseEntity<ApiErrorResponse>
   ) = when (t) {
     is BusinessException -> handleBusinessException(t)
-    is MissingKotlinParameterException -> handleMissingKotlinParameterException(t)
-    else -> onNoMatch(t)
+    else -> {
+      val supported = exceptionToBusinessExceptionMappers.find { it.supported(t) }
+      if (supported != null) {
+        handleBusinessException(supported.handle(t))
+      } else {
+        onNoMatch(t)
+      }
+    }
   }
 }

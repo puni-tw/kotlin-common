@@ -49,11 +49,18 @@ subprojects {
   apply(plugin = "org.gradle.maven-publish")
   apply(plugin = "com.jfrog.bintray")
   apply(plugin = "de.jansauer.printcoverage")
+  apply(plugin = "io.spring.dependency-management")
   val subproject = this
 
   configure<JavaPluginExtension> {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+  }
+
+  configure<io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension> {
+    imports {
+      mavenBom("org.springframework.cloud:spring-cloud-dependencies:Hoxton.RELEASE")
+    }
   }
 
   tasks.withType<KotlinCompile> {
