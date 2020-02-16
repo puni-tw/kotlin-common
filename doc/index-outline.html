@@ -76,6 +76,24 @@
 </BODY>
 </HTML>
 </ul>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.dao/-auto-id-dao.html"><span class="identifier">@NoRepositoryBean</span> <span class="keyword">interface </span><span class="identifier">AutoIdDao</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="puni.data.dao/-base-dao.html"><span class="identifier">BaseDao</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">&gt;</span></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.entity/-auto-id-entity/index.html"><span class="identifier">@MappedSuperclass</span> <span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">AutoIdEntity</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.entity/-auto-id-entity/-init-.html"><span class="identifier">AutoIdEntity</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.entity/-auto-id-entity/equals.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">equals</span><span class="symbol">(</span><span class="identifier" id="puni.data.entity.AutoIdEntity$equals(kotlin.Any)/other">other</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.entity/-auto-id-entity/hash-code.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">hashCode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.entity/-auto-id-entity/id.html"><span class="keyword">val </span><span class="identifier">id</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">?</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.dao/-base-dao.html"><span class="identifier">@NoRepositoryBean</span> <span class="keyword">interface </span><span class="identifier">BaseDao</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">ID</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">JpaRepository</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">ID</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier">JpaSpecificationExecutor</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></a></a><br/>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.exception/-business-exception/index.html"><span class="keyword">class </span><span class="identifier">BusinessException</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-runtime-exception/index.html"><span class="identifier">RuntimeException</span></a></a></a><br/>
 <ul>
 <HTML>
@@ -89,6 +107,19 @@
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.exception/-business-exception/-init-.html"><span class="identifier">BusinessException</span><span class="symbol">(</span><span class="identifier" id="puni.exception.BusinessException$<init>(puni.exception.ErrorCode, kotlin.Throwable)/code">code</span><span class="symbol">:</span>&nbsp;<a href="puni.exception/-error-code/index.html"><span class="identifier">ErrorCode</span></a><span class="symbol">, </span><span class="identifier" id="puni.exception.BusinessException$<init>(puni.exception.ErrorCode, kotlin.Throwable)/cause">cause</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">)</span></a></a><br/>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.exception/-business-exception/-init-.html"><span class="identifier">BusinessException</span><span class="symbol">(</span><span class="identifier" id="puni.exception.BusinessException$<init>(puni.exception.ErrorCode, kotlin.String, kotlin.Array((kotlin.Any)))/code">code</span><span class="symbol">:</span>&nbsp;<a href="puni.exception/-error-code/index.html"><span class="identifier">ErrorCode</span></a><span class="symbol">, </span><span class="identifier" id="puni.exception.BusinessException$<init>(puni.exception.ErrorCode, kotlin.String, kotlin.Array((kotlin.Any)))/message">message</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="puni.exception.BusinessException$<init>(puni.exception.ErrorCode, kotlin.String, kotlin.Array((kotlin.Any)))/args">args</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span></a></a><br/>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.exception/-business-exception/error-code.html"><span class="keyword">val </span><span class="identifier">errorCode</span><span class="symbol">: </span><a href="puni.exception/-error-code/index.html"><span class="identifier">ErrorCode</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.entity/-dto-entity/index.html"><span class="keyword">interface </span><span class="identifier">DtoEntity</span><span class="symbol">&lt;</span><span class="identifier">DTO</span><span class="symbol">&gt;</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.entity/-dto-entity/to-dto.html"><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">toDto</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">DTO</span></a></a><br/>
 </BODY>
 </HTML>
 </ul>
@@ -271,6 +302,20 @@
 </BODY>
 </HTML>
 </ul>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.dao/index.html"><span class="keyword">package</span>&nbsp;<span class="identifier">puni.data.dao</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.dao/-auto-id-dao.html"><span class="identifier">@NoRepositoryBean</span> <span class="keyword">interface </span><span class="identifier">AutoIdDao</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="puni.data.dao/-base-dao.html"><span class="identifier">BaseDao</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">&gt;</span></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.dao/-base-dao.html"><span class="identifier">@NoRepositoryBean</span> <span class="keyword">interface </span><span class="identifier">BaseDao</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">ID</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">JpaRepository</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">ID</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier">JpaSpecificationExecutor</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.dto/index.html"><span class="keyword">package</span>&nbsp;<span class="identifier">puni.data.dto</span></a></a><br/>
 <ul>
 <HTML>
@@ -321,6 +366,47 @@
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.dto.base/-paging-request/-init-.html"><span class="identifier">PagingRequest</span><span class="symbol">(</span><span class="identifier" id="puni.data.dto.base.PagingRequest$<init>(kotlin.Int, kotlin.Int)/page">page</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;1<span class="symbol">, </span><span class="identifier" id="puni.data.dto.base.PagingRequest$<init>(kotlin.Int, kotlin.Int)/pageSize">pageSize</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;10<span class="symbol">)</span></a></a><br/>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.dto.base/-paging-request/page.html"><span class="keyword">var </span><span class="identifier">page</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></a></a><br/>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.dto.base/-paging-request/page-size.html"><span class="keyword">var </span><span class="identifier">pageSize</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+</BODY>
+</HTML>
+</ul>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.entity/index.html"><span class="keyword">package</span>&nbsp;<span class="identifier">puni.data.entity</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.entity/-auto-id-entity/index.html"><span class="identifier">@MappedSuperclass</span> <span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">AutoIdEntity</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.entity/-auto-id-entity/-init-.html"><span class="identifier">AutoIdEntity</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.entity/-auto-id-entity/equals.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">equals</span><span class="symbol">(</span><span class="identifier" id="puni.data.entity.AutoIdEntity$equals(kotlin.Any)/other">other</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.entity/-auto-id-entity/hash-code.html"><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">hashCode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.entity/-auto-id-entity/id.html"><span class="keyword">val </span><span class="identifier">id</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">?</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.entity/-dto-entity/index.html"><span class="keyword">interface </span><span class="identifier">DtoEntity</span><span class="symbol">&lt;</span><span class="identifier">DTO</span><span class="symbol">&gt;</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.data.entity/-dto-entity/to-dto.html"><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">toDto</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">DTO</span></a></a><br/>
 </BODY>
 </HTML>
 </ul>
