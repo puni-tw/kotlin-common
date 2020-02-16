@@ -1,0 +1,105 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AbstractAuthService - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">puni.auth.service</a>&nbsp;/&nbsp;<a href="./index.html">AbstractAuthService</a><br/>
+<br/>
+<h1>AbstractAuthService</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">AbstractAuthService</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">UserDetailsService</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<code><span class="identifier">AbstractAuthService</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="jwt-signing-key.html">jwtSigningKey</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">jwtSigningKey</span><span class="symbol">: </span><a href="https://docs.oracle.com/javase/6/docs/api/javax/crypto/spec/SecretKeySpec.html"><span class="identifier">SecretKeySpec</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="signing-key-bytes.html">signingKeyBytes</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">signingKeyBytes</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span class="identifier">ByteArray</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="generate-jwt-token.html">generateJwtToken</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">generateJwtToken</span><span class="symbol">(</span><span class="identifier" id="puni.auth.service.AbstractAuthService$generateJwtToken(kotlin.String)/username">username</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-jwt-expire.html">getJwtExpire</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getJwtExpire</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://docs.oracle.com/javase/6/docs/api/java/util/Date.html"><span class="identifier">Date</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="get-jwt-key.html">getJwtKey</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getJwtKey</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="load-authentication-by-user-id.html">loadAuthenticationByUserId</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">loadAuthenticationByUserId</span><span class="symbol">(</span><span class="identifier" id="puni.auth.service.AbstractAuthService$loadAuthenticationByUserId(kotlin.Long)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../puni.data.vo.auth/-authenticated-vo/index.html"><span class="identifier">AuthenticatedVo</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="load-authentication-by-username.html">loadAuthenticationByUsername</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">loadAuthenticationByUsername</span><span class="symbol">(</span><span class="identifier" id="puni.auth.service.AbstractAuthService$loadAuthenticationByUsername(kotlin.String)/username">username</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../puni.data.vo.auth/-authentication-vo/index.html"><span class="identifier">AuthenticationVo</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="load-user-by-username.html">loadUserByUsername</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">loadUserByUsername</span><span class="symbol">(</span><span class="identifier" id="puni.auth.service.AbstractAuthService$loadUserByUsername(kotlin.String)/username">username</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">UserDetails</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="load-user-login-by-username.html">loadUserLoginByUsername</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">loadUserLoginByUsername</span><span class="symbol">(</span><span class="identifier" id="puni.auth.service.AbstractAuthService$loadUserLoginByUsername(kotlin.String)/username">username</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../puni.data.vo.auth/-user-login-vo/index.html"><span class="identifier">UserLoginVo</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="validate-token-and-get-user-login.html">validateTokenAndGetUserLogin</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">validateTokenAndGetUserLogin</span><span class="symbol">(</span><span class="identifier" id="puni.auth.service.AbstractAuthService$validateTokenAndGetUserLogin(kotlin.String)/token">token</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Authentication</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

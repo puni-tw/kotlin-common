@@ -1,0 +1,77 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ExceptionToBusinessExceptionMapper - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">puni.spring.web.exception</a>&nbsp;/&nbsp;<a href="./index.html">ExceptionToBusinessExceptionMapper</a><br/>
+<br/>
+<h1>ExceptionToBusinessExceptionMapper</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">ExceptionToBusinessExceptionMapper</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<code><span class="identifier">ExceptionToBusinessExceptionMapper</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="handle.html">handle</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">handle</span><span class="symbol">(</span><span class="identifier" id="puni.spring.web.exception.ExceptionToBusinessExceptionMapper$handle(kotlin.Throwable)/t">t</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../puni.exception/-business-exception/index.html"><span class="identifier">BusinessException</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="supported.html">supported</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">supported</span><span class="symbol">(</span><span class="identifier" id="puni.spring.web.exception.ExceptionToBusinessExceptionMapper$supported(kotlin.Throwable)/t">t</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="transform.html">transform</a></h4>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">transform</span><span class="symbol">(</span><span class="identifier" id="puni.spring.web.exception.ExceptionToBusinessExceptionMapper$transform(puni.spring.web.exception.ExceptionToBusinessExceptionMapper.T)/t">t</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../puni.exception/-business-exception/index.html"><span class="identifier">BusinessException</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../../puni.auth.web.exception.mapper/-access-denied-exception-mapper/index.html">AccessDeniedExceptionMapper</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">AccessDeniedExceptionMapper</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ExceptionToBusinessExceptionMapper</span></a><span class="symbol">&lt;</span><span class="identifier">AccessDeniedException</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../puni.auth.web.exception.mapper/-bad-credentials-exception-mapper/index.html">BadCredentialsExceptionMapper</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">BadCredentialsExceptionMapper</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ExceptionToBusinessExceptionMapper</span></a><span class="symbol">&lt;</span><span class="identifier">BadCredentialsException</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../../puni.spring.web.exception.mapper/-missing-kotlin-parameter-exception-mapper/index.html">MissingKotlinParameterExceptionMapper</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MissingKotlinParameterExceptionMapper</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ExceptionToBusinessExceptionMapper</span></a><span class="symbol">&lt;</span><span class="identifier">MissingKotlinParameterException</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
