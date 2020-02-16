@@ -144,7 +144,6 @@ subprojects {
       delegateClosureOf<BintrayExtension.PackageConfig> {
         repo = "maven"
         name = subproject.name
-        userOrg = "puni"
         websiteUrl = "https://puni-tw.github.io/kotlin-common/doc/"
         githubRepo = "puni-tw/kotlin-common"
         vcsUrl = "https://github.com/puni-tw/kotlin-common"

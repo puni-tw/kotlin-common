@@ -8,12 +8,13 @@
 
 | Package | Release |
 | ------------- | ------------- |
-| kotlin-common  | [![Download](https://api.bintray.com/packages/puni/maven/kotlin-common/images/download.svg) ](https://bintray.com/puni/maven/kotlin-common/_latestVersion)  |
-| kotlin-common-jackson  | [![Download](https://api.bintray.com/packages/puni/maven/kotlin-common-jackson/images/download.svg) ](https://bintray.com/puni/maven/kotlin-common-jackson/_latestVersion)  |
-| kotlin-common-log  | [![Download](https://api.bintray.com/packages/puni/maven/kotlin-common/images/download.svg) ](https://bintray.com/puni/maven/kotlin-common-log/_latestVersion)  |
-| kotlin-common-spring-boot-web  | [![Download](https://api.bintray.com/packages/puni/maven/kotlin-common-spring-boot-web/images/download.svg) ](https://bintray.com/puni/maven/kotlin-common-spring-boot-web/_latestVersion)  |
-| kotlin-common-test  | [![Download](https://api.bintray.com/packages/puni/maven/kotlin-common-test/images/download.svg) ](https://bintray.com/puni/maven/kotlin-common-test/_latestVersion)  |
-| kotlin-common-test-spring  | [![Download](https://api.bintray.com/packages/puni/maven/kotlin-common-test-spring/images/download.svg) ](https://bintray.com/puni/maven/kotlin-common-test-spring/_latestVersion)  |
+| kotlin-common  | [![Download](https://api.bintray.com/packages/puni-tw/maven/kotlin-common/images/download.svg) ](https://bintray.com/puni-tw/maven/kotlin-common/_latestVersion)  |
+| kotlin-common-jackson  | [![Download](https://api.bintray.com/packages/puni-tw/maven/kotlin-common-jackson/images/download.svg) ](https://bintray.com/puni-tw/maven/kotlin-common-jackson/_latestVersion)  |
+| kotlin-common-log  | [![Download](https://api.bintray.com/packages/puni-tw/maven/kotlin-common/images/download.svg) ](https://bintray.com/puni-tw/maven/kotlin-common-log/_latestVersion)  |
+| kotlin-common-spring-boot-web  | [![Download](https://api.bintray.com/packages/puni-tw/maven/kotlin-common-spring-boot-web/images/download.svg) ](https://bintray.com/puni-tw/maven/kotlin-common-spring-boot-web/_latestVersion)  |
+| kotlin-common-spring-boot-data-jpa  | [![Download](https://api.bintray.com/packages/puni-tw/maven/kotlin-common-spring-boot-data-jpa/images/download.svg) ](https://bintray.com/puni-tw/maven/kotlin-common-spring-boot-data-jpa/_latestVersion)  |
+| kotlin-common-test  | [![Download](https://api.bintray.com/packages/puni-tw/maven/kotlin-common-test/images/download.svg) ](https://bintray.com/puni-tw/maven/kotlin-common-test/_latestVersion)  |
+| kotlin-common-test-spring  | [![Download](https://api.bintray.com/packages/puni-tw/maven/kotlin-common-test-spring/images/download.svg) ](https://bintray.com/puni-tw/maven/kotlin-common-test-spring/_latestVersion)  |
 
 ### project setup
 
