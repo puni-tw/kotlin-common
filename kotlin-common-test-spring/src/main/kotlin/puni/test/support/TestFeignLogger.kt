@@ -4,14 +4,28 @@ import feign.Request
 import feign.Response
 import feign.Util
 import feign.slf4j.Slf4jLogger
+import io.jsonwebtoken.Jwt
+import io.jsonwebtoken.Jwts
+import puni.extension.general.fallbackWhenNull
+import puni.extension.jackson.toJsonString
 
 class TestFeignLogger(clazz: Class<*>) : Slf4jLogger(clazz) {
+  private val jwtParser = Jwts.parserBuilder().build()
 
   override fun logRequest(configKey: String?, logLevel: Level?, request: Request) {
+    val token = request.headers()["Authorization"]?.firstOrNull()
+    val tokenContent = if (token != null) {
+      val splitToken = token.split(".")
+      val unsignedToken = splitToken[0] + "." + splitToken[1] + "."
+      val jwt: Jwt<*, *> = jwtParser.parse(unsignedToken)
+      jwt.body.toJsonString()
+    } else {
+      ""
+    }
     log(configKey, "---> %s %s", request.httpMethod().name, request.url())
+    log(configKey, "token: $tokenContent")
     if (request.requestBody().asBytes() != null) {
-      val bodyText = request.requestBody().asString()
-      log(configKey, "%s", bodyText ?: "Binary data")
+      log(configKey, "%s", request.requestBody().asString().fallbackWhenNull("Binary data"))
     }
   }
 

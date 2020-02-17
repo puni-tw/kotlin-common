@@ -11,6 +11,9 @@ dependencies {
   api("org.springframework.cloud:spring-cloud-starter-openfeign")
   api("org.springframework.boot:spring-boot-starter-web")
   api("com.ninja-squad:springmockk:2.0.0")
+  api("io.jsonwebtoken:jjwt-api:0.11.0")
+  api("io.jsonwebtoken:jjwt-impl:0.11.0")
+  api("io.jsonwebtoken:jjwt-jackson:0.11.0")
   api(project(":kotlin-common-spring-boot-web"))
 }
 

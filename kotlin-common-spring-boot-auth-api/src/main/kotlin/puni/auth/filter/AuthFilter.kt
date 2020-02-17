@@ -8,7 +8,6 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import puni.auth.service.AbstractAuthService
-import puni.log.Loggable
 
 /**
  * @author leo
@@ -16,7 +15,7 @@ import puni.log.Loggable
 @Component
 class AuthFilter(
   @Autowired val authService: AbstractAuthService
-) : OncePerRequestFilter(), Loggable {
+) : OncePerRequestFilter() {
 
   override fun doFilterInternal(req: HttpServletRequest, res: HttpServletResponse, chain: FilterChain) {
     if (req.requestURI.startsWith("/api")) {

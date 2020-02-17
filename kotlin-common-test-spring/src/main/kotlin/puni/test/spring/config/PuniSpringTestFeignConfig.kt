@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping
 import puni.log.Loggable
 import puni.test.support.TestFeignLogger
+import puni.test.support.TestUserRequestInterceptor
 
 @Configuration
 class PuniSpringTestFeignConfig(
@@ -51,6 +52,11 @@ class PuniSpringTestFeignConfig(
   @Bean
   fun options(): Request.Options {
     return Request.Options(30000, 30000)
+  }
+
+  @Bean
+  fun testUserRequestInterceptor(): TestUserRequestInterceptor {
+    return TestUserRequestInterceptor()
   }
 
   @Bean
