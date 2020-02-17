@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.getBean
+import org.springframework.cglib.proxy.Proxy
 import org.springframework.context.ApplicationContext
 
 /**
@@ -29,4 +30,19 @@ abstract class SpringTestSupport {
   inline fun <reified T : Any> bean(): T = applicationContext.getBean<T>()
 
   inline fun <reified T : Any> autowired(): Lazy<T> = lazy { bean<T>() }
+
+  inline fun <reified T : Any> api(token: String? = null): T {
+    val bean = bean<T>()
+    return Proxy.newProxyInstance(
+      T::class.java.classLoader,
+      arrayOf(T::class.java)
+    ) { _, method, args ->
+      try {
+        TestSupportContext.userToken = token
+        method.invoke(bean, *args)
+      } finally {
+        TestSupportContext.userToken = null
+      }
+    } as T
+  }
 }

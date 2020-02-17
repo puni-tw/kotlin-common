@@ -32,7 +32,7 @@ class AuthApiTest : SpringTestSupport() {
 
   @Test
   fun `should able to login`() {
-    val token = bean<AuthApi>().auth(AuthRequest("foo", "bar")).token
+    val token = api<AuthApi>().auth(AuthRequest("foo", "bar")).token
     token shouldNotBe null
 
     bean<TestRestTemplate>().exchange<UserLoginVo>(

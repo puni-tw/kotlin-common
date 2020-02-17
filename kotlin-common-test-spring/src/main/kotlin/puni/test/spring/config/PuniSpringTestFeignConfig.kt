@@ -7,6 +7,7 @@ import feign.Request
 import feign.Target
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations
+import org.springframework.cloud.openfeign.FeignLoggerFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.annotation.AnnotationUtils.findAnnotation
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping
 import puni.log.Loggable
+import puni.test.support.TestFeignLogger
 
 @Configuration
 class PuniSpringTestFeignConfig(
@@ -39,6 +41,11 @@ class PuniSpringTestFeignConfig(
   @Bean
   fun feignLoggerLevel(): Logger.Level {
     return Logger.Level.FULL
+  }
+
+  @Bean
+  fun feignLoggerFactory(): FeignLoggerFactory {
+    return FeignLoggerFactory { type -> TestFeignLogger(type) }
   }
 
   @Bean
