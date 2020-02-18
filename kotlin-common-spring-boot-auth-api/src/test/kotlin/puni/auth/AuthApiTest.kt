@@ -51,7 +51,7 @@ class AuthApiTest : SpringTestSupport() {
       RequestEntity.get(URI("/api/user"))
         .build()
     ).also {
-      it.statusCode shouldBe HttpStatus.UNAUTHORIZED
+      it.statusCode shouldBe HttpStatus.FORBIDDEN
     }
   }
 
@@ -82,6 +82,15 @@ class AuthApiTest : SpringTestSupport() {
       RequestEntity.get(URI("/user")).build()
     ).also {
       it.statusCode shouldBe HttpStatus.UNAUTHORIZED
+    }
+  }
+
+  @Test
+  fun `should not able to get api when not authenticated`() {
+    bean<TestRestTemplate>().exchange<Map<*, *>>(
+      RequestEntity.get(URI("/api/user/bar")).build()
+    ).also {
+      it.statusCode shouldBe HttpStatus.FORBIDDEN
     }
   }
 }

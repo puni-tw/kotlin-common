@@ -26,17 +26,11 @@ class PuniWebSecurityConfig : WebSecurityConfigurerAdapter() {
 
   @Autowired
   private lateinit var authFilter: AuthFilter
-  // @Autowired
-  // private lateinit var abstractAuthService: AbstractAuthService
 
   @Bean
   override fun authenticationManager(): AuthenticationManager {
     return super.authenticationManager()
   }
-
-  // override fun configure(auth: AuthenticationManagerBuilder) {
-  //   auth.userDetailsService(abstractAuthService)
-  // }
 
   override fun configure(http: HttpSecurity) {
     http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter::class.java)
@@ -48,7 +42,7 @@ class PuniWebSecurityConfig : WebSecurityConfigurerAdapter() {
       .and()
 
       .authorizeRequests()
-      .antMatchers("/api").authenticated()
+      .antMatchers("/api/**").authenticated()
 
       .anyRequest()
       .permitAll()

@@ -14,4 +14,9 @@ class UserApi : SecuredApi {
   fun me(): UserLoginVo {
     return currentUserLogin
   }
+
+  @GetMapping("bar")
+  fun bar(): Map<String, String> {
+    return mapOf("bar" to "bar")
+  }
 }
