@@ -12,14 +12,14 @@ import puni.extension.jackson.jsonStringToObject
 /**
  * @author leo
  */
-inline fun errCodeMatches(errorCode: ErrorCode, block: () -> Unit) {
+fun errCodeMatches(errorCode: ErrorCode, block: () -> Unit) {
   val businessException = shouldThrow<BusinessException> { block() }
   if (businessException.code != errorCode) {
     throw Failures.failure("Expected errorCode $errorCode but got ${businessException.code}")
   }
 }
 
-inline fun apiErrCodeMatches(errorCode: ErrorCode, block: () -> Unit) {
+fun apiErrCodeMatches(errorCode: ErrorCode, block: () -> Unit) {
   val feignException = shouldThrow<FeignException> { block() }
   try {
     val json = feignException.contentUTF8()
@@ -32,7 +32,7 @@ inline fun apiErrCodeMatches(errorCode: ErrorCode, block: () -> Unit) {
   }
 }
 
-inline fun httpStatusMatches(httpStatus: HttpStatus, block: () -> Unit) {
+fun httpStatusMatches(httpStatus: HttpStatus, block: () -> Unit) {
   val feignException = shouldThrow<FeignException> { block() }
   try {
     val responseBody = feignException.contentUTF8()

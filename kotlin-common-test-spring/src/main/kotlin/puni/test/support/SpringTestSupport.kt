@@ -1,5 +1,6 @@
 package puni.test.support
 
+import java.lang.reflect.InvocationTargetException
 import org.junit.jupiter.api.BeforeAll
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -41,6 +42,8 @@ abstract class SpringTestSupport {
       try {
         TestSupportContext.userToken = token
         method.invoke(bean, *args)
+      } catch (t: InvocationTargetException) {
+        throw t.cause ?: t
       } finally {
         TestSupportContext.userToken = null
       }

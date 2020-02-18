@@ -62,12 +62,12 @@ jobs:
           ./cc-test-reporter/bin upload-coverage
       - name: Build with Gradle
         run: ./gradlew build dokka
-#      - name: Upload coverage to Codecov
-#        uses: codecov/codecov-action@v1
-#        with:
-#          token: ${{ secrets.CODECOV_TOKEN }}
-#          fail_ci_if_error: true
-#          file: build/reports/jacoco/covAll/covAll.xml
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+          file: build/reports/jacoco/covAll/covAll.xml
       - name: Publish artifact
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

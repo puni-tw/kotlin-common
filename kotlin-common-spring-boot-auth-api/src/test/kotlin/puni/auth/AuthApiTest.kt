@@ -72,7 +72,7 @@ class AuthApiTest : SpringTestSupport() {
 
   @Test
   fun `should not able to login`() = httpStatusMatches(HttpStatus.UNAUTHORIZED) {
-    val authApi = bean<AuthApi>()
+    val authApi = api<AuthApi>()
     authApi.auth(AuthRequest("foo", "bar2"))
   }
 
