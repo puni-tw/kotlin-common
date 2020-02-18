@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams
 import org.springframework.core.annotation.AnnotationUtils
 import org.springframework.stereotype.Component
+import puni.extension.exception.nullWhenError
 import springfox.documentation.builders.ParameterBuilder
 import springfox.documentation.schema.ModelRef
 import springfox.documentation.schema.Types.isBaseType
@@ -57,7 +58,7 @@ class SwaggerGetParamObjectImplicitParamsPlugin(val descriptionResolver: Descrip
 
   override fun apply(context: OperationContext) {
     context.parameters.forEach {
-      val annotation = AnnotationUtils.findAnnotation(Class.forName(it.parameterType.toString()), ApiImplicitParams::class.java)
+      val annotation = nullWhenError { AnnotationUtils.findAnnotation(Class.forName(it.parameterType.toString()), ApiImplicitParams::class.java) }
       if (annotation != null) {
         context.operationBuilder().parameters(
           annotation.value.map {

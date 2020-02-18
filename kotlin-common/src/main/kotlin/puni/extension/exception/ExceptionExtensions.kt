@@ -36,3 +36,9 @@ fun <T, R> T.errWhenException(errorCode: ErrorCode, block: (t: T) -> R): R = try
 } catch (t: Throwable) {
   throw BusinessException(errorCode, t)
 }
+
+fun <R> nullWhenError(block: () -> R): R? = try {
+  block.invoke()
+} catch (t: Throwable) {
+  null
+}

@@ -26,6 +26,7 @@ abstract class SpringTestSupport {
 
   @Autowired
   lateinit var applicationContext: ApplicationContext
+    private set
 
   inline fun <reified T : Any> bean(): T = applicationContext.getBean<T>()
 

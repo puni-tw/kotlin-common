@@ -39,4 +39,8 @@ class ExceptionExtensionsTest : StringSpec({
       1.errWhen(TestErrorCode.ERROR, "foo") { it == 1 }
     }
   }
+  "should able to get null when error" {
+    nullWhenError { Class.forName("not_exist") } shouldBe null
+    nullWhenError { "foo" } shouldBe "foo"
+  }
 })
