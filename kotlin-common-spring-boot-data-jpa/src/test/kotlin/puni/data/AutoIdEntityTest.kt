@@ -3,17 +3,11 @@ package puni.data
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
 import java.util.Objects
-import javax.persistence.Entity
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import puni.data.dao.AutoIdDao
-import puni.data.entity.AutoIdEntity
-
-@Entity
-class Book(val name: String = "") : AutoIdEntity()
-
-@Entity
-class Bar(val name: String = "") : AutoIdEntity()
+import puni.data.entity.Bar
+import puni.data.entity.Book
 
 class Foo(val id: Long, val name: String = "")
 
