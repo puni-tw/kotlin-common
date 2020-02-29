@@ -3,6 +3,7 @@ package puni.data.jpa
 import com.google.auto.service.AutoService
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
@@ -20,12 +21,13 @@ import javax.lang.model.element.Element
 import javax.lang.model.element.ElementKind
 import javax.lang.model.element.TypeElement
 import javax.persistence.Entity
+import puni.data.search.ConditionAction
+import puni.data.search.EnhancedSearch
 import puni.data.search.Searchable
 import puni.data.search.impl.SearchableImpl
 
 @AutoService(Processor::class)
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
-// to support Java 8
 @SupportedOptions(EntityFieldProcessor.KAPT_KOTLIN_GENERATED_OPTION_NAME)
 class EntityFieldProcessor : AbstractProcessor() {
 
@@ -38,36 +40,42 @@ class EntityFieldProcessor : AbstractProcessor() {
   }
 
   override fun process(annotations: MutableSet<out TypeElement>, roundEnv: RoundEnvironment): Boolean {
-    roundEnv.getElementsAnnotatedWith(Entity::class.java).forEach {
-      generate(element = it)
+    val elementsAnnotatedWithEntity = roundEnv.getElementsAnnotatedWith(Entity::class.java)
+    elementsAnnotatedWithEntity.forEach {
+      generateFields(elementsAnnotatedWithEntity, it)
     }
     return false
   }
 
-  private fun generate(element: Element) {
+  private fun generateFields(allEntityElements: Set<Element>, element: Element) {
     val className = element.simpleName.toString()
-    val pack = processingEnv.elementUtils.getPackageOf(element).toString()
+    val pack = processingEnv.elementUtils.getPackageOf(element).toString() + ".search"
 
-    val fileName = "${className}Fields"
-    val fileBuilder = FileSpec.builder(pack, fileName)
-    val classBuilder = TypeSpec.objectBuilder(fileName)
+    val fileNameForFields = "${className}Fields"
+    val fileNameForExtension = "${className}Extensions"
+    val fileBuilderForExtension = FileSpec.builder(pack, fileNameForExtension)
+
+    val classBuilder = TypeSpec.objectBuilder(fileNameForFields)
     val searchableImpl = SearchableImpl::class.asClassName()
+    val entityTypeName = element.asType().asTypeName()
 
     element.enclosedElements.filter { it.kind == ElementKind.FIELD }.forEach { field ->
       val fieldName = field.simpleName.toString()
       // processingEnv.messager.printMessage(Diagnostic.Kind.WARNING, "$fieldName ${field.asType().asTypeName()} ${String::class.asTypeName()}")
+      val fieldTypeName = if (field.asType().asTypeName().toString() == "java.lang.String") {
+        String::class.asTypeName()
+      } else {
+        field.asType().asTypeName()
+      }
+
       classBuilder
         .addProperty(
           PropertySpec
             .builder(
               fieldName,
               Searchable::class.asClassName().parameterizedBy(
-                element.asType().asTypeName(),
-                if (field.asType().asTypeName().toString() == "java.lang.String") {
-                  String::class.asTypeName()
-                } else {
-                  field.asType().asTypeName()
-                }
+                entityTypeName,
+                fieldTypeName
               ),
               KModifier.PUBLIC
             )
@@ -78,10 +86,74 @@ class EntityFieldProcessor : AbstractProcessor() {
             )
             .build()
         )
+
+      fileBuilderForExtension
+        .addFunction(
+          FunSpec.builder(fieldName)
+            .receiver(
+              EnhancedSearch::class.asClassName().parameterizedBy(entityTypeName)
+            )
+            .returns(
+              ConditionAction::class.asClassName().parameterizedBy(
+                entityTypeName,
+                entityTypeName,
+                fieldTypeName
+              )
+            )
+            .addStatement("return this.field($fileNameForFields.$fieldName)")
+            .build()
+        )
+
+      val relatedType = allEntityElements.find { it.asType() == field.asType() }
+      if (relatedType != null) {
+        val relateTypeName = relatedType.asType().asTypeName()
+        relatedType.enclosedElements.filter { it.kind == ElementKind.FIELD }.forEach { fieldForRelativeType ->
+          val fieldNameForRelativeType = fieldForRelativeType.simpleName.toString()
+          val fieldTypeNameForRelativeType = if (fieldForRelativeType.asType().asTypeName().toString() == "java.lang.String") {
+            String::class.asTypeName()
+          } else {
+            fieldForRelativeType.asType().asTypeName()
+          }
+          fileBuilderForExtension
+            .addFunction(
+              FunSpec.builder(fieldNameForRelativeType)
+                .receiver(
+                  ConditionAction::class.asClassName().parameterizedBy(
+                    entityTypeName,
+                    entityTypeName,
+                    relateTypeName
+                  )
+                )
+                .returns(
+                  ConditionAction::class.asClassName().parameterizedBy(
+                    entityTypeName,
+                    relateTypeName,
+                    fieldTypeNameForRelativeType
+                  )
+                )
+                .addStatement("return this.field(${relatedType.simpleName}Fields.$fieldNameForRelativeType)")
+                .build()
+            )
+        }
+      }
+
+      // processingEnv.messager.printMessage(
+      //   Diagnostic.Kind.WARNING,
+      //   "$fieldName ${allEntityElements.find { it.asType() == field.asType() }}"
+      // )
     }
 
-    val file = fileBuilder.addType(classBuilder.build()).build()
-    val kaptKotlinGeneratedDir = processingEnv.options[KAPT_KOTLIN_GENERATED_OPTION_NAME]
-    file.writeTo(File(kaptKotlinGeneratedDir))
+    fileBuilderForExtension
+      .build()
+      .writeTo(
+        File("${processingEnv.options[KAPT_KOTLIN_GENERATED_OPTION_NAME]}")
+      )
+
+    FileSpec.builder(pack, fileNameForFields)
+      .addType(classBuilder.build())
+      .build()
+      .writeTo(
+        File("${processingEnv.options[KAPT_KOTLIN_GENERATED_OPTION_NAME]}")
+      )
   }
 }
