@@ -2,41 +2,42 @@ package puni.extension.exception
 
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
+import puni.exception.CommonErrorCode
 import puni.test.support.errCodeMatches
 import puni.test.support.errMessageMatches
 
 class ExceptionExtensionsTest : StringSpec({
   "should able to catch errorCode" {
-    errCodeMatches(TestErrorCode.ERROR) {
-      1.errWhen(TestErrorCode.ERROR) { it == 1 }
+    errCodeMatches(CommonErrorCode.ERROR) {
+      1.errWhen(CommonErrorCode.ERROR) { it == 1 }
     }
   }
   "should pass expression" {
-    1.errWhen(TestErrorCode.ERROR) { it != 1 }
+    1.errWhen(CommonErrorCode.ERROR) { it != 1 }
   }
   "should able to catch errWhenNull" {
-    errCodeMatches(TestErrorCode.ERROR) {
+    errCodeMatches(CommonErrorCode.ERROR) {
       val foo: Int? = null
-      foo.errWhenNull(TestErrorCode.ERROR)
+      foo.errWhenNull(CommonErrorCode.ERROR)
     }
-    "bar".errWhenNull(TestErrorCode.ERROR)
+    "bar".errWhenNull(CommonErrorCode.ERROR)
   }
   "should able to catch exception" {
-    1.errWhenException(TestErrorCode.ERROR) {
+    1.errWhenException(CommonErrorCode.ERROR) {
       it.toString()
     } shouldBe "1"
-    errCodeMatches(TestErrorCode.ERROR) {
-      1.errWhenException(TestErrorCode.ERROR) {
+    errCodeMatches(CommonErrorCode.ERROR) {
+      1.errWhenException(CommonErrorCode.ERROR) {
         throw Exception()
       }
     }
   }
   "should able to handle with message" {
     errMessageMatches("1+2=3") {
-      1.errWhen(TestErrorCode.ERROR, "{}+{}={}", 1, 2, 3) { it == 1 }
+      1.errWhen(CommonErrorCode.ERROR, "{}+{}={}", 1, 2, 3) { it == 1 }
     }
     errMessageMatches("foo") {
-      1.errWhen(TestErrorCode.ERROR, "foo") { it == 1 }
+      1.errWhen(CommonErrorCode.ERROR, "foo") { it == 1 }
     }
   }
   "should able to get null when error" {

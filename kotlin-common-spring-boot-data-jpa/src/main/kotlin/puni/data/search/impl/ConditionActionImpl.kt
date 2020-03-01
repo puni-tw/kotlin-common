@@ -9,8 +9,8 @@ import puni.data.search.EnhancedSearch
 import puni.data.search.Searchable
 
 open class ConditionActionImpl<RootEntityType, EntityType, FieldType>(
-  val enhancedSearch: EnhancedSearchImpl<RootEntityType>,
-  val columnName: String
+  private val enhancedSearch: EnhancedSearchImpl<RootEntityType>,
+  private val columnName: String
 ) : ConditionAction<RootEntityType, EntityType, FieldType> {
 
   override fun <AnotherFieldType> field(

@@ -1,8 +1,6 @@
-package puni.extension.exception
+package puni.exception
 
-import puni.exception.ErrorCode
-
-enum class TestErrorCode(
+enum class CommonErrorCode(
   override val code: String,
   override val message: String
 ) : ErrorCode {
