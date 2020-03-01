@@ -9,3 +9,8 @@ dependencies {
   testApi(project(":kotlin-common-test-spring"))
   testImplementation("com.h2database:h2")
 }
+
+tasks.getByName("bintrayUpload").enabled = false
+tasks.getByName("printCoverage").enabled = false
+tasks.getByName("jacocoTestReport").enabled = false
+tasks.getByName("bootJar").enabled = false

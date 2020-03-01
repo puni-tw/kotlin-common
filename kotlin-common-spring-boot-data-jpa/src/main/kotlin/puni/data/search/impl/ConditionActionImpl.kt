@@ -9,7 +9,7 @@ import puni.data.search.Searchable
 
 open class ConditionActionImpl<RootEntityType, EntityType, FieldType>(
   val enhancedSearch: EnhancedSearchImpl<RootEntityType>,
-  var columnName: String
+  val columnName: String
 ) : ConditionAction<RootEntityType, EntityType, FieldType> {
 
   override fun <AnotherFieldType> field(
@@ -40,7 +40,7 @@ open class ConditionActionImpl<RootEntityType, EntityType, FieldType>(
     }
   }
 
-  private fun Root<RootEntityType>.columnNameToPath(columnName: String): Path<FieldType> {
+  protected fun Root<RootEntityType>.columnNameToPath(columnName: String): Path<FieldType> {
     val splited = columnName.split(".")
     return splited.takeLast(splited.size - 1)
       .fold(

@@ -16,6 +16,9 @@ abstract class AutoIdEntity {
     return if (other == null) {
       false
     } else if (other is AutoIdEntity) {
+      if (other.id == null || this.id == null) {
+        return false
+      }
       if (other.javaClass == this.javaClass) {
         Objects.equals(id, other.id)
       } else {

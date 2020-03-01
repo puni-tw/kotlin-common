@@ -165,12 +165,23 @@ subprojects {
   }
 }
 
+val jacocoIgnoreProjects = listOf(
+  "kotlin-common-spring-boot-data-jpa-annotation-processor-test"
+)
+val subProjectsForJacoco = subprojects.filterNot {
+  it.name in jacocoIgnoreProjects
+}
+
 task("covAll", JacocoReport::class) {
   executionData(
-    fileTree(rootDir.absolutePath).include("**/build/jacoco/*.exec")
+    fileTree(rootDir.absolutePath).include(
+      *subProjectsForJacoco
+        .map { "${it.name}/build/jacoco/*.exec" }
+        .toTypedArray()
+    )
   )
   sourceSets(
-    *subprojects
+    *subProjectsForJacoco
       .map {
         it.sourceSets.getByName("main")
       }
@@ -200,7 +211,7 @@ tasks.dokka {
 }
 
 task("collectJacocoSourcePath", Exec::class) {
-  val paths = subprojects
+  val paths = subProjectsForJacoco
     .flatMap { it.sourceSets.getByName("main").allJava.srcDirs }
     .joinToString(" ")
   commandLine = listOf("echo", paths)
