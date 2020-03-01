@@ -10,7 +10,9 @@ dependencies {
   testImplementation("com.h2database:h2")
 }
 
-tasks.getByName("bintrayUpload").enabled = false
+tasks.filter { it.group == "publishing" }.forEach {
+  it.enabled = false
+}
 tasks.getByName("printCoverage").enabled = false
 tasks.getByName("jacocoTestReport").enabled = false
 tasks.getByName("bootJar").enabled = false

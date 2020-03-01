@@ -1,6 +1,7 @@
 package puni.data.search.impl
 
 import javax.persistence.criteria.Path
+import javax.persistence.criteria.Predicate
 import javax.persistence.criteria.Root
 import puni.data.search.ComparableConditionAction
 import puni.data.search.ConditionAction
@@ -28,16 +29,12 @@ open class ConditionActionImpl<RootEntityType, EntityType, FieldType>(
     )
   }
 
-  override fun eq(value: FieldType?): EnhancedSearch<RootEntityType> = enhancedSearch.apply {
-    value?.let {
-      predicates.add(cb.equal(root.columnNameToPath(columnName), it))
-    }
+  override fun eq(value: FieldType?): EnhancedSearch<RootEntityType> = applyNonNullAction(value) { path, v ->
+    cb.equal(path, v)
   }
 
-  override fun notEq(value: FieldType?): EnhancedSearch<RootEntityType> = enhancedSearch.apply {
-    value?.let {
-      predicates.add(cb.notEqual(root.columnNameToPath(columnName), it))
-    }
+  override fun notEq(value: FieldType?): EnhancedSearch<RootEntityType> = applyNonNullAction(value) { path, v ->
+    cb.notEqual(path, v)
   }
 
   protected fun Root<RootEntityType>.columnNameToPath(columnName: String): Path<FieldType> {
@@ -48,4 +45,12 @@ open class ConditionActionImpl<RootEntityType, EntityType, FieldType>(
         { path, column -> path.get(column) }
       )
   }
+
+  protected fun applyNonNullAction(
+    value: FieldType?,
+    block: EnhancedSearchImpl<RootEntityType>.(path: Path<FieldType>, v: FieldType) -> Predicate
+  ) =
+    enhancedSearch.apply {
+      value?.let { predicates.add(block.invoke(this, root.columnNameToPath(columnName), it)) }
+    }
 }
