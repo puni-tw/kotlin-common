@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>EnhancedSearchImpl - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">puni.data.search.impl</a>&nbsp;/&nbsp;<a href="./index.html">EnhancedSearchImpl</a><br/>
+<br/>
+<h1>EnhancedSearchImpl</h1>
+<code><span class="keyword">class </span><span class="identifier">EnhancedSearchImpl</span><span class="symbol">&lt;</span><span class="identifier">EntityType</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../puni.data.search/-enhanced-search/index.html"><span class="identifier">EnhancedSearch</span></a><span class="symbol">&lt;</span><span class="identifier">EntityType</span><span class="symbol">&gt;</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<code><span class="identifier">EnhancedSearchImpl</span><span class="symbol">(</span><span class="identifier" id="puni.data.search.impl.EnhancedSearchImpl$<init>(kotlin.collections.MutableList((javax.persistence.criteria.Predicate)), javax.persistence.criteria.Root((puni.data.search.impl.EnhancedSearchImpl.EntityType)), javax.persistence.criteria.CriteriaQuery((kotlin.Any)), javax.persistence.criteria.CriteriaBuilder)/predicates">predicates</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><span class="identifier">Predicate</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="puni.data.search.impl.EnhancedSearchImpl$<init>(kotlin.collections.MutableList((javax.persistence.criteria.Predicate)), javax.persistence.criteria.Root((puni.data.search.impl.EnhancedSearchImpl.EntityType)), javax.persistence.criteria.CriteriaQuery((kotlin.Any)), javax.persistence.criteria.CriteriaBuilder)/root">root</span><span class="symbol">:</span>&nbsp;<span class="identifier">Root</span><span class="symbol">&lt;</span><span class="identifier">EntityType</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="puni.data.search.impl.EnhancedSearchImpl$<init>(kotlin.collections.MutableList((javax.persistence.criteria.Predicate)), javax.persistence.criteria.Root((puni.data.search.impl.EnhancedSearchImpl.EntityType)), javax.persistence.criteria.CriteriaQuery((kotlin.Any)), javax.persistence.criteria.CriteriaBuilder)/query">query</span><span class="symbol">:</span>&nbsp;<span class="identifier">CriteriaQuery</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="puni.data.search.impl.EnhancedSearchImpl$<init>(kotlin.collections.MutableList((javax.persistence.criteria.Predicate)), javax.persistence.criteria.Root((puni.data.search.impl.EnhancedSearchImpl.EntityType)), javax.persistence.criteria.CriteriaQuery((kotlin.Any)), javax.persistence.criteria.CriteriaBuilder)/cb">cb</span><span class="symbol">:</span>&nbsp;<span class="identifier">CriteriaBuilder</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="cb.html">cb</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">cb</span><span class="symbol">: </span><span class="identifier">CriteriaBuilder</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="predicates.html">predicates</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">predicates</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><span class="identifier">Predicate</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="query.html">query</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">query</span><span class="symbol">: </span><span class="identifier">CriteriaQuery</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="root.html">root</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">root</span><span class="symbol">: </span><span class="identifier">Root</span><span class="symbol">&lt;</span><span class="identifier">EntityType</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="field.html">field</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">FieldType</span><span class="symbol">&gt;</span> <span class="identifier">field</span><span class="symbol">(</span><span class="identifier" id="puni.data.search.impl.EnhancedSearchImpl$field(puni.data.search.Searchable((puni.data.search.impl.EnhancedSearchImpl.EntityType, puni.data.search.impl.EnhancedSearchImpl.field.FieldType)))/searchable">searchable</span><span class="symbol">:</span>&nbsp;<a href="../../puni.data.search/-searchable/index.html"><span class="identifier">Searchable</span></a><span class="symbol">&lt;</span><span class="identifier">EntityType</span><span class="symbol">,</span>&nbsp;<span class="identifier">FieldType</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../puni.data.search/-condition-action/index.html"><span class="identifier">ConditionAction</span></a><span class="symbol">&lt;</span><span class="identifier">EntityType</span><span class="symbol">,</span>&nbsp;<span class="identifier">EntityType</span><span class="symbol">,</span>&nbsp;<span class="identifier">FieldType</span><span class="symbol">&gt;</span></code><br/>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">FieldType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html"><span class="identifier">Comparable</span></a><span class="symbol">&lt;</span><span class="identifier">FieldType</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <span class="identifier">field</span><span class="symbol">(</span><span class="identifier" id="puni.data.search.impl.EnhancedSearchImpl$field(puni.data.search.Searchable((puni.data.search.impl.EnhancedSearchImpl.EntityType, puni.data.search.impl.EnhancedSearchImpl.field.FieldType)))/searchable">searchable</span><span class="symbol">:</span>&nbsp;<a href="../../puni.data.search/-searchable/index.html"><span class="identifier">Searchable</span></a><span class="symbol">&lt;</span><span class="identifier">EntityType</span><span class="symbol">,</span>&nbsp;<span class="identifier">FieldType</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../puni.data.search/-comparable-condition-action/index.html"><span class="identifier">ComparableConditionAction</span></a><span class="symbol">&lt;</span><span class="identifier">EntityType</span><span class="symbol">,</span>&nbsp;<span class="identifier">EntityType</span><span class="symbol">,</span>&nbsp;<span class="identifier">FieldType</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

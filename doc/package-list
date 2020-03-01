@@ -1,5 +1,6 @@
 $dokka.format:html
 $dokka.linkExtension:html
+$dokka.location:puni.data.search$search(org.springframework.data.jpa.repository.JpaSpecificationExecutor((puni.data.search.search.T)), kotlin.Function1((puni.data.search.EnhancedSearch((puni.data.search.search.T)), kotlin.Unit)))puni.data.search/org.springframework.data.jpa.repository.-jpa-specification-executor/search.html
 $dokka.location:puni.extension.jackson$jsonMapToObject(kotlin.collections.Map((kotlin.Any, )))puni.extension.jackson/kotlin.collections.-map/json-map-to-object.html
 $dokka.location:puni.extension.jackson$jsonStringToList(kotlin.String)puni.extension.jackson/kotlin.-string/json-string-to-list.html
 $dokka.location:puni.extension.jackson$jsonStringToList(kotlin.String, kotlin.reflect.KClass((puni.extension.jackson.jsonStringToList.T)))puni.extension.jackson/kotlin.-string/json-string-to-list.html
@@ -15,11 +16,16 @@ puni.auth.api.impl
 puni.auth.filter
 puni.auth.service
 puni.auth.web.exception.mapper
+puni.data
 puni.data.dao
 puni.data.dto
 puni.data.dto.auth
 puni.data.dto.base
 puni.data.entity
+puni.data.jpa
+puni.data.search
+puni.data.search.impl
+puni.data.service
 puni.data.vo.auth
 puni.exception
 puni.extension.exception
