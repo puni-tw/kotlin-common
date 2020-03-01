@@ -4,6 +4,7 @@ import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.Predicate
 import javax.persistence.criteria.Root
+import puni.data.search.ComparableConditionAction
 import puni.data.search.ConditionAction
 import puni.data.search.EnhancedSearch
 import puni.data.search.Searchable
@@ -19,5 +20,11 @@ class EnhancedSearchImpl<EntityType>(
     searchable: Searchable<EntityType, FieldType>
   ): ConditionAction<EntityType, EntityType, FieldType> {
     return ConditionActionImpl(this, searchable.fieldName())
+  }
+
+  override fun <FieldType : Comparable<FieldType>> field(
+    searchable: Searchable<EntityType, FieldType>
+  ): ComparableConditionAction<EntityType, EntityType, FieldType> {
+    return ComparableConditionActionImpl(this, searchable.fieldName())
   }
 }

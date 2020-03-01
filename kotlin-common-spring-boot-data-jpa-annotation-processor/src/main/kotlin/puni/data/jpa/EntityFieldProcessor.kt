@@ -20,7 +20,9 @@ import javax.lang.model.SourceVersion
 import javax.lang.model.element.Element
 import javax.lang.model.element.ElementKind
 import javax.lang.model.element.TypeElement
+import javax.lang.model.type.TypeMirror
 import javax.persistence.Entity
+import puni.data.search.ComparableConditionAction
 import puni.data.search.ConditionAction
 import puni.data.search.EnhancedSearch
 import puni.data.search.Searchable
@@ -33,6 +35,11 @@ class EntityFieldProcessor : AbstractProcessor() {
 
   companion object {
     const val KAPT_KOTLIN_GENERATED_OPTION_NAME = "kapt.kotlin.generated"
+  }
+
+  val erasuredComparable: TypeMirror by lazy {
+    val comparableType = processingEnv.elementUtils.getTypeElement("java.lang.Comparable").asType()
+    processingEnv.typeUtils.erasure(comparableType)
   }
 
   override fun getSupportedAnnotationTypes(): MutableSet<String> {
@@ -87,6 +94,12 @@ class EntityFieldProcessor : AbstractProcessor() {
             .build()
         )
 
+      val isComparable: Boolean = processingEnv.typeUtils.isAssignable(field.asType(), erasuredComparable)
+      // processingEnv.messager.printMessage(
+      //   Diagnostic.Kind.WARNING,
+      //   "$fieldName isJavaComparable=${isComparable}"
+      // )
+
       fileBuilderForExtension
         .addFunction(
           FunSpec.builder(fieldName)
@@ -94,11 +107,20 @@ class EntityFieldProcessor : AbstractProcessor() {
               EnhancedSearch::class.asClassName().parameterizedBy(entityTypeName)
             )
             .returns(
-              ConditionAction::class.asClassName().parameterizedBy(
-                entityTypeName,
-                entityTypeName,
-                fieldTypeName
-              )
+              if (isComparable) {
+                ComparableConditionAction::class.asClassName().parameterizedBy(
+                  entityTypeName,
+                  entityTypeName,
+                  fieldTypeName
+                )
+              } else {
+                ConditionAction::class.asClassName().parameterizedBy(
+                  entityTypeName,
+                  entityTypeName,
+                  fieldTypeName
+                )
+              }
+
             )
             .addStatement("return this.field($fileNameForFields.$fieldName)")
             .build()
@@ -114,6 +136,7 @@ class EntityFieldProcessor : AbstractProcessor() {
           } else {
             fieldForRelativeType.asType().asTypeName()
           }
+          val isFieldForRelativeTypeComparable: Boolean = processingEnv.typeUtils.isAssignable(fieldForRelativeType.asType(), erasuredComparable)
           fileBuilderForExtension
             .addFunction(
               FunSpec.builder(fieldNameForRelativeType)
@@ -125,11 +148,19 @@ class EntityFieldProcessor : AbstractProcessor() {
                   )
                 )
                 .returns(
-                  ConditionAction::class.asClassName().parameterizedBy(
-                    entityTypeName,
-                    relateTypeName,
-                    fieldTypeNameForRelativeType
-                  )
+                  if (isFieldForRelativeTypeComparable) {
+                    ComparableConditionAction::class.asClassName().parameterizedBy(
+                      entityTypeName,
+                      relateTypeName,
+                      fieldTypeNameForRelativeType
+                    )
+                  } else {
+                    ConditionAction::class.asClassName().parameterizedBy(
+                      entityTypeName,
+                      relateTypeName,
+                      fieldTypeNameForRelativeType
+                    )
+                  }
                 )
                 .addStatement("return this.field(${relatedType.simpleName}Fields.$fieldNameForRelativeType)")
                 .build()
