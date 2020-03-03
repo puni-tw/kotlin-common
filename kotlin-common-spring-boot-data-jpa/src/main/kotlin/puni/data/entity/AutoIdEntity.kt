@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.MappedSuperclass
+import org.hibernate.Hibernate
 
 @MappedSuperclass
 abstract class AutoIdEntity {
@@ -19,7 +20,7 @@ abstract class AutoIdEntity {
       if (other.id == null || this.id == null) {
         return false
       }
-      if (other.javaClass == this.javaClass) {
+      if (Hibernate.getClass(other) == Hibernate.getClass(this)) {
         Objects.equals(id, other.id)
       } else {
         false
