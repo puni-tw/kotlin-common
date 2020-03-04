@@ -63,14 +63,16 @@ interface BookDao : AutoIdDao<Book>
 
 ```
 fun countByNameAndAuthorName(name: String, authorName: String): Int {
-  return bookDao
-    .search { book ->
-      book.name().eq(name)
-        .author().name().eq(authorName)
-        .price().gt(1000)
-        .releaseAt().lt(LocalDateTime.now())
-    }
-    .size
+    return bookDao
+      .search {
+        name() eq name
+        author().name() eq authorName
+        or {
+          price() gt 100
+          releaseAt().isNotNull()
+        }
+      }
+      .size
 }
 
 ```

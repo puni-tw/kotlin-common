@@ -9,9 +9,13 @@ interface ConditionAction<RootEntityType, EntityType, FieldType> {
     searchable: Searchable<FieldType, AnotherFieldType>
   ): ComparableConditionAction<RootEntityType, FieldType, AnotherFieldType>
 
-  fun eq(value: FieldType?): EnhancedSearch<RootEntityType>
+  infix fun eq(value: FieldType?): EnhancedSearch<RootEntityType>
 
-  fun notEq(value: FieldType?): EnhancedSearch<RootEntityType>
+  infix fun notEq(value: FieldType?): EnhancedSearch<RootEntityType>
 
-  fun inList(values: Collection<FieldType>?): EnhancedSearch<RootEntityType>
+  infix fun inList(values: Collection<FieldType>?): EnhancedSearch<RootEntityType>
+
+  fun isNotNull(): EnhancedSearch<RootEntityType>
+
+  fun isNull(): EnhancedSearch<RootEntityType>
 }

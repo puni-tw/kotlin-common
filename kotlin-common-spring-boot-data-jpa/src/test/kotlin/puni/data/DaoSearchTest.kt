@@ -36,37 +36,42 @@ class DaoSearchTest(
       )
     )
     testBookDao.search {
-      it
-        .field(SearchableImpl<Book, String>("name")).eq("puni")
-        .field<String>("name").eq("puni")
-        .field<String>("name").inList(emptyList()) // will be ignore
-        .field<String>("name").inList(listOf("puni"))
-        .field(SearchableImpl<Book, String>("name")).notEq("puni2")
-        .field(SearchableImpl<Book, String>("name")).eq(null) // will be ignored
-        .field(SearchableImpl<Book, String>("name")).notEq(null) // will be ignored
+      field(SearchableImpl<Book, String>("name")).eq("puni")
+      field<String>("name").eq("puni")
+      field<String>("name").inList(null) // will be ignore
+      field<String>("name").inList(emptyList()) // will be ignore
+      field<String>("name").inList(listOf("puni"))
+      field(SearchableImpl<Book, String>("name")).notEq("puni2")
+      field(SearchableImpl<Book, String>("name")).eq(null) // will be ignored
+      field(SearchableImpl<Book, String>("name")).notEq(null) // will be ignored
 
-        .or { or ->
-          or.field<String>("name").eq("puni")
-            .field<Int>("price").eq(99)
-        }
+      or {
+        field<String>("name").eq("puni")
+        field<Int>("price").eq(99)
+      }
 
-        .field(SearchableImpl<Book, Author>("author"))
+      field(SearchableImpl<Book, Author>("author"))
         .field(SearchableImpl<Author, String>("name")).eq("author")
 
-        .field(SearchableImpl<Book, Author>("author"))
+      field(SearchableImpl<Book, Author>("author"))
         .field(SearchableImpl<Author, AuthorGroup>("authorGroup"))
         .field(SearchableImpl<AuthorGroup, String>("name")).eq("puni")
 
-        .comparableField<Int>("price").gt(50)
-        .field(SearchableImpl<Book, Int>("price")).eq(100)
-        .field(SearchableImpl<Book, Int>("price")).gt(99)
-        .field(SearchableImpl<Book, Int>("price")).gt(null) // will be ignored
-        .field(SearchableImpl<Book, Int>("price")).lt(101)
-        .field(SearchableImpl<Book, Int>("price")).lt(null) // will be ignored
-        .field(SearchableImpl<Book, Int>("price")).gte(100)
-        .field(SearchableImpl<Book, Int>("price")).gte(null) // will be ignored
-        .field(SearchableImpl<Book, Int>("price")).lte(100)
-        .field(SearchableImpl<Book, Int>("price")).lte(null) // will be ignored
+      comparableField<Int>("price").gt(50)
+      field(SearchableImpl<Book, Int>("price")).eq(100)
+      field(SearchableImpl<Book, Int>("price")).gt(99)
+      field(SearchableImpl<Book, Int>("price")).gt(null) // will be ignored
+      field(SearchableImpl<Book, Int>("price")).lt(101)
+      field(SearchableImpl<Book, Int>("price")).lt(null) // will be ignored
+      field(SearchableImpl<Book, Int>("price")).gte(100)
+      field(SearchableImpl<Book, Int>("price")).gte(null) // will be ignored
+      field(SearchableImpl<Book, Int>("price")).lte(100)
+      field(SearchableImpl<Book, Int>("price")).lte(null) // will be ignored
     }.size shouldBe 1
+
+    testBookDao.search {
+      field<String>("name").isNull()
+      field<String>("price").isNotNull()
+    }.size shouldBe 0
   }
 })
