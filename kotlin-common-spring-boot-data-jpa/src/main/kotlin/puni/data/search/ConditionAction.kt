@@ -10,5 +10,8 @@ interface ConditionAction<RootEntityType, EntityType, FieldType> {
   ): ComparableConditionAction<RootEntityType, FieldType, AnotherFieldType>
 
   fun eq(value: FieldType?): EnhancedSearch<RootEntityType>
+
   fun notEq(value: FieldType?): EnhancedSearch<RootEntityType>
+
+  fun inList(values: Collection<FieldType>?): EnhancedSearch<RootEntityType>
 }

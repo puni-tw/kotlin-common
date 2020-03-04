@@ -36,10 +36,18 @@ class DaoSearchTest(
       )
     )
     testBookDao.search {
-      it.field(SearchableImpl<Book, String>("name")).eq("puni")
+      it
+        .field(SearchableImpl<Book, String>("name")).eq("puni")
+        .field<String>("name").eq("puni")
+        .field<String>("name").inList(listOf("puni"))
         .field(SearchableImpl<Book, String>("name")).notEq("puni2")
         .field(SearchableImpl<Book, String>("name")).eq(null) // will be ignored
         .field(SearchableImpl<Book, String>("name")).notEq(null) // will be ignored
+
+        .or { or ->
+          or.field<String>("name").eq("puni")
+            .field<Int>("price").eq(99)
+        }
 
         .field(SearchableImpl<Book, Author>("author"))
         .field(SearchableImpl<Author, String>("name")).eq("author")
@@ -48,6 +56,7 @@ class DaoSearchTest(
         .field(SearchableImpl<Author, AuthorGroup>("authorGroup"))
         .field(SearchableImpl<AuthorGroup, String>("name")).eq("puni")
 
+        .comparableField<Int>("price").gt(50)
         .field(SearchableImpl<Book, Int>("price")).eq(100)
         .field(SearchableImpl<Book, Int>("price")).gt(99)
         .field(SearchableImpl<Book, Int>("price")).gt(null) // will be ignored

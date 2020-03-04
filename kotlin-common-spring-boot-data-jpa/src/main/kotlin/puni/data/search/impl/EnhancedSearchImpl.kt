@@ -16,6 +16,14 @@ class EnhancedSearchImpl<EntityType>(
   val cb: CriteriaBuilder
 ) : EnhancedSearch<EntityType> {
 
+  override fun <FieldType> field(fieldName: String): ConditionAction<EntityType, EntityType, FieldType> {
+    return ConditionActionImpl(this, fieldName)
+  }
+
+  override fun <FieldType : Comparable<FieldType>> comparableField(fieldName: String): ComparableConditionAction<EntityType, EntityType, FieldType> {
+    return ComparableConditionActionImpl(this, fieldName)
+  }
+
   override fun <FieldType> field(
     searchable: Searchable<EntityType, FieldType>
   ): ConditionAction<EntityType, EntityType, FieldType> {
@@ -26,5 +34,22 @@ class EnhancedSearchImpl<EntityType>(
     searchable: Searchable<EntityType, FieldType>
   ): ComparableConditionAction<EntityType, EntityType, FieldType> {
     return ComparableConditionActionImpl(this, searchable.fieldName())
+  }
+
+  override fun or(searchContent: (enhancedSearch: EnhancedSearch<EntityType>) -> Unit): EnhancedSearch<EntityType> {
+    val predicatesForOr = mutableListOf<Predicate>()
+    searchContent.invoke(
+      EnhancedSearchImpl(
+        predicatesForOr,
+        root,
+        query,
+        cb
+      )
+    )
+    return this.apply {
+      predicates.add(
+        cb.or(*predicatesForOr.toTypedArray())
+      )
+    }
   }
 }
