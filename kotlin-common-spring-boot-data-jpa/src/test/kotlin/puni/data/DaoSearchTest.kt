@@ -39,6 +39,7 @@ class DaoSearchTest(
       it
         .field(SearchableImpl<Book, String>("name")).eq("puni")
         .field<String>("name").eq("puni")
+        .field<String>("name").inList(emptyList()) // will be ignore
         .field<String>("name").inList(listOf("puni"))
         .field(SearchableImpl<Book, String>("name")).notEq("puni2")
         .field(SearchableImpl<Book, String>("name")).eq(null) // will be ignored

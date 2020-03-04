@@ -37,9 +37,10 @@ open class ConditionActionImpl<RootEntityType, EntityType, FieldType>(
     cb.notEqual(path, v)
   }
 
-  override fun inList(values: Collection<FieldType>?): EnhancedSearch<RootEntityType> = applyNonNullAction(values) { path, v ->
-    path.`in`(v)
-  }
+  override fun inList(values: Collection<FieldType>?): EnhancedSearch<RootEntityType> =
+    applyNonNullAction(values?.takeIf { it.isNotEmpty() }) { path, v ->
+      path.`in`(v)
+    }
 
   protected fun Root<RootEntityType>.columnNameToPath(columnName: String): Path<FieldType> {
     val splited = columnName.split(".")
