@@ -30,6 +30,8 @@ import puni.data.search.ConditionAction
 import puni.data.search.EnhancedSearch
 import puni.data.search.Searchable
 import puni.data.search.impl.SearchableImpl
+import puni.extension.kotlinpoet.fieldName
+import puni.extension.kotlinpoet.typeName
 
 @AutoService(Processor::class)
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
@@ -149,21 +151,6 @@ class EntityFieldProcessor : AbstractProcessor() {
       .build()
   }
 
-  private fun Element.fieldName() = simpleName.toString()
-
-  private fun Element.typeName(): TypeName {
-    return this.asType().let { type ->
-      when (type.asTypeName().toString()) {
-        "java.lang.String" -> String::class.asTypeName()
-        "java.lang.Long" -> Long::class.asTypeName()
-        "java.lang.Double" -> Double::class.asTypeName()
-        "java.lang.Float" -> Float::class.asTypeName()
-        "java.lang.Short" -> Short::class.asTypeName()
-        else -> type.asTypeName()
-      }
-    }
-  }
-
   private fun Element.isComparable(): Boolean {
     return processingEnv.typeUtils.isAssignable(this.asType(), erasuredComparable)
   }
@@ -198,9 +185,4 @@ class EntityFieldProcessor : AbstractProcessor() {
       .flatten()
       .filter { it.kind == ElementKind.FIELD }
   }
-
-  // private fun log(message: String) = processingEnv.messager.printMessage(
-  //   Diagnostic.Kind.WARNING,
-  //   message
-  // )
 }

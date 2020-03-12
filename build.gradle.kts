@@ -165,7 +165,9 @@ subprojects {
   }
 }
 
-val jacocoIgnoreProjects = listOf<String>()
+val jacocoIgnoreProjects = listOf<String>(
+  "kotlin-common-annotation-processor-extensions"
+)
 val subProjectsForJacoco = subprojects.filterNot {
   it.name in jacocoIgnoreProjects
 }
