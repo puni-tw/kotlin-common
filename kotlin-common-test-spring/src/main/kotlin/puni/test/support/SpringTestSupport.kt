@@ -1,10 +1,12 @@
 package puni.test.support
 
 import java.lang.reflect.InvocationTargetException
+import java.lang.reflect.Method
 import org.junit.jupiter.api.BeforeAll
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.getBean
+import org.springframework.cglib.proxy.InvocationHandler
 import org.springframework.cglib.proxy.Proxy
 import org.springframework.context.ApplicationContext
 
@@ -37,16 +39,24 @@ abstract class SpringTestSupport {
     val bean = bean<T>()
     return Proxy.newProxyInstance(
       T::class.java.classLoader,
-      arrayOf(T::class.java)
-    ) { _, method, args ->
+      arrayOf(T::class.java),
+      ApiProxyInvocationHandler(bean, token)
+    ) as T
+  }
+
+  class ApiProxyInvocationHandler<T>(
+    private val bean: T,
+    private val token: String?
+  ) : InvocationHandler {
+    override fun invoke(proxy: Any?, method: Method, args: Array<out Any>?): Any? {
       try {
         TestSupportContext.userToken = token
-        method.invoke(bean, *args)
+        return method.invoke(bean, *(args ?: emptyArray()))
       } catch (t: InvocationTargetException) {
         throw t.cause ?: t
       } finally {
         TestSupportContext.userToken = null
       }
-    } as T
+    }
   }
 }
