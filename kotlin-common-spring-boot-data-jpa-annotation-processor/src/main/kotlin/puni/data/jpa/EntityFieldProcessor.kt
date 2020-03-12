@@ -22,6 +22,7 @@ import javax.lang.model.SourceVersion
 import javax.lang.model.element.Element
 import javax.lang.model.element.ElementKind
 import javax.lang.model.element.TypeElement
+import javax.lang.model.type.DeclaredType
 import javax.lang.model.type.TypeMirror
 import javax.persistence.Entity
 import puni.data.search.ComparableConditionAction
@@ -69,7 +70,7 @@ class EntityFieldProcessor : AbstractProcessor() {
     val classBuilder = TypeSpec.objectBuilder(fileNameForFields)
     val entityTypeName = element.asType().asTypeName()
 
-    element.enclosedElements.filter { it.kind == ElementKind.FIELD }.forEach { field ->
+    element.allFields().forEach { field ->
       classBuilder.addProperty(
         field.buildSearchableProperty(entityTypeName)
       )
@@ -88,7 +89,7 @@ class EntityFieldProcessor : AbstractProcessor() {
     val fileBuilderForExtension = FileSpec.builder(pack, fileNameForExtension)
     val rootEntityType = element.typeName()
 
-    element.enclosedElements.filter { it.kind == ElementKind.FIELD }.forEach { field ->
+    element.allFields().forEach { field ->
       val fieldName = field.simpleName.toString()
 
       fileBuilderForExtension
@@ -101,7 +102,7 @@ class EntityFieldProcessor : AbstractProcessor() {
         )
 
       val relatedTypeElement = allEntityElements.find { it.asType() == field.asType() }
-      relatedTypeElement?.enclosedElements?.filter { it.kind == ElementKind.FIELD }?.forEach { fieldForRelativeType ->
+      relatedTypeElement?.allFields()?.forEach { fieldForRelativeType ->
         fileBuilderForExtension
           .addFunction(
             fieldForRelativeType.buildRelateTypeConditionAction(element, relatedTypeElement)
@@ -151,10 +152,15 @@ class EntityFieldProcessor : AbstractProcessor() {
   private fun Element.fieldName() = simpleName.toString()
 
   private fun Element.typeName(): TypeName {
-    return if (this.asType().asTypeName().toString() == "java.lang.String") {
-      String::class.asTypeName()
-    } else {
-      this.asType().asTypeName()
+    return this.asType().let { type ->
+      when (type.asTypeName().toString()) {
+        "java.lang.String" -> String::class.asTypeName()
+        "java.lang.Long" -> Long::class.asTypeName()
+        "java.lang.Double" -> Double::class.asTypeName()
+        "java.lang.Float" -> Float::class.asTypeName()
+        "java.lang.Short" -> Short::class.asTypeName()
+        else -> type.asTypeName()
+      }
     }
   }
 
@@ -176,6 +182,21 @@ class EntityFieldProcessor : AbstractProcessor() {
         typeName()
       )
     }
+  }
+
+  private fun Element.allFields(): List<Element> {
+    val superElements = processingEnv.typeUtils.directSupertypes(this.asType())
+      .flatMap {
+        if (it is DeclaredType) {
+          it.asElement().enclosedElements
+        } else {
+          emptyList()
+        }
+      }
+
+    return listOf(superElements, this.enclosedElements)
+      .flatten()
+      .filter { it.kind == ElementKind.FIELD }
   }
 
   // private fun log(message: String) = processingEnv.messager.printMessage(
