@@ -1,6 +1,0 @@
-package puni.data
-
-import org.springframework.boot.autoconfigure.SpringBootApplication
-
-@SpringBootApplication
-class PuniSpringBootDataJpaAnnotationProcessorTestApplication

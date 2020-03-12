@@ -165,9 +165,7 @@ subprojects {
   }
 }
 
-val jacocoIgnoreProjects = listOf(
-  "kotlin-common-spring-boot-data-jpa-annotation-processor-test"
-)
+val jacocoIgnoreProjects = listOf<String>()
 val subProjectsForJacoco = subprojects.filterNot {
   it.name in jacocoIgnoreProjects
 }
