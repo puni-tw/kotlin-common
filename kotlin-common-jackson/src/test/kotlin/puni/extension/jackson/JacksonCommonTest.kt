@@ -16,9 +16,9 @@ class JacksonCommonTest : StringSpec({
     val date = Date.from(LocalDateTime.of(2020, 1, 1, 1, 1).atZone(ZoneId.of("UTC")).toInstant())
     val source = mapOf("foo" to date)
     val json = source.toJsonString()
-    json shouldBe """{"foo":1577840460000}"""
+    json shouldBe """{"foo":"2020-01-01T01:01:00.000+0000"}"""
 
-    JacksonCommon.setObjectMapper(jacksonObjectMapper().disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS))
-    JacksonCommon.withObjectMapper { it.writeValueAsString(source) } shouldBe """{"foo":"2020-01-01T01:01:00.000+0000"}"""
+    JacksonCommon.setObjectMapper(jacksonObjectMapper().enable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS))
+    JacksonCommon.withObjectMapper { it.writeValueAsString(source) } shouldBe """{"foo":1577840460000}"""
   }
 })
