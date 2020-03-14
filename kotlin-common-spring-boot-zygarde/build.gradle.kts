@@ -6,6 +6,7 @@ dependencies {
   api(project(":kotlin-common"))
   api(project(":kotlin-common-spring-boot-web"))
   api(project(":kotlin-common-spring-boot-data-jpa"))
+  api("net.bytebuddy:byte-buddy:1.10.8")
   testApi(project(":kotlin-common-test"))
   testApi(project(":kotlin-common-test-spring"))
 }
