@@ -1,4 +1,4 @@
-package puni.zygarde
+package puni.zygarde.api
 
 @Target(AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.SOURCE)

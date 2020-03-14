@@ -5,53 +5,18 @@ import com.tschuchort.compiletesting.SourceFile
 import io.kotlintest.matchers.string.shouldContain
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
+import org.springframework.core.io.ClassPathResource
 import puni.exception.CommonErrorCode
 import puni.extension.exception.errWhenNull
 
 class EntityFieldProcessorTest : StringSpec({
 
-  val book = SourceFile.kotlin(
-    "Book.kt",
-    """
-package puni.data.entity
-
-import java.time.LocalDateTime
-import javax.persistence.Entity
-import javax.persistence.ManyToOne
-
-@Entity
-class Book(
-  var name: String = "",
-  var price: Int = 0,
-  var priceD: Double? = null,
-  var priceF: Float? = null,
-  var priceS: Short? = null,
-  @ManyToOne(targetEntity = Author::class)
-  var author: Author = Author(),
-  var releaseAt: LocalDateTime = LocalDateTime.now()
-) : AutoIdEntity()
-    
-  """
-  )
-
-  val author = SourceFile.kotlin(
-    "Author.kt",
-    """
-package puni.data.entity
-
-import javax.persistence.Entity
-
-@Entity
-class Author(
-  var name: String = "",
-  var country: String = ""
-) : AutoIdEntity()
-  """
-  )
-
   "should able to compile" {
     val result = KotlinCompilation().apply {
-      sources = listOf(book, author)
+      sources = listOf(
+        "puni/data/entity/Author.kt",
+        "puni/data/entity/Book.kt"
+      ).map { ClassPathResource(it).file }.map { SourceFile.fromPath(it) }
 
       // pass your own instance of an annotation processor
       annotationProcessors = listOf(EntityFieldProcessor())

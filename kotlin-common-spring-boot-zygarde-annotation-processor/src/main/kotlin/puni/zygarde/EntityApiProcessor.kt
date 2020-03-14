@@ -27,6 +27,7 @@ import puni.extension.kotlinpoet.isNullable
 import puni.extension.kotlinpoet.nullableTypeName
 import puni.extension.kotlinpoet.tryGetInitializeCodeBlock
 import puni.extension.kotlinpoet.typeName
+import puni.zygarde.api.ApiProp
 
 @AutoService(Processor::class)
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
