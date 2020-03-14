@@ -8,6 +8,7 @@ import io.kotlintest.matchers.maps.shouldContainAll
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
 import java.time.LocalDateTime
+import puni.data.jpa.EntityFieldProcessor
 import puni.extension.jackson.JacksonCommon
 import puni.extension.jackson.jsonStringToObject
 import puni.extension.jackson.toJsonString
@@ -65,7 +66,7 @@ class Author(
       sources = listOf(book, author)
 
       // pass your own instance of an annotation processor
-      annotationProcessors = listOf(EntityApiProcessor())
+      annotationProcessors = listOf(EntityFieldProcessor(), EntityApiProcessor())
 
       // pass your own instance of a compiler plugin
 

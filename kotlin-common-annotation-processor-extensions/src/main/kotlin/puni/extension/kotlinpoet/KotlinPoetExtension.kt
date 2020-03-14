@@ -6,7 +6,7 @@ import com.squareup.kotlinpoet.asTypeName
 import javax.lang.model.element.Element
 import org.jetbrains.annotations.Nullable
 
-fun Element.fieldName() = simpleName.toString()
+fun Element.fieldName() = simpleName.toString().decapitalize()
 
 fun Element.isNullable() = this.getAnnotation(Nullable::class.java) != null
 
