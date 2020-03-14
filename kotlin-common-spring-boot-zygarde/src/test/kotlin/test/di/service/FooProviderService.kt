@@ -1,8 +1,6 @@
 package test.di.service
 
-import puni.zygarde.di.DiService
-
-interface FooProviderService : DiService {
+interface FooProviderService {
 
   fun foo(): String
 }

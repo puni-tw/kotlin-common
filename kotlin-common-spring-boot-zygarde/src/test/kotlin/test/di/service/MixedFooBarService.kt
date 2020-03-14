@@ -1,7 +1,5 @@
 package test.di.service
 
-import puni.zygarde.di.DiService
-
-interface MixedFooBarService : DiService {
+interface MixedFooBarService {
   fun foobar(): String
 }

@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  puni.zygarde.di.autoconfigure.DiConfig
+
