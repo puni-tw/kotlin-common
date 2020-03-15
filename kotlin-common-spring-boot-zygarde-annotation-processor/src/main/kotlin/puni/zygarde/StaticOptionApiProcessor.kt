@@ -37,7 +37,7 @@ import puni.zygarde.option.StaticOptionApi
 
 @AutoService(Processor::class)
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
-@SupportedOptions(EntityApiProcessor.KAPT_KOTLIN_GENERATED_OPTION_NAME)
+@SupportedOptions(StaticOptionApiProcessor.KAPT_KOTLIN_GENERATED_OPTION_NAME)
 class StaticOptionApiProcessor : AbstractProcessor() {
 
   companion object {

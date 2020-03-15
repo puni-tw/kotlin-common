@@ -30,17 +30,14 @@ import puni.data.search.ConditionAction
 import puni.data.search.EnhancedSearch
 import puni.data.search.Searchable
 import puni.data.search.impl.SearchableImpl
+import puni.extension.kotlinpoet.KaptOptions
 import puni.extension.kotlinpoet.fieldName
 import puni.extension.kotlinpoet.typeName
 
 @AutoService(Processor::class)
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
-@SupportedOptions(EntityFieldProcessor.KAPT_KOTLIN_GENERATED_OPTION_NAME)
-class EntityFieldProcessor : AbstractProcessor() {
-
-  companion object {
-    const val KAPT_KOTLIN_GENERATED_OPTION_NAME = "kapt.kotlin.generated"
-  }
+@SupportedOptions(KaptOptions.KAPT_KOTLIN_GENERATED_OPTION_NAME)
+open class EntityFieldProcessor : AbstractProcessor() {
 
   val erasuredComparable: TypeMirror by lazy {
     val comparableType = processingEnv.elementUtils.getTypeElement("java.lang.Comparable").asType()
@@ -49,7 +46,7 @@ class EntityFieldProcessor : AbstractProcessor() {
 
   val searchableImpl: ClassName by lazy { SearchableImpl::class.asClassName() }
 
-  val fileTarget: String by lazy { "${processingEnv.options[KAPT_KOTLIN_GENERATED_OPTION_NAME]}" }
+  val fileTarget: String by lazy { "${processingEnv.options[KaptOptions.KAPT_KOTLIN_GENERATED_OPTION_NAME]}" }
 
   override fun getSupportedAnnotationTypes(): MutableSet<String> {
     return mutableSetOf(Entity::class.java.name)

@@ -4,7 +4,10 @@ import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.asTypeName
 import javax.lang.model.element.Element
+import javax.lang.model.type.TypeMirror
 import org.jetbrains.annotations.Nullable
+
+fun Element.name() = simpleName.toString()
 
 fun Element.fieldName() = simpleName.toString().decapitalize()
 
@@ -37,15 +40,28 @@ fun Element.tryGetInitializeCodeBlock(): CodeBlock? {
   return builder.build()
 }
 
+fun TypeName.kotlin(canBeNullable: Boolean = true): TypeName {
+  return when (toString()) {
+    "java.lang.String" -> String::class.asTypeName()
+    "java.lang.Long" -> Long::class.asTypeName()
+    "java.lang.Double" -> Double::class.asTypeName()
+    "java.lang.Float" -> Float::class.asTypeName()
+    "java.lang.Short" -> Short::class.asTypeName()
+    else -> this
+  }.copy(nullable = canBeNullable)
+}
+
+fun TypeMirror.kotlinTypeName(canBeNullable: Boolean = true): TypeName {
+  return when (asTypeName().toString()) {
+    "java.lang.String" -> String::class.asTypeName()
+    "java.lang.Long" -> Long::class.asTypeName()
+    "java.lang.Double" -> Double::class.asTypeName()
+    "java.lang.Float" -> Float::class.asTypeName()
+    "java.lang.Short" -> Short::class.asTypeName()
+    else -> asTypeName()
+  }.copy(nullable = canBeNullable)
+}
+
 private fun Element.typeName(canBeNullable: Boolean = true): TypeName {
-  return this.asType().let { type ->
-    when (type.asTypeName().toString()) {
-      "java.lang.String" -> String::class.asTypeName()
-      "java.lang.Long" -> Long::class.asTypeName()
-      "java.lang.Double" -> Double::class.asTypeName()
-      "java.lang.Float" -> Float::class.asTypeName()
-      "java.lang.Short" -> Short::class.asTypeName()
-      else -> type.asTypeName()
-    }.copy(nullable = canBeNullable && isNullable())
-  }
+  return this.asType().kotlinTypeName(canBeNullable && isNullable())
 }
