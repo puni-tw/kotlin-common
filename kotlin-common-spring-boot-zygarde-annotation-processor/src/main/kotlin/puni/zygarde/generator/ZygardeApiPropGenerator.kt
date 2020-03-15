@@ -22,7 +22,7 @@ import puni.extension.kotlinpoet.nullableTypeName
 import puni.extension.kotlinpoet.typeName
 import puni.zygarde.api.AdditionalDtoProps
 import puni.zygarde.api.ApiProp
-import puni.zygarde.api.NoOpValueProvider
+import puni.zygarde.api.value.NoOpValueProvider
 
 class ZygardeApiPropGenerator(
   processingEnv: ProcessingEnvironment
@@ -35,7 +35,8 @@ class ZygardeApiPropGenerator(
     val comment: String,
     val dtoRef: String = "",
     val valueProvider: TypeName? = null,
-    val generateToDtoExtension: Boolean = true
+    val generateToDtoExtension: Boolean = false,
+    val generateApplyToEntityExtension: Boolean = false
   )
 
   val dtoPackageName = packageName("data.dto")
@@ -51,7 +52,9 @@ class ZygardeApiPropGenerator(
                 fieldType = safeGetTypeFromAnnotation { additionalDtoProp.fieldType.asTypeName() },
                 name = it,
                 comment = additionalDtoProp.comment,
-                valueProvider = safeGetTypeFromAnnotation { additionalDtoProp.valueProvider.asTypeName() }
+                valueProvider = safeGetTypeFromAnnotation { additionalDtoProp.valueProvider.asTypeName() },
+                generateToDtoExtension = true,
+                generateApplyToEntityExtension = false
               )
             }
           }
@@ -63,34 +66,30 @@ class ZygardeApiPropGenerator(
       .flatMap { elem ->
         elem.getAnnotationsByType(ApiProp::class.java)
           .flatMap { apiProp ->
-            apiProp.dto.map { dto ->
-              val fieldName = elem.fieldName()
-              val refClass = safeGetTypeFromAnnotation { dto.refClass.asTypeName() }.kotlin(false)
-              val valueProvider = safeGetTypeFromAnnotation { dto.valueProvider.asTypeName() }.kotlin(false)
-              val fieldType = when {
-                dto.ref.isNotEmpty() -> ClassName(dtoPackageName, dto.ref)
-                refClass.toString() != "java.lang.Object" -> {
-                  if (dto.refCollection) {
-                    Collection::class.generic(refClass)
-                  } else {
-                    refClass
-                  }
-                }
-                else -> elem.nullableTypeName()
+            listOf(
+              apiProp.dto.map { dto ->
+                toDtoFieldDescription(
+                  elem = elem,
+                  ref = dto.ref,
+                  refClass = safeGetTypeFromAnnotation { dto.refClass.asTypeName() }.kotlin(false),
+                  refCollection = dto.refCollection,
+                  name = dto.name,
+                  comment = apiProp.comment,
+                  valueProvider = safeGetTypeFromAnnotation { dto.valueProvider.asTypeName() }.kotlin(false)
+                ).copy(generateToDtoExtension = true, generateApplyToEntityExtension = false)
+              },
+              apiProp.requestDto.map { dto ->
+                toDtoFieldDescription(
+                  elem = elem,
+                  ref = dto.ref,
+                  refClass = safeGetTypeFromAnnotation { dto.refClass.asTypeName() }.kotlin(false),
+                  refCollection = dto.refCollection,
+                  name = dto.name,
+                  comment = apiProp.comment,
+                  valueProvider = safeGetTypeFromAnnotation { dto.valueProvider.asTypeName() }.kotlin(false)
+                ).copy(generateToDtoExtension = false, generateApplyToEntityExtension = dto.applyValueToEntity)
               }
-              DtoFieldDescriptionVo(
-                fieldName = fieldName,
-                fieldType = fieldType,
-                name = dto.name,
-                comment = apiProp.comment,
-                dtoRef = dto.ref,
-                valueProvider = if (valueProvider.toString() != NoOpValueProvider::class.qualifiedName) {
-                  valueProvider
-                } else {
-                  null
-                }
-              )
-            }
+            ).flatten()
           }
           .toMutableList()
       }
@@ -108,9 +107,17 @@ class ZygardeApiPropGenerator(
           .addAnnotation(ApiModel::class)
         val constructorBuilder = FunSpec.constructorBuilder()
 
-        fileBuilderForExtension.addFunction(
-          generateToDtoExtensionFunction(element, dtoName, dtoFieldDescriptions)
-        )
+        if (dtoFieldDescriptions.any { it.generateToDtoExtension }) {
+          fileBuilderForExtension.addFunction(
+            generateToDtoExtensionFunction(element, dtoName, dtoFieldDescriptions.filter { it.generateToDtoExtension })
+          )
+        }
+
+        if (dtoFieldDescriptions.any { it.generateApplyToEntityExtension }) {
+          fileBuilderForExtension.addFunction(
+            generateApplyToEntityExtensionFunction(element, dtoName, dtoFieldDescriptions.filter { it.generateApplyToEntityExtension })
+          )
+        }
 
         dtoFieldDescriptions.forEach { dto ->
           val fieldName = dto.fieldName
@@ -139,19 +146,54 @@ class ZygardeApiPropGenerator(
     fileBuilderForExtension.build().writeTo(fileTarget)
   }
 
+  private fun toDtoFieldDescription(
+    ref: String,
+    refClass: TypeName,
+    refCollection: Boolean,
+    elem: Element,
+    name: String,
+    comment: String,
+    valueProvider: TypeName
+  ): DtoFieldDescriptionVo {
+    val fieldName = elem.fieldName()
+    val fieldType = when {
+      ref.isNotEmpty() -> ClassName(dtoPackageName, ref)
+      refClass.toString() != "java.lang.Object" -> {
+        if (refCollection) {
+          Collection::class.generic(refClass)
+        } else {
+          refClass
+        }
+      }
+      else -> elem.nullableTypeName()
+    }
+    return DtoFieldDescriptionVo(
+      fieldName = fieldName,
+      fieldType = fieldType,
+      name = name,
+      comment = comment,
+      dtoRef = ref,
+      valueProvider = if (valueProvider.toString() != NoOpValueProvider::class.qualifiedName) {
+        valueProvider
+      } else {
+        null
+      }
+    )
+  }
+
   private fun generateToDtoExtensionFunction(
     element: Element,
     dtoName: String,
     dtoFieldDescriptions: List<DtoFieldDescriptionVo>
   ): FunSpec {
-    val dtoConstuctorArgs = mutableListOf<Any>(ClassName(dtoPackageName, dtoName))
+    val codeBlockArgs = mutableListOf<Any>(ClassName(dtoPackageName, dtoName))
     val dtoFieldSetterStatements = dtoFieldDescriptions
       .map {
         if (it.valueProvider != null) {
-          dtoConstuctorArgs.add(it.valueProvider)
+          codeBlockArgs.add(it.valueProvider)
           "  ${it.fieldName} = %T().getValue(this)"
         } else if (it.dtoRef.isNotEmpty()) {
-          dtoConstuctorArgs.add(MemberName(dtoPackageName, "to${it.dtoRef}"))
+          codeBlockArgs.add(MemberName(dtoPackageName, "to${it.dtoRef}"))
           "  ${it.fieldName} = this.${it.fieldName}.%M()"
         } else {
           "  ${it.fieldName} = this.${it.fieldName}"
@@ -163,8 +205,32 @@ class ZygardeApiPropGenerator(
         """return %T(
 ${dtoFieldSetterStatements.joinToString(",\r\n")}              
 )""".trimMargin(),
-        *dtoConstuctorArgs.toTypedArray()
+        *codeBlockArgs.toTypedArray()
       )
       .build()
+  }
+
+  private fun generateApplyToEntityExtensionFunction(
+    element: Element,
+    dtoName: String,
+    dtoFieldDescriptions: List<DtoFieldDescriptionVo>
+  ): FunSpec {
+    val functionBuilder = FunSpec.builder("applyFrom$dtoName")
+      .addParameter("req", ClassName(dtoPackageName, dtoName))
+      .receiver(element.typeName())
+
+    dtoFieldDescriptions
+      .forEach {
+        if (it.valueProvider != null) {
+          functionBuilder.addStatement(
+            "this.${it.fieldName} = %T().getValue(req.${it.fieldName})",
+            it.valueProvider
+          )
+        } else {
+          functionBuilder.addStatement("this.${it.fieldName} = req.${it.fieldName}")
+        }
+      }
+
+    return functionBuilder.build()
   }
 }

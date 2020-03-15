@@ -4,5 +4,6 @@ package puni.zygarde.api
 @Retention(AnnotationRetention.SOURCE)
 annotation class ApiProp(
   val comment: String = "",
-  val dto: Array<Dto> = []
+  val dto: Array<Dto> = [],
+  val requestDto: Array<RequestDto> = []
 )

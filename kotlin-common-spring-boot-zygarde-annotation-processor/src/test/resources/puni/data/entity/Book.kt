@@ -1,29 +1,37 @@
 package puni.data.entity
 
+import org.springframework.web.bind.annotation.RequestMethod
 import puni.zygarde.api.AdditionalDtoProp
 import puni.zygarde.api.AdditionalDtoProps
 import puni.zygarde.api.ApiPathVariable
 import puni.zygarde.api.ApiProp
-import puni.zygarde.api.AutoIdValueProvider
 import puni.zygarde.api.Dto
 import puni.zygarde.api.GenApi
-import puni.zygarde.api.ZgardeApi
+import puni.zygarde.api.RequestDto
+import puni.zygarde.api.ZygardeApi
+import puni.zygarde.api.value.AutoIdValueProvider
+import puni.zygarde.api.value.ToJsonStringValueProvider
 import java.time.LocalDateTime
 import javax.persistence.Entity
 import javax.persistence.Lob
 import javax.persistence.ManyToOne
 
 @Entity
-@ZgardeApi(
+@ZygardeApi(
   [
     GenApi(
+      method = RequestMethod.POST,
       path = "/api/author/{authorId}/book",
+      pathVariable = [
+        ApiPathVariable("authorId", Long::class)
+      ],
       apiName = "AuthorApi",
       apiOperation = "createBook",
       apiDescription = "create a book to author",
-      pathVariable = [
-        ApiPathVariable("authorId", Long::class)
-      ]
+      serviceName = "AuthorService",
+      serviceMethod = "createBook",
+      reqRef = "Create",
+      resRef = "Detail"
     )
   ]
 )
@@ -44,6 +52,9 @@ class Book(
       Dto(),
       Dto(name = "Detail")
     ],
+    requestDto = [
+      RequestDto("Create")
+    ],
     comment = "name of book"
   )
   var name: String = "",
@@ -51,6 +62,9 @@ class Book(
     dto = [
       Dto(),
       Dto(name = "Detail")
+    ],
+    requestDto = [
+      RequestDto("Create")
     ],
     comment = "price of book"
   )
@@ -97,6 +111,14 @@ class Book(
         refClass = String::class,
         refCollection = true,
         valueProvider = BookTagsValueProvider::class
+      )
+    ],
+    requestDto = [
+      RequestDto(
+        "Create",
+        refClass = String::class,
+        refCollection = true,
+        valueProvider = ToJsonStringValueProvider::class
       )
     ]
   )
