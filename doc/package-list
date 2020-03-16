@@ -9,6 +9,15 @@ $dokka.location:puni.extension.jackson$jsonStringToMap(kotlin.String, kotlin.ref
 $dokka.location:puni.extension.jackson$jsonStringToObject(kotlin.String)puni.extension.jackson/kotlin.-string/json-string-to-object.html
 $dokka.location:puni.extension.jackson$jsonStringToObject(kotlin.String, kotlin.reflect.KClass((puni.extension.jackson.jsonStringToObject.T)))puni.extension.jackson/kotlin.-string/json-string-to-object.html
 $dokka.location:puni.extension.jackson$toJsonString(kotlin.Any)puni.extension.jackson/kotlin.-any/to-json-string.html
+$dokka.location:puni.extension.kotlinpoet$fieldName(javax.lang.model.element.Element)puni.extension.kotlinpoet/javax.lang.model.element.-element/field-name.html
+$dokka.location:puni.extension.kotlinpoet$isNullable(javax.lang.model.element.Element)puni.extension.kotlinpoet/javax.lang.model.element.-element/is-nullable.html
+$dokka.location:puni.extension.kotlinpoet$isPrimitive(javax.lang.model.element.Element)puni.extension.kotlinpoet/javax.lang.model.element.-element/is-primitive.html
+$dokka.location:puni.extension.kotlinpoet$kotlin(com.squareup.kotlinpoet.TypeName, kotlin.Boolean)puni.extension.kotlinpoet/com.squareup.kotlinpoet.-type-name/kotlin.html
+$dokka.location:puni.extension.kotlinpoet$kotlinTypeName(javax.lang.model.type.TypeMirror, kotlin.Boolean)puni.extension.kotlinpoet/javax.lang.model.type.-type-mirror/kotlin-type-name.html
+$dokka.location:puni.extension.kotlinpoet$name(javax.lang.model.element.Element)puni.extension.kotlinpoet/javax.lang.model.element.-element/name.html
+$dokka.location:puni.extension.kotlinpoet$nullableTypeName(javax.lang.model.element.Element)puni.extension.kotlinpoet/javax.lang.model.element.-element/nullable-type-name.html
+$dokka.location:puni.extension.kotlinpoet$tryGetInitializeCodeBlock(javax.lang.model.element.Element)puni.extension.kotlinpoet/javax.lang.model.element.-element/try-get-initialize-code-block.html
+$dokka.location:puni.extension.kotlinpoet$typeName(javax.lang.model.element.Element)puni.extension.kotlinpoet/javax.lang.model.element.-element/type-name.html
 $dokka.location:puni.extension.string$replaceByArgs(kotlin.String, kotlin.Array((kotlin.Any)))puni.extension.string/kotlin.-string/replace-by-args.html
 puni.auth
 puni.auth.api
@@ -16,7 +25,6 @@ puni.auth.api.impl
 puni.auth.filter
 puni.auth.service
 puni.auth.web.exception.mapper
-puni.data
 puni.data.dao
 puni.data.dto
 puni.data.dto.auth
@@ -25,12 +33,12 @@ puni.data.entity
 puni.data.jpa
 puni.data.search
 puni.data.search.impl
-puni.data.service
 puni.data.vo.auth
 puni.exception
 puni.extension.exception
 puni.extension.general
 puni.extension.jackson
+puni.extension.kotlinpoet
 puni.extension.string
 puni.log
 puni.spring.autoconfigure
@@ -39,4 +47,12 @@ puni.spring.web.exception
 puni.spring.web.exception.mapper
 puni.test.spring.config
 puni.test.support
+puni.zygarde
+puni.zygarde.api
+puni.zygarde.api.value
+puni.zygarde.di
+puni.zygarde.di.autoconfigure
+puni.zygarde.generator
+puni.zygarde.option
+puni.zygarde.properties
 springfox.documentation.swagger.readers.operation
