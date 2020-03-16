@@ -19,8 +19,9 @@ dependencies {
   testApi(project(":kotlin-common-jackson"))
   testApi(project(":kotlin-common-spring-boot-zygarde"))
   testApi(project(":kotlin-common-test"))
+  testApi("com.github.tschuchortdev:kotlin-compile-testing:1.2.6")
+  testApi("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.3.61")
   testImplementation("org.springframework.boot:spring-boot-starter-json")
-  testImplementation("com.github.tschuchortdev:kotlin-compile-testing:1.2.6")
 }
 
 tasks.getByName("bootJar").enabled = false

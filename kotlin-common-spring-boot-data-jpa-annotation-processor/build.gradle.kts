@@ -11,8 +11,8 @@ dependencies {
 
   testApi(project(":kotlin-common-spring-boot-data-jpa"))
   testApi(project(":kotlin-common-test"))
+  testApi("com.github.tschuchortdev:kotlin-compile-testing:1.2.6")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
-  testImplementation("com.github.tschuchortdev:kotlin-compile-testing:1.2.6")
 }
 
 tasks.getByName("bootJar").enabled = false
