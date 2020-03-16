@@ -12,6 +12,7 @@ class EntityApiProcessorTest : StringSpec({
   "should able to compile" {
     val result = KotlinCompilation().apply {
       sources = listOf(
+        "puni/data/entity/User.kt",
         "puni/data/entity/Book.kt",
         "puni/data/entity/Author.kt",
         "puni/data/entity/BookTagsValueProvider.kt"

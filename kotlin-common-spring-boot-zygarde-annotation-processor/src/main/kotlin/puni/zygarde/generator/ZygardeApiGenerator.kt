@@ -114,11 +114,10 @@ class ZygardeApiGenerator(
             }
             .build()
         )
-
-        serviceFileBuilder.addType(serviceInterfaceBuilder.build())
-          .build()
-          .writeTo(fileTarget)
       }
+      serviceFileBuilder.addType(serviceInterfaceBuilder.build())
+        .build()
+        .writeTo(fileTarget)
     }
   }
 

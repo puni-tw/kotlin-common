@@ -76,7 +76,7 @@ class ZygardeApiPropGenerator(
                   name = dto.name,
                   comment = apiProp.comment,
                   valueProvider = safeGetTypeFromAnnotation { dto.valueProvider.asTypeName() }.kotlin(false)
-                ).copy(generateToDtoExtension = true, generateApplyToEntityExtension = false)
+                ).copy(generateToDtoExtension = dto.applyValueFromEntity, generateApplyToEntityExtension = false)
               },
               apiProp.requestDto.map { dto ->
                 toDtoFieldDescription(
