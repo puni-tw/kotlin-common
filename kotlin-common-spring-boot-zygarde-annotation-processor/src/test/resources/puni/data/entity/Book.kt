@@ -58,6 +58,7 @@ class Book(
     comment = "name of book"
   )
   var name: String = "",
+
   @ApiProp(
     dto = [
       Dto(),
@@ -69,24 +70,28 @@ class Book(
     comment = "price of book"
   )
   var price: Int = 0,
+
   @ApiProp(
     dto = [
       Dto(name = "Detail")
     ]
   )
   var priceD: Double? = null,
+
   @ApiProp(
     dto = [
       Dto(name = "Detail")
     ]
   )
   var priceF: Float? = null,
+
   @ApiProp(
     dto = [
       Dto(name = "Detail")
     ]
   )
   var priceS: Short? = null,
+
   @ApiProp(
     dto = [
       Dto(ref = "AuthorDto"),
@@ -96,6 +101,7 @@ class Book(
   )
   @ManyToOne(targetEntity = Author::class)
   var author: Author = Author(),
+
   @ApiProp(
     dto = [
       Dto(),

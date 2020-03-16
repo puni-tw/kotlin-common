@@ -10,6 +10,7 @@ import javax.lang.model.element.TypeElement
 import javax.persistence.Entity
 import puni.data.jpa.EntityFieldProcessor
 import puni.extension.kotlinpoet.KaptOptions
+import puni.zygarde.generator.ZygardeApiGenerator
 import puni.zygarde.generator.ZygardeApiPropGenerator
 import puni.zygarde.generator.ZygardeDaoGenerator
 
@@ -27,6 +28,8 @@ class EntityApiProcessor : EntityFieldProcessor() {
       ZygardeApiPropGenerator(processingEnv).generateDtoForEntityElement(it)
       // generateRequests(it)
     }
+
+    ZygardeApiGenerator(processingEnv).generateApi(elementsAnnotatedWithEntity)
     return false
   }
 
