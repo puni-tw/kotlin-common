@@ -55,7 +55,7 @@ class ZygardeApiGenerator(
   private val apiPackage = packageName("api")
   private val apiImplPackage = packageName("api.impl")
 
-  private val beanFunc = MemberName(ClassName("puni.zygarde.di", "DiServiceContext"), "bean")
+  private val beanFunc = MemberName("puni.zygarde.di", "bean")
 
   fun generateApi(elements: Collection<Element>) {
     val apis = elements.flatMap { elem ->
