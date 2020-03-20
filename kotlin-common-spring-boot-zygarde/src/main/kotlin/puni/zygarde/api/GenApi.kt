@@ -14,5 +14,7 @@ annotation class GenApi(
   val serviceName: String,
   val serviceMethod: String,
   val reqRef: String,
-  val resRef: String
+  val reqCollection: Boolean = false,
+  val resRef: String,
+  val resCollection: Boolean = false
 )

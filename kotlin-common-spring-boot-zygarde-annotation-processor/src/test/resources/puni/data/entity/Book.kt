@@ -30,15 +30,15 @@ import javax.persistence.ManyToOne
       apiDescription = "create a book to author",
       serviceName = "AuthorService",
       serviceMethod = "createBook",
-      reqRef = "Create",
-      resRef = "Detail"
+      reqRef = "BookCreateRequest",
+      resRef = "BookDetailDto"
     )
   ]
 )
 @AdditionalDtoProps(
   [
     AdditionalDtoProp(
-      forDto = ["", "Detail"],
+      forDto = ["", "BookDetailDto"],
       field = "id",
       fieldType = Long::class,
       comment = "id of Book",
@@ -50,10 +50,10 @@ class Book(
   @ApiProp(
     dto = [
       Dto(),
-      Dto(name = "Detail")
+      Dto(name = "BookDetailDto")
     ],
     requestDto = [
-      RequestDto("Create")
+      RequestDto("BookCreateRequest")
     ],
     comment = "name of book"
   )
@@ -62,10 +62,10 @@ class Book(
   @ApiProp(
     dto = [
       Dto(),
-      Dto(name = "Detail")
+      Dto(name = "BookDetailDto")
     ],
     requestDto = [
-      RequestDto("Create")
+      RequestDto("BookCreateRequest")
     ],
     comment = "price of book"
   )
@@ -73,21 +73,21 @@ class Book(
 
   @ApiProp(
     dto = [
-      Dto(name = "Detail")
+      Dto(name = "BookDetailDto")
     ]
   )
   var priceD: Double? = null,
 
   @ApiProp(
     dto = [
-      Dto(name = "Detail")
+      Dto(name = "BookDetailDto")
     ]
   )
   var priceF: Float? = null,
 
   @ApiProp(
     dto = [
-      Dto(name = "Detail")
+      Dto(name = "BookDetailDto")
     ]
   )
   var priceS: Short? = null,
@@ -95,7 +95,7 @@ class Book(
   @ApiProp(
     dto = [
       Dto(ref = "AuthorDto"),
-      Dto(name = "Detail", ref = "AuthorDto")
+      Dto(name = "BookDetailDto", ref = "AuthorDto")
     ],
     comment = "author of book"
   )
@@ -105,7 +105,7 @@ class Book(
   @ApiProp(
     dto = [
       Dto(),
-      Dto(name = "Detail")
+      Dto(name = "BookDetailDto")
     ]
   )
   var releaseAt: LocalDateTime = LocalDateTime.now(),
@@ -113,7 +113,7 @@ class Book(
   @ApiProp(
     dto = [
       Dto(
-        name = "Detail",
+        name = "BookDetailDto",
         refClass = String::class,
         refCollection = true,
         valueProvider = BookTagsValueProvider::class
@@ -121,7 +121,7 @@ class Book(
     ],
     requestDto = [
       RequestDto(
-        "Create",
+        "BookCreateRequest",
         refClass = String::class,
         refCollection = true,
         valueProvider = ToJsonStringValueProvider::class

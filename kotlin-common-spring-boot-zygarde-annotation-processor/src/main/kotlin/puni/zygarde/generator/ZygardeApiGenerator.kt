@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
-import puni.extension.kotlinpoet.name
 import puni.zygarde.api.ZygardeApi
 
 class ZygardeApiGenerator(
@@ -59,8 +58,8 @@ class ZygardeApiGenerator(
 
   fun generateApi(elements: Collection<Element>) {
     val apis = elements.flatMap { elem ->
-      elem.getAnnotation(ZygardeApi::class.java)?.let {
-        it.api.map { genApi ->
+      elem.getAnnotation(ZygardeApi::class.java)?.let { zygardeApi ->
+        zygardeApi.api.map { genApi ->
           GenApiDescriptionVo(
             elem,
             method = genApi.method,
@@ -76,8 +75,20 @@ class ZygardeApiGenerator(
             apiDescription = genApi.apiDescription,
             serviceName = genApi.serviceName,
             serviceMethod = genApi.serviceMethod,
-            reqRef = if (genApi.reqRef.isEmpty()) null else ClassName(dtoPackage, "${elem.name()}${genApi.reqRef}Dto"),
-            resRef = if (genApi.resRef.isEmpty()) null else ClassName(dtoPackage, "${elem.name()}${genApi.resRef}Dto")
+            reqRef = if (genApi.reqRef.isEmpty()) null else ClassName(dtoPackage, genApi.reqRef).let {
+              if (genApi.reqCollection) {
+                Collection::class.generic(it)
+              } else {
+                it
+              }
+            },
+            resRef = if (genApi.resRef.isEmpty()) null else ClassName(dtoPackage, genApi.resRef).let {
+              if (genApi.resCollection) {
+                Collection::class.generic(it)
+              } else {
+                it
+              }
+            }
           )
         }
       } ?: emptyList()

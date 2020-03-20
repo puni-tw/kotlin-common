@@ -29,8 +29,11 @@ class EntityApiProcessorTest : StringSpec({
 
     result.exitCode shouldBe KotlinCompilation.ExitCode.OK
     result.generatedFiles.filter { it.name.endsWith(".kt") }.forEach {
+      println("------------------")
       println(it.name)
       println(it.readText())
+      println()
+      println("------------------")
     }
 
     // val requestDtoClass = result.classLoader.loadClass("puni.data.entity.api.CreateBookBaseRequestDto")
