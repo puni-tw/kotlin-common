@@ -15,6 +15,7 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-security")
   implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
   testApi(project(":kotlin-common-test-spring"))
+  kapt("org.springframework.boot:spring-boot-configuration-processor")
 }
 
 tasks.getByName("bootJar").enabled = false

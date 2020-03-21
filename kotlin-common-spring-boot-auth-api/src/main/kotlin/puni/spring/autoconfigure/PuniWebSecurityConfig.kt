@@ -1,9 +1,11 @@
 package puni.spring.autoconfigure
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.annotation.Order
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -18,10 +20,12 @@ import puni.auth.filter.AuthFilter
 /**
  * @author leo
  */
+@Order(1000)
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
 @Configuration
 @ComponentScan("puni.auth")
+@ConditionalOnProperty("puni.auth.security-config.enabled", havingValue = "true")
 class PuniWebSecurityConfig : WebSecurityConfigurerAdapter() {
 
   @Autowired
