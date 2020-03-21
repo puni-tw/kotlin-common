@@ -18,11 +18,11 @@ fun <T> JpaSpecificationExecutor<T>.search(searchContent: EnhancedSearch<T>.() -
   return findAll(buildSpec(searchContent))
 }
 
-fun <T> JpaSpecificationExecutor<T>.count(searchContent: EnhancedSearch<T>.() -> Unit): Long {
+fun <T> JpaSpecificationExecutor<T>.searchCount(searchContent: EnhancedSearch<T>.() -> Unit): Long {
   return count(buildSpec(searchContent))
 }
 
-fun <T> JpaSpecificationExecutor<T>.findOne(searchContent: EnhancedSearch<T>.() -> Unit): T? {
+fun <T> JpaSpecificationExecutor<T>.searchOne(searchContent: EnhancedSearch<T>.() -> Unit): T? {
   return findOne(buildSpec(searchContent)).let { if (it.isPresent) it.get() else null }
 }
 
