@@ -22,6 +22,10 @@ fun <T> JpaSpecificationExecutor<T>.count(searchContent: EnhancedSearch<T>.() ->
   return count(buildSpec(searchContent))
 }
 
+fun <T> JpaSpecificationExecutor<T>.findOne(searchContent: EnhancedSearch<T>.() -> Unit): T? {
+  return findOne(buildSpec(searchContent)).let { if (it.isPresent) it.get() else null }
+}
+
 fun <T> JpaSpecificationExecutor<T>.searchPage(
   req: PadingAndSortingRequest,
   searchContent: EnhancedSearch<T>.() -> Unit
