@@ -8,7 +8,7 @@
 <a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">puni.spring.autoconfigure</a>&nbsp;/&nbsp;<a href="./index.html">PuniWebSecurityConfig</a><br/>
 <br/>
 <h1>PuniWebSecurityConfig</h1>
-<code><span class="identifier">@EnableWebSecurity</span> <span class="identifier">@EnableGlobalMethodSecurity</span><span class="symbol">(</span>true<span class="symbol">, </span>true<span class="symbol">)</span> <span class="identifier">@Configuration</span> <span class="identifier">@ComponentScan</span><span class="symbol">(</span>["puni.auth"]<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">PuniWebSecurityConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">WebSecurityConfigurerAdapter</span></code>
+<code><span class="identifier">@Order</span><span class="symbol">(</span>1000<span class="symbol">)</span> <span class="identifier">@EnableWebSecurity</span> <span class="identifier">@EnableGlobalMethodSecurity</span><span class="symbol">(</span>true<span class="symbol">, </span>true<span class="symbol">)</span> <span class="identifier">@Configuration</span> <span class="identifier">@ComponentScan</span><span class="symbol">(</span>["puni.auth"]<span class="symbol">)</span> <span class="identifier">@ConditionalOnProperty</span><span class="symbol">(</span>"true"<span class="symbol">, </span>["puni.auth.security-config.enabled"]<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">PuniWebSecurityConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">WebSecurityConfigurerAdapter</span></code>
 <p><strong>Author</strong><br/>
 leo</p>
 <h3>Constructors</h3>

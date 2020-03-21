@@ -45,6 +45,7 @@ puni.extension.jackson
 puni.extension.kotlinpoet
 puni.extension.string
 puni.log
+puni.properties
 puni.spring.autoconfigure
 puni.spring.fixture
 puni.spring.web.exception
