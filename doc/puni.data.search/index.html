@@ -34,10 +34,45 @@
 </tr>
 <tr>
 <td>
+<h4><a href="-pading-and-sorting-request/index.html">PadingAndSortingRequest</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">PadingAndSortingRequest</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-paging-request/index.html">PagingRequest</a></h4>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">PagingRequest</span></code></td>
+</tr>
+<tr>
+<td>
 <h4><a href="-searchable/index.html">Searchable</a></h4>
 </td>
 <td>
 <code><span class="keyword">interface </span><span class="identifier">Searchable</span><span class="symbol">&lt;</span><span class="identifier">F</span><span class="symbol">, </span><span class="identifier">T</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-search-date-range/index.html">SearchDateRange</a></h4>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">SearchDateRange</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-search-date-time-range/index.html">SearchDateTimeRange</a></h4>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">SearchDateTimeRange</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-sorting-request/index.html">SortingRequest</a></h4>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">SortingRequest</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -50,6 +85,39 @@
 </td>
 <td>
 </td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="as-sort.html">asSort</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="-sorting-request/index.html"><span class="identifier">SortingRequest</span></a><span class="symbol">?</span><span class="symbol">.</span><span class="identifier">asSort</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Sort</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="date-range.html">dateRange</a></h4>
+</td>
+<td>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">U</span><span class="symbol">&gt;</span> <a href="-comparable-condition-action/index.html"><span class="identifier">ComparableConditionAction</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">U</span><span class="symbol">,</span>&nbsp;<span class="identifier">LocalDate</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">dateRange</span><span class="symbol">(</span><span class="identifier" id="puni.data.search$dateRange(puni.data.search.ComparableConditionAction((puni.data.search.dateRange.T, puni.data.search.dateRange.U, java.time.LocalDate)), puni.data.search.SearchDateRange)/dateRange">dateRange</span><span class="symbol">:</span>&nbsp;<a href="-search-date-range/index.html"><span class="identifier">SearchDateRange</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="date-time-range.html">dateTimeRange</a></h4>
+</td>
+<td>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">U</span><span class="symbol">&gt;</span> <a href="-comparable-condition-action/index.html"><span class="identifier">ComparableConditionAction</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">U</span><span class="symbol">,</span>&nbsp;<span class="identifier">LocalDateTime</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">dateTimeRange</span><span class="symbol">(</span><span class="identifier" id="puni.data.search$dateTimeRange(puni.data.search.ComparableConditionAction((puni.data.search.dateTimeRange.T, puni.data.search.dateTimeRange.U, java.time.LocalDateTime)), puni.data.search.SearchDateTimeRange)/dateTimeRange">dateTimeRange</span><span class="symbol">:</span>&nbsp;<a href="-search-date-time-range/index.html"><span class="identifier">SearchDateTimeRange</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="to-page-request.html">toPageRequest</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="-paging-request/index.html"><span class="identifier">PagingRequest</span></a><span class="symbol">.</span><span class="identifier">toPageRequest</span><span class="symbol">(</span><span class="identifier" id="puni.data.search$toPageRequest(puni.data.search.PagingRequest, org.springframework.data.domain.Sort)/sort">sort</span><span class="symbol">:</span>&nbsp;<span class="identifier">Sort</span>&nbsp;<span class="symbol">=</span>&nbsp;Sort.unsorted()<span class="symbol">)</span><span class="symbol">: </span><span class="identifier">PageRequest</span></code></td>
 </tr>
 </tbody>
 </table>

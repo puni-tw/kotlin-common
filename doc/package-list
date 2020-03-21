@@ -1,6 +1,8 @@
 $dokka.format:html
 $dokka.linkExtension:html
+$dokka.location:puni.data.search$count(org.springframework.data.jpa.repository.JpaSpecificationExecutor((puni.data.search.count.T)), kotlin.Function1((puni.data.search.EnhancedSearch((puni.data.search.count.T)), kotlin.Unit)))puni.data.search/org.springframework.data.jpa.repository.-jpa-specification-executor/count.html
 $dokka.location:puni.data.search$search(org.springframework.data.jpa.repository.JpaSpecificationExecutor((puni.data.search.search.T)), kotlin.Function1((puni.data.search.EnhancedSearch((puni.data.search.search.T)), kotlin.Unit)))puni.data.search/org.springframework.data.jpa.repository.-jpa-specification-executor/search.html
+$dokka.location:puni.data.search$searchPage(org.springframework.data.jpa.repository.JpaSpecificationExecutor((puni.data.search.searchPage.T)), puni.data.search.PadingAndSortingRequest, kotlin.Function1((puni.data.search.EnhancedSearch((puni.data.search.searchPage.T)), kotlin.Unit)))puni.data.search/org.springframework.data.jpa.repository.-jpa-specification-executor/search-page.html
 $dokka.location:puni.extension.jackson$jsonMapToObject(kotlin.collections.Map((kotlin.Any, )))puni.extension.jackson/kotlin.collections.-map/json-map-to-object.html
 $dokka.location:puni.extension.jackson$jsonStringToList(kotlin.String)puni.extension.jackson/kotlin.-string/json-string-to-list.html
 $dokka.location:puni.extension.jackson$jsonStringToList(kotlin.String, kotlin.reflect.KClass((puni.extension.jackson.jsonStringToList.T)))puni.extension.jackson/kotlin.-string/json-string-to-list.html
@@ -19,6 +21,7 @@ $dokka.location:puni.extension.kotlinpoet$nullableTypeName(javax.lang.model.elem
 $dokka.location:puni.extension.kotlinpoet$tryGetInitializeCodeBlock(javax.lang.model.element.Element)puni.extension.kotlinpoet/javax.lang.model.element.-element/try-get-initialize-code-block.html
 $dokka.location:puni.extension.kotlinpoet$typeName(javax.lang.model.element.Element)puni.extension.kotlinpoet/javax.lang.model.element.-element/type-name.html
 $dokka.location:puni.extension.string$replaceByArgs(kotlin.String, kotlin.Array((kotlin.Any)))puni.extension.string/kotlin.-string/replace-by-args.html
+$dokka.location:puni.zygarde.extensions.page$toPageDto(org.springframework.data.domain.Page((puni.zygarde.extensions.page.toPageDto.T)), kotlin.Function1((puni.zygarde.extensions.page.toPageDto.T, puni.zygarde.extensions.page.toPageDto.DTO)))puni.zygarde.extensions.page/org.springframework.data.domain.-page/to-page-dto.html
 puni.auth
 puni.auth.api
 puni.auth.api.impl
@@ -50,8 +53,10 @@ puni.test.support
 puni.zygarde
 puni.zygarde.api
 puni.zygarde.api.value
+puni.zygarde.data.dto
 puni.zygarde.di
 puni.zygarde.di.autoconfigure
+puni.zygarde.extensions.page
 puni.zygarde.generator
 puni.zygarde.option
 puni.zygarde.properties
