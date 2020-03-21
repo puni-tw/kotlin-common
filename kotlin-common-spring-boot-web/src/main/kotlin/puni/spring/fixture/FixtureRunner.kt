@@ -1,7 +1,8 @@
 package puni.spring.fixture
 
-import javax.annotation.PostConstruct
 import org.springframework.context.ApplicationContext
+import org.springframework.context.ApplicationListener
+import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
 import puni.log.Loggable
@@ -9,9 +10,12 @@ import puni.log.Loggable
 @Order(Ordered.LOWEST_PRECEDENCE)
 class FixtureRunner(
   private val applicationContext: ApplicationContext
-) : Loggable {
+) : Loggable, ApplicationListener<ContextRefreshedEvent> {
 
-  @PostConstruct
+  override fun onApplicationEvent(event: ContextRefreshedEvent) {
+    runAllFixtures()
+  }
+
   fun runAllFixtures() {
     applicationContext.getBeansOfType(Fixture::class.java)
       .map { it.value }
