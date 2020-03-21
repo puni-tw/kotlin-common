@@ -41,7 +41,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-wrapper
       - name: Build with Gradle
-        run: ./gradlew build dokka
+        run: ./gradlew build dokka -x test
       - name: Publish artifact
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
