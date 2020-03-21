@@ -8,7 +8,7 @@
 <a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">puni.spring.fixture</a>&nbsp;/&nbsp;<a href="./index.html">FixtureRunner</a><br/>
 <br/>
 <h1>FixtureRunner</h1>
-<code><span class="identifier">@Order</span><span class="symbol">(</span>2147483647<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">FixtureRunner</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../puni.log/-loggable/index.html"><span class="identifier">Loggable</span></a></code>
+<code><span class="identifier">@Order</span><span class="symbol">(</span>2147483647<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">FixtureRunner</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../puni.log/-loggable/index.html"><span class="identifier">Loggable</span></a><span class="symbol">, </span><span class="identifier">ApplicationListener</span><span class="symbol">&lt;</span><span class="identifier">ContextRefreshedEvent</span><span class="symbol">&gt;</span></code>
 <h3>Constructors</h3>
 <table>
 <tbody>
@@ -24,6 +24,13 @@
 <h3>Functions</h3>
 <table>
 <tbody>
+<tr>
+<td>
+<h4><a href="on-application-event.html">onApplicationEvent</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onApplicationEvent</span><span class="symbol">(</span><span class="identifier" id="puni.spring.fixture.FixtureRunner$onApplicationEvent(org.springframework.context.event.ContextRefreshedEvent)/event">event</span><span class="symbol">:</span>&nbsp;<span class="identifier">ContextRefreshedEvent</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
 <tr>
 <td>
 <h4><a href="run-all-fixtures.html">runAllFixtures</a></h4>
