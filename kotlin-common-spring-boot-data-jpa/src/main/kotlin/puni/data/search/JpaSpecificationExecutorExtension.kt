@@ -1,17 +1,30 @@
 package puni.data.search
 
-import javax.persistence.criteria.CriteriaBuilder
-import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.Predicate
-import javax.persistence.criteria.Root
+import org.springframework.data.domain.Page
+import org.springframework.data.jpa.domain.Specification
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import puni.data.search.impl.EnhancedSearchImpl
 
-fun <T> JpaSpecificationExecutor<T>.search(searchContent: EnhancedSearch<T>.() -> Unit): List<T> {
+private fun <T> buildSpec(searchContent: EnhancedSearch<T>.() -> Unit): Specification<T> {
   val predicates = mutableListOf<Predicate>()
-  val specification: (Root<T>, CriteriaQuery<*>, CriteriaBuilder) -> Predicate = { root, query, cb ->
+  return Specification<T> { root, query, cb ->
     searchContent.invoke(EnhancedSearchImpl(predicates, root, query, cb))
     cb.and(*predicates.toTypedArray())
   }
-  return findAll(specification)
+}
+
+fun <T> JpaSpecificationExecutor<T>.search(searchContent: EnhancedSearch<T>.() -> Unit): List<T> {
+  return findAll(buildSpec(searchContent))
+}
+
+fun <T> JpaSpecificationExecutor<T>.count(searchContent: EnhancedSearch<T>.() -> Unit): Long {
+  return count(buildSpec(searchContent))
+}
+
+fun <T> JpaSpecificationExecutor<T>.searchPage(
+  req: PadingAndSortingRequest,
+  searchContent: EnhancedSearch<T>.() -> Unit
+): Page<T> {
+  return findAll(buildSpec(searchContent), req.paging.toPageRequest(req.sorting.asSort()))
 }

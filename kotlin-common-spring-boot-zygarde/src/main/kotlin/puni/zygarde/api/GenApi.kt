@@ -8,13 +8,12 @@ annotation class GenApi(
   val method: RequestMethod,
   val path: String,
   val pathVariable: Array<ApiPathVariable> = [],
-  val apiName: String,
-  val apiOperation: String,
+  val api: String,
   val apiDescription: String = "",
-  val serviceName: String,
-  val serviceMethod: String,
+  val service: String,
   val reqRef: String,
   val reqCollection: Boolean = false,
   val resRef: String,
-  val resCollection: Boolean = false
+  val resCollection: Boolean = false,
+  val resPage: Boolean = false
 )

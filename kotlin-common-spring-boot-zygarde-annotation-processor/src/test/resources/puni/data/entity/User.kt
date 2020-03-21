@@ -20,24 +20,18 @@ private const val REQ_DO_VALIDATE_PHONE = "ValidatePhoneRequest"
     GenApi(
       method = RequestMethod.POST,
       path = "/p/api/phoneValidation",
-      pathVariable = [],
-      apiName = UserApi,
-      apiOperation = "sendPhoneValidation",
+      api = "${UserApi}.sendPhoneValidation",
       apiDescription = "發送簡訊驗證碼",
-      serviceName = PhoneService,
-      serviceMethod = "sendPhoneValidation",
+      service = "${PhoneService}.sendPhoneValidation",
       reqRef = REQ_SEND_VALIDATE_PHONE,
       resRef = RES_SEND_VALIDATE_PHONE
     ),
     GenApi(
       method = RequestMethod.PUT,
       path = "/p/api/phoneValidation",
-      pathVariable = [],
-      apiName = UserApi,
-      apiOperation = "doValidatePhone",
+      api = "${UserApi}.doValidatePhone",
       apiDescription = "驗證手機驗證碼",
-      serviceName = PhoneService,
-      serviceMethod = "doValidatePhone",
+      service = "${PhoneService}.doValidatePhone",
       reqRef = REQ_DO_VALIDATE_PHONE,
       resRef = ""
     )

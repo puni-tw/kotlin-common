@@ -7,10 +7,10 @@ import puni.zygarde.api.value.ValueProvider
 @Target(AnnotationTarget.ANNOTATION_CLASS)
 @Retention(AnnotationRetention.SOURCE)
 annotation class Dto(
-  val name: String = "",
-  val refClass: KClass<*> = Any::class,
-  val refCollection: Boolean = false,
+  val name: String,
   val ref: String = "",
+  val refCollection: Boolean = false,
+  val refClass: KClass<*> = Any::class,
   val applyValueFromEntity: Boolean = true,
   val valueProvider: KClass<out ValueProvider<*, *>> = NoOpValueProvider::class
 )

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 import puni.zygarde.api.ZygardeApi
+import puni.zygarde.data.dto.PageDto
 
 class ZygardeApiGenerator(
   processingEnv: ProcessingEnvironment
@@ -60,6 +61,8 @@ class ZygardeApiGenerator(
     val apis = elements.flatMap { elem ->
       elem.getAnnotation(ZygardeApi::class.java)?.let { zygardeApi ->
         zygardeApi.api.map { genApi ->
+          val (apiName, apiOperation) = genApi.api.split(".").let { it[0] to it[1] }
+          val (serviceName, serviceMethod) = genApi.service.split(".").let { it[0] to it[1] }
           GenApiDescriptionVo(
             elem,
             method = genApi.method,
@@ -70,11 +73,11 @@ class ZygardeApiGenerator(
                 safeGetTypeFromAnnotation { pathVariable.type.asTypeName() }
               )
             },
-            apiName = genApi.apiName,
-            apiOperation = genApi.apiOperation,
+            apiName = apiName,
+            apiOperation = apiOperation,
             apiDescription = genApi.apiDescription,
-            serviceName = genApi.serviceName,
-            serviceMethod = genApi.serviceMethod,
+            serviceName = serviceName,
+            serviceMethod = serviceMethod,
             reqRef = if (genApi.reqRef.isEmpty()) null else ClassName(dtoPackage, genApi.reqRef).let {
               if (genApi.reqCollection) {
                 Collection::class.generic(it)
@@ -85,6 +88,8 @@ class ZygardeApiGenerator(
             resRef = if (genApi.resRef.isEmpty()) null else ClassName(dtoPackage, genApi.resRef).let {
               if (genApi.resCollection) {
                 Collection::class.generic(it)
+              } else if (genApi.resPage) {
+                PageDto::class.generic(it)
               } else {
                 it
               }

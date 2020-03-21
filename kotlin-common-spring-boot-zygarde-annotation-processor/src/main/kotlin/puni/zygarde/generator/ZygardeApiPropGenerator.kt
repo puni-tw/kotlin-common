@@ -15,6 +15,8 @@ import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 import javax.annotation.processing.ProcessingEnvironment
 import javax.lang.model.element.Element
+import javax.persistence.Transient
+import puni.data.search.EnhancedSearch
 import puni.extension.kotlinpoet.fieldName
 import puni.extension.kotlinpoet.kotlin
 import puni.extension.kotlinpoet.name
@@ -22,6 +24,8 @@ import puni.extension.kotlinpoet.nullableTypeName
 import puni.extension.kotlinpoet.typeName
 import puni.zygarde.api.AdditionalDtoProps
 import puni.zygarde.api.ApiProp
+import puni.zygarde.api.DtoInherits
+import puni.zygarde.api.SearchType
 import puni.zygarde.api.value.NoOpValueProvider
 
 class ZygardeApiPropGenerator(
@@ -37,12 +41,18 @@ class ZygardeApiPropGenerator(
     val dtoRefCollection: Boolean = false,
     val valueProvider: TypeName? = null,
     val generateToDtoExtension: Boolean = false,
-    val generateApplyToEntityExtension: Boolean = false
+    val generateApplyToEntityExtension: Boolean = false,
+    val searchType: SearchType = SearchType.NONE,
+    val searchForField: String? = null
   )
 
   val dtoPackageName = packageName("data.dto")
 
   fun generateDtoForEntityElement(element: Element) {
+    val dtoInheritMap = (element.getAnnotation(DtoInherits::class.java)?.value ?: emptyArray())
+      .map { it.dto to safeGetTypeFromAnnotation { it.inherit.asTypeName() } }
+      .toMap()
+
     val dtoDescriptionsFromAdditionalDtoProps = (
       element.getAnnotation(AdditionalDtoProps::class.java)
         ?.let { additionalDtoProps ->
@@ -51,7 +61,7 @@ class ZygardeApiPropGenerator(
               DtoFieldDescriptionVo(
                 fieldName = additionalDtoProp.field,
                 fieldType = safeGetTypeFromAnnotation { additionalDtoProp.fieldType.asTypeName() },
-                dtoName = if (it.isEmpty()) "${element.name()}Dto" else it,
+                dtoName = it,
                 comment = additionalDtoProp.comment,
                 valueProvider = safeGetTypeFromAnnotation { additionalDtoProp.valueProvider.asTypeName() },
                 generateToDtoExtension = true,
@@ -65,6 +75,7 @@ class ZygardeApiPropGenerator(
     val dtoDescriptionsFromElementFields = element
       .allFieldsIncludeSuper()
       .flatMap { elem ->
+        val isTransient = elem.getAnnotation(Transient::class.java) != null
         elem.getAnnotationsByType(ApiProp::class.java)
           .flatMap { apiProp ->
             listOf(
@@ -74,7 +85,7 @@ class ZygardeApiPropGenerator(
                   ref = dto.ref,
                   refClass = safeGetTypeFromAnnotation { dto.refClass.asTypeName() }.kotlin(false),
                   refCollection = dto.refCollection,
-                  dtoName = if (dto.name.isEmpty()) "${element.name()}Dto" else dto.name,
+                  dtoName = dto.name,
                   comment = apiProp.comment,
                   valueProvider = safeGetTypeFromAnnotation { dto.valueProvider.asTypeName() }.kotlin(false)
                 ).copy(generateToDtoExtension = dto.applyValueFromEntity, generateApplyToEntityExtension = false)
@@ -85,10 +96,15 @@ class ZygardeApiPropGenerator(
                   ref = dto.ref,
                   refClass = safeGetTypeFromAnnotation { dto.refClass.asTypeName() }.kotlin(false),
                   refCollection = dto.refCollection,
-                  dtoName = if (dto.name.isEmpty()) "${element.name()}Dto" else dto.name,
+                  dtoName = dto.name,
                   comment = apiProp.comment,
                   valueProvider = safeGetTypeFromAnnotation { dto.valueProvider.asTypeName() }.kotlin(false)
-                ).copy(generateToDtoExtension = false, generateApplyToEntityExtension = dto.applyValueToEntity)
+                ).copy(
+                  generateToDtoExtension = false,
+                  generateApplyToEntityExtension = !isTransient && dto.applyValueToEntity && dto.searchType == SearchType.NONE,
+                  searchType = dto.searchType,
+                  searchForField = dto.searchForField.takeIf { it.isNotEmpty() }
+                )
               }
             ).flatten()
           }
@@ -105,6 +121,9 @@ class ZygardeApiPropGenerator(
         val dtoBuilder = TypeSpec.classBuilder(dtoName)
           .addModifiers(KModifier.DATA)
           .addAnnotation(ApiModel::class)
+
+        dtoInheritMap.get(dtoName)?.let(dtoBuilder::superclass)
+
         val constructorBuilder = FunSpec.constructorBuilder()
 
         if (dtoFieldDescriptions.any { it.generateToDtoExtension }) {
@@ -116,6 +135,12 @@ class ZygardeApiPropGenerator(
         if (dtoFieldDescriptions.any { it.generateApplyToEntityExtension }) {
           fileBuilderForExtension.addFunction(
             generateApplyToEntityExtensionFunction(element, dtoName, dtoFieldDescriptions.filter { it.generateApplyToEntityExtension })
+          )
+        }
+
+        if (dtoFieldDescriptions.any { it.searchType != SearchType.NONE }) {
+          fileBuilderForExtension.addFunction(
+            generateSearchExtensionFunction(element, dtoName, dtoFieldDescriptions.filter { it.searchType != SearchType.NONE })
           )
         }
 
@@ -239,6 +264,47 @@ ${dtoFieldSetterStatements.joinToString(",\r\n")}
           )
         } else {
           functionBuilder.addStatement("this.${it.fieldName} = req.${it.fieldName}")
+        }
+      }
+
+    return functionBuilder.build()
+  }
+
+  private fun generateSearchExtensionFunction(
+    element: Element,
+    dtoName: String,
+    dtoFieldDescriptions: List<DtoFieldDescriptionVo>
+  ): FunSpec {
+    val dtoClass = ClassName(dtoPackageName, dtoName)
+    val functionBuilder = FunSpec.builder("applyFrom$dtoName")
+      .addParameter("req", dtoClass)
+      .receiver(EnhancedSearch::class.generic(element.typeName()))
+
+    dtoFieldDescriptions
+      .forEach {
+        val searchForField = it.searchForField ?: it.fieldName
+        val fieldName = it.fieldName
+        val fieldExtensionMember = MemberName("puni.zygarde.data.entity.search", searchForField)
+        when (it.searchType) {
+          SearchType.EQ -> functionBuilder.addStatement("%M() eq req.$fieldName", fieldExtensionMember)
+          SearchType.NOT_EQ -> functionBuilder.addStatement("%M() ne req.$fieldName", fieldExtensionMember)
+          SearchType.LT -> functionBuilder.addStatement("%M() lt req.$fieldName", fieldExtensionMember)
+          SearchType.GT -> functionBuilder.addStatement("%M() gt req.$fieldName", fieldExtensionMember)
+          SearchType.LTE -> functionBuilder.addStatement("%M() lte req.$fieldName", fieldExtensionMember)
+          SearchType.GTE -> functionBuilder.addStatement("%M() gte req.$fieldName", fieldExtensionMember)
+          SearchType.IN_LIST -> functionBuilder.addStatement("%M() inList req.$fieldName", fieldExtensionMember)
+          SearchType.DATE_RANGE -> functionBuilder.addStatement(
+            "%M() %M req.$fieldName",
+            fieldExtensionMember,
+            MemberName("puni.data.search", "dateRange")
+          )
+          SearchType.DATE_TIME_RANGE -> functionBuilder.addStatement(
+            "%M() %M req.$fieldName",
+            fieldExtensionMember,
+            MemberName("puni.data.search", "dateTimeRange")
+          )
+          else -> {
+          }
         }
       }
 

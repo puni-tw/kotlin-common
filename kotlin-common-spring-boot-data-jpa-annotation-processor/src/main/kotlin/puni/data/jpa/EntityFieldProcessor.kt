@@ -25,6 +25,9 @@ import javax.lang.model.element.TypeElement
 import javax.lang.model.type.DeclaredType
 import javax.lang.model.type.TypeMirror
 import javax.persistence.Entity
+import javax.persistence.ManyToMany
+import javax.persistence.OneToMany
+import javax.persistence.Transient
 import puni.data.search.ComparableConditionAction
 import puni.data.search.ConditionAction
 import puni.data.search.EnhancedSearch
@@ -63,7 +66,7 @@ open class EntityFieldProcessor : AbstractProcessor() {
 
   private fun generateFields(element: Element) {
     val className = element.simpleName.toString()
-    val pack = processingEnv.elementUtils.getPackageOf(element).toString() + ".search"
+    val pack = getTargetPackage(element)
     val fileNameForFields = "${className}Fields"
 
     val classBuilder = TypeSpec.objectBuilder(fileNameForFields)
@@ -83,34 +86,37 @@ open class EntityFieldProcessor : AbstractProcessor() {
 
   private fun generateExtensionFunctions(allEntityElements: Set<Element>, element: Element) {
     val className = element.simpleName.toString()
-    val pack = processingEnv.elementUtils.getPackageOf(element).toString() + ".search"
+    val pack = getTargetPackage(element)
     val fileNameForExtension = "${className}Extensions"
     val fileBuilderForExtension = FileSpec.builder(pack, fileNameForExtension)
     val rootEntityType = element.typeName()
 
-    element.allFields().forEach { field ->
-      val fieldName = field.simpleName.toString()
+    element.allFields()
+      .forEach { field ->
+        val fieldName = field.simpleName.toString()
 
-      fileBuilderForExtension
-        .addFunction(
-          FunSpec.builder(fieldName)
-            .receiver(EnhancedSearch::class.asClassName().parameterizedBy(rootEntityType))
-            .returns(field.toConditionAction(rootEntityType, rootEntityType))
-            .addStatement("return this.field(${className}Fields.$fieldName)")
-            .build()
-        )
-
-      val relatedTypeElement = allEntityElements.find { it.asType() == field.asType() }
-      relatedTypeElement?.allFields()?.forEach { fieldForRelativeType ->
         fileBuilderForExtension
           .addFunction(
-            fieldForRelativeType.buildRelateTypeConditionAction(element, relatedTypeElement)
+            FunSpec.builder(fieldName)
+              .receiver(EnhancedSearch::class.asClassName().parameterizedBy(rootEntityType))
+              .returns(field.toConditionAction(rootEntityType, rootEntityType))
+              .addStatement("return this.field(${className}Fields.$fieldName)")
+              .build()
           )
+
+        val relatedTypeElement = allEntityElements.find { it.asType() == field.asType() }
+        relatedTypeElement?.allFields()?.forEach { fieldForRelativeType ->
+          fileBuilderForExtension
+            .addFunction(
+              fieldForRelativeType.buildRelateTypeConditionAction(element, relatedTypeElement)
+            )
+        }
       }
-    }
 
     fileBuilderForExtension.build().writeTo(File(fileTarget))
   }
+
+  open fun getTargetPackage(element: Element) = processingEnv.elementUtils.getPackageOf(element).toString() + ".search"
 
   private fun Element.buildSearchableProperty(
     entityTypeName: TypeName
@@ -181,5 +187,12 @@ open class EntityFieldProcessor : AbstractProcessor() {
     return listOf(superElements, this.enclosedElements)
       .flatten()
       .filter { it.kind == ElementKind.FIELD }
+      .filter {
+        it.getAnnotation(Transient::class.java) == null
+      }
+      .filter {
+        // TODO OneToMany and ManyToMany are not supported right now
+        it.getAnnotation(OneToMany::class.java) == null && it.getAnnotation(ManyToMany::class.java) == null
+      }
   }
 }

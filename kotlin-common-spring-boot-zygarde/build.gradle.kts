@@ -7,6 +7,7 @@ dependencies {
   api(project(":kotlin-common-spring-boot-web"))
   api(project(":kotlin-common-spring-boot-data-jpa"))
   api("org.springframework.cloud:spring-cloud-starter-openfeign")
+  api("org.springframework.boot:spring-boot-starter-data-jpa")
   implementation("io.swagger:swagger-annotations:1.6.0")
   testApi(project(":kotlin-common-test"))
   testApi(project(":kotlin-common-test-spring"))

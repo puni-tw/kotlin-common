@@ -1,54 +1,21 @@
 package puni.data.entity
 
-import org.springframework.web.bind.annotation.RequestMethod
+import puni.data.entity.AuthorApiSpec.Companion.DTO_AUTHOR
+import puni.data.entity.AuthorApiSpec.Companion.DTO_AUTHOR_DETAIL
+import puni.data.entity.BookApiSpec.Companion.DTO_BOOK
 import puni.zygarde.api.AdditionalDtoProp
 import puni.zygarde.api.AdditionalDtoProps
-import puni.zygarde.api.ApiPathVariable
 import puni.zygarde.api.ApiProp
 import puni.zygarde.api.Dto
-import puni.zygarde.api.GenApi
-import puni.zygarde.api.ZygardeApi
 import puni.zygarde.api.value.AutoIdValueProvider
 import javax.persistence.Entity
 import javax.persistence.OneToMany
 
 @Entity
-@ZygardeApi(
-  [
-    GenApi(
-      method = RequestMethod.GET,
-      path = "/api/author",
-      pathVariable = [],
-      apiName = "AuthorApi",
-      apiOperation = "getAuthors",
-      apiDescription = "get all authors",
-      serviceName = "AuthorService",
-      serviceMethod = "getAllAuthors",
-      reqRef = "",
-      resRef = "AuthorDto",
-      resCollection = true
-    ),
-    GenApi(
-      method = RequestMethod.GET,
-      path = "/api/author/{authorId}",
-      pathVariable = [
-        ApiPathVariable("authorId", Long::class)
-      ],
-      apiName = "AuthorApi",
-      apiOperation = "getAuthor",
-      apiDescription = "get author detail",
-      serviceName = "AuthorService",
-      serviceMethod = "getAuthorDetail",
-      reqRef = "",
-      resRef = "AuthorDetailDto",
-      resCollection = false
-    )
-  ]
-)
 @AdditionalDtoProps(
   [
     AdditionalDtoProp(
-      forDto = ["", "AuthorDetailDto"],
+      forDto = [DTO_AUTHOR, DTO_AUTHOR_DETAIL],
       field = "id",
       fieldType = Long::class,
       comment = "id of Author",
@@ -58,15 +25,15 @@ import javax.persistence.OneToMany
 )
 class Author(
   @ApiProp(
-    dto = [Dto(), Dto(name = "AuthorDetailDto")]
+    dto = [Dto(DTO_AUTHOR), Dto(DTO_AUTHOR_DETAIL)]
   )
   var name: String = "",
   @ApiProp(
-    dto = [Dto(), Dto(name = "AuthorDetailDto")]
+    dto = [Dto(DTO_AUTHOR), Dto(DTO_AUTHOR_DETAIL)]
   )
   var country: String = "",
   @ApiProp(
-    dto = [Dto(name = "AuthorDetailDto", ref = "BookDto", refCollection = true)]
+    dto = [Dto(DTO_AUTHOR_DETAIL, ref = DTO_BOOK, refCollection = true)]
   )
   @OneToMany(targetEntity = Book::class, mappedBy = "author")
   val books: MutableSet<Book> = mutableSetOf()

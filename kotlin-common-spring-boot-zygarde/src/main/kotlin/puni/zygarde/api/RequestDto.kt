@@ -12,5 +12,7 @@ annotation class RequestDto(
   val refCollection: Boolean = false,
   val ref: String = "",
   val applyValueToEntity: Boolean = true,
-  val valueProvider: KClass<out ValueProvider<*, *>> = NoOpValueProvider::class
+  val valueProvider: KClass<out ValueProvider<*, *>> = NoOpValueProvider::class,
+  val searchType: SearchType = SearchType.NONE,
+  val searchForField: String = ""
 )

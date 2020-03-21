@@ -14,7 +14,9 @@ class EntityApiProcessorTest : StringSpec({
       sources = listOf(
         "puni/data/entity/User.kt",
         "puni/data/entity/Book.kt",
+        "puni/data/entity/BookApiSpec.kt",
         "puni/data/entity/Author.kt",
+        "puni/data/entity/AuthorApiSpec.kt",
         "puni/data/entity/BookTagsValueProvider.kt"
       ).map { ClassPathResource(it).file }.map { SourceFile.fromPath(it) }
       jvmTarget = JvmTarget.JVM_1_8.description
