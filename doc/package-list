@@ -26,6 +26,7 @@ $dokka.location:puni.zygarde.extensions.page$toPageDto(org.springframework.data.
 puni.auth
 puni.auth.api
 puni.auth.api.impl
+puni.auth.config
 puni.auth.filter
 puni.auth.service
 puni.auth.web.exception.mapper
@@ -45,7 +46,6 @@ puni.extension.jackson
 puni.extension.kotlinpoet
 puni.extension.string
 puni.log
-puni.properties
 puni.spring.autoconfigure
 puni.spring.fixture
 puni.spring.web.exception
@@ -55,6 +55,7 @@ puni.test.support
 puni.zygarde
 puni.zygarde.api
 puni.zygarde.api.value
+puni.zygarde.autoconfigure
 puni.zygarde.data.dto
 puni.zygarde.di
 puni.zygarde.di.autoconfigure

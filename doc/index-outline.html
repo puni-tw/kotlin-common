@@ -1038,7 +1038,7 @@
 </BODY>
 </HTML>
 </ul>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.properties/-puni-auth-properties/index.html"><span class="identifier">@Component</span> <span class="identifier">@ConfigurationProperties</span><span class="symbol">(</span>"puni.auth"<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">PuniAuthProperties</span></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-auth-api-auto-configure/index.html"><span class="identifier">@Configuration</span> <span class="identifier">@ComponentScan</span><span class="symbol">(</span>["puni.auth"]<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">PuniAuthApiAutoConfigure</span></a></a><br/>
 <ul>
 <HTML>
 <HEAD>
@@ -1047,22 +1047,7 @@
 <link rel="stylesheet" href="../style.css">
 </HEAD>
 <BODY>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.properties/-puni-auth-properties/-init-.html"><span class="identifier">PuniAuthProperties</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.properties/-puni-auth-properties/security-config.html"><span class="keyword">var </span><span class="identifier">securityConfig</span><span class="symbol">: </span><span class="identifier">SecurityConfig</span></a></a><br/>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.properties/-puni-auth-properties/-security-config/index.html"><span class="keyword">class </span><span class="identifier">SecurityConfig</span></a></a><br/>
-<ul>
-<HTML>
-<HEAD>
-<meta charset="UTF-8">
-<title>Module Contents</title>
-<link rel="stylesheet" href="../style.css">
-</HEAD>
-<BODY>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.properties/-puni-auth-properties/-security-config/-init-.html"><span class="identifier">SecurityConfig</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.properties/-puni-auth-properties/-security-config/enabled.html"><span class="keyword">var </span><span class="identifier">enabled</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
-</BODY>
-</HTML>
-</ul>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-auth-api-auto-configure/-init-.html"><span class="identifier">PuniAuthApiAutoConfigure</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
 </BODY>
 </HTML>
 </ul>
@@ -1135,7 +1120,7 @@
 </BODY>
 </HTML>
 </ul>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-web-security-config/index.html"><span class="identifier">@Order</span><span class="symbol">(</span>1000<span class="symbol">)</span> <span class="identifier">@EnableWebSecurity</span> <span class="identifier">@EnableGlobalMethodSecurity</span><span class="symbol">(</span>true<span class="symbol">, </span>true<span class="symbol">)</span> <span class="identifier">@Configuration</span> <span class="identifier">@ComponentScan</span><span class="symbol">(</span>["puni.auth"]<span class="symbol">)</span> <span class="identifier">@ConditionalOnProperty</span><span class="symbol">(</span>"true"<span class="symbol">, </span>["puni.auth.security-config.enabled"]<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">PuniWebSecurityConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">WebSecurityConfigurerAdapter</span></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.auth.config/-puni-web-security-config/index.html"><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">PuniWebSecurityConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">WebSecurityConfigurerAdapter</span></a></a><br/>
 <ul>
 <HTML>
 <HEAD>
@@ -1144,10 +1129,11 @@
 <link rel="stylesheet" href="../style.css">
 </HEAD>
 <BODY>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-web-security-config/-init-.html"><span class="identifier">PuniWebSecurityConfig</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-web-security-config/authentication-manager.html"><span class="identifier">@Bean</span> <span class="keyword">protected</span> <span class="keyword">fun </span><span class="identifier">authenticationManager</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">AuthenticationManager</span></a></a><br/>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-web-security-config/configure.html"><span class="keyword">protected</span> <span class="keyword">fun </span><span class="identifier">configure</span><span class="symbol">(</span><span class="identifier" id="puni.spring.autoconfigure.PuniWebSecurityConfig$configure(org.springframework.security.config.annotation.web.builders.HttpSecurity)/http">http</span><span class="symbol">:</span>&nbsp;<span class="identifier">HttpSecurity</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-web-security-config/password-encode.html"><span class="identifier">@Bean</span> <span class="keyword">fun </span><span class="identifier">passwordEncode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">PasswordEncoder</span></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.auth.config/-puni-web-security-config/-init-.html"><span class="identifier">PuniWebSecurityConfig</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.auth.config/-puni-web-security-config/authentication-manager.html"><span class="identifier">@Bean</span> <span class="keyword">protected</span> <span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">authenticationManager</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">AuthenticationManager</span></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.auth.config/-puni-web-security-config/auth-filter.html"><span class="keyword">protected</span> <span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">authFilter</span><span class="symbol">: </span><a href="puni.auth.filter/-auth-filter/index.html"><span class="identifier">AuthFilter</span></a></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.auth.config/-puni-web-security-config/configure.html"><span class="keyword">protected</span> <span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">configure</span><span class="symbol">(</span><span class="identifier" id="puni.auth.config.PuniWebSecurityConfig$configure(org.springframework.security.config.annotation.web.builders.HttpSecurity)/http">http</span><span class="symbol">:</span>&nbsp;<span class="identifier">HttpSecurity</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.auth.config/-puni-web-security-config/password-encode.html"><span class="identifier">@ConditionalOnMissingBean</span> <span class="identifier">@Bean</span> <span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">passwordEncode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">PasswordEncoder</span></a></a><br/>
 </BODY>
 </HTML>
 </ul>
@@ -1574,6 +1560,19 @@
 </BODY>
 </HTML>
 </ul>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.zygarde.autoconfigure/-zygarde-auto-configure/index.html"><span class="identifier">@Configuration</span> <span class="identifier">@ComponentScan</span><span class="symbol">(</span>["puni.zygarde"]<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">ZygardeAutoConfigure</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.zygarde.autoconfigure/-zygarde-auto-configure/-init-.html"><span class="identifier">ZygardeAutoConfigure</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.zygarde.generator/-zygarde-dao-generator/index.html"><span class="keyword">class </span><span class="identifier">ZygardeDaoGenerator</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="puni.zygarde.generator/-abstract-zygarde-generator/index.html"><span class="identifier">AbstractZygardeGenerator</span></a></a></a><br/>
 <ul>
 <HTML>
@@ -1678,6 +1677,35 @@
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.auth.api.impl/-auth-controller/abstract-auth-service.html"><span class="keyword">val </span><span class="identifier">abstractAuthService</span><span class="symbol">: </span><a href="puni.auth.service/-abstract-auth-service/index.html"><span class="identifier">AbstractAuthService</span></a></a></a><br/>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.auth.api.impl/-auth-controller/auth.html"><span class="keyword">fun </span><span class="identifier">auth</span><span class="symbol">(</span><span class="identifier" id="puni.auth.api.impl.AuthController$auth(puni.data.dto.auth.AuthRequest)/req">req</span><span class="symbol">:</span>&nbsp;<a href="puni.data.dto.auth/-auth-request/index.html"><span class="identifier">AuthRequest</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="puni.data.dto.auth/-auth-response/index.html"><span class="identifier">AuthResponse</span></a></a></a><br/>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.auth.api.impl/-auth-controller/authentication-manager.html"><span class="keyword">val </span><span class="identifier">authenticationManager</span><span class="symbol">: </span><span class="identifier">AuthenticationManager</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+</BODY>
+</HTML>
+</ul>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.auth.config/index.html"><span class="keyword">package</span>&nbsp;<span class="identifier">puni.auth.config</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.auth.config/-puni-web-security-config/index.html"><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">PuniWebSecurityConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">WebSecurityConfigurerAdapter</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.auth.config/-puni-web-security-config/-init-.html"><span class="identifier">PuniWebSecurityConfig</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.auth.config/-puni-web-security-config/authentication-manager.html"><span class="identifier">@Bean</span> <span class="keyword">protected</span> <span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">authenticationManager</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">AuthenticationManager</span></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.auth.config/-puni-web-security-config/auth-filter.html"><span class="keyword">protected</span> <span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">authFilter</span><span class="symbol">: </span><a href="puni.auth.filter/-auth-filter/index.html"><span class="identifier">AuthFilter</span></a></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.auth.config/-puni-web-security-config/configure.html"><span class="keyword">protected</span> <span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">configure</span><span class="symbol">(</span><span class="identifier" id="puni.auth.config.PuniWebSecurityConfig$configure(org.springframework.security.config.annotation.web.builders.HttpSecurity)/http">http</span><span class="symbol">:</span>&nbsp;<span class="identifier">HttpSecurity</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.auth.config/-puni-web-security-config/password-encode.html"><span class="identifier">@ConditionalOnMissingBean</span> <span class="identifier">@Bean</span> <span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">passwordEncode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">PasswordEncoder</span></a></a><br/>
 </BODY>
 </HTML>
 </ul>
@@ -2603,46 +2631,6 @@
 </BODY>
 </HTML>
 </ul>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.properties/index.html"><span class="keyword">package</span>&nbsp;<span class="identifier">puni.properties</span></a></a><br/>
-<ul>
-<HTML>
-<HEAD>
-<meta charset="UTF-8">
-<title>Module Contents</title>
-<link rel="stylesheet" href="../style.css">
-</HEAD>
-<BODY>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.properties/-puni-auth-properties/index.html"><span class="identifier">@Component</span> <span class="identifier">@ConfigurationProperties</span><span class="symbol">(</span>"puni.auth"<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">PuniAuthProperties</span></a></a><br/>
-<ul>
-<HTML>
-<HEAD>
-<meta charset="UTF-8">
-<title>Module Contents</title>
-<link rel="stylesheet" href="../style.css">
-</HEAD>
-<BODY>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.properties/-puni-auth-properties/-init-.html"><span class="identifier">PuniAuthProperties</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.properties/-puni-auth-properties/security-config.html"><span class="keyword">var </span><span class="identifier">securityConfig</span><span class="symbol">: </span><span class="identifier">SecurityConfig</span></a></a><br/>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.properties/-puni-auth-properties/-security-config/index.html"><span class="keyword">class </span><span class="identifier">SecurityConfig</span></a></a><br/>
-<ul>
-<HTML>
-<HEAD>
-<meta charset="UTF-8">
-<title>Module Contents</title>
-<link rel="stylesheet" href="../style.css">
-</HEAD>
-<BODY>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.properties/-puni-auth-properties/-security-config/-init-.html"><span class="identifier">SecurityConfig</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.properties/-puni-auth-properties/-security-config/enabled.html"><span class="keyword">var </span><span class="identifier">enabled</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
-</BODY>
-</HTML>
-</ul>
-</BODY>
-</HTML>
-</ul>
-</BODY>
-</HTML>
-</ul>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/index.html"><span class="keyword">package</span>&nbsp;<span class="identifier">puni.spring.autoconfigure</span></a></a><br/>
 <ul>
 <HTML>
@@ -2652,6 +2640,19 @@
 <link rel="stylesheet" href="../style.css">
 </HEAD>
 <BODY>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-auth-api-auto-configure/index.html"><span class="identifier">@Configuration</span> <span class="identifier">@ComponentScan</span><span class="symbol">(</span>["puni.auth"]<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">PuniAuthApiAutoConfigure</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-auth-api-auto-configure/-init-.html"><span class="identifier">PuniAuthApiAutoConfigure</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-spring-fixture-config/index.html"><span class="identifier">@Configuration</span> <span class="keyword">class </span><span class="identifier">PuniSpringFixtureConfig</span></a></a><br/>
 <ul>
 <HTML>
@@ -2680,22 +2681,6 @@
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-spring-web-config/api-exception-handler.html"><span class="identifier">@Bean</span> <span class="identifier">@ConditionalOnMissingBean</span> <span class="keyword">fun </span><span class="identifier">apiExceptionHandler</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="puni.spring.web.exception/-api-exception-handler/index.html"><span class="identifier">ApiExceptionHandler</span></a></a></a><br/>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-spring-web-config/missing-kotlin-parameter-exception-mapper.html"><span class="identifier">@Bean</span> <span class="keyword">fun </span><span class="identifier">missingKotlinParameterExceptionMapper</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="puni.spring.web.exception.mapper/-missing-kotlin-parameter-exception-mapper/index.html"><span class="identifier">MissingKotlinParameterExceptionMapper</span></a></a></a><br/>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-spring-web-config/object-mapper.html"><span class="identifier">@Bean</span> <span class="keyword">fun </span><span class="identifier">objectMapper</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ObjectMapper</span></a></a><br/>
-</BODY>
-</HTML>
-</ul>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-web-security-config/index.html"><span class="identifier">@Order</span><span class="symbol">(</span>1000<span class="symbol">)</span> <span class="identifier">@EnableWebSecurity</span> <span class="identifier">@EnableGlobalMethodSecurity</span><span class="symbol">(</span>true<span class="symbol">, </span>true<span class="symbol">)</span> <span class="identifier">@Configuration</span> <span class="identifier">@ComponentScan</span><span class="symbol">(</span>["puni.auth"]<span class="symbol">)</span> <span class="identifier">@ConditionalOnProperty</span><span class="symbol">(</span>"true"<span class="symbol">, </span>["puni.auth.security-config.enabled"]<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">PuniWebSecurityConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">WebSecurityConfigurerAdapter</span></a></a><br/>
-<ul>
-<HTML>
-<HEAD>
-<meta charset="UTF-8">
-<title>Module Contents</title>
-<link rel="stylesheet" href="../style.css">
-</HEAD>
-<BODY>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-web-security-config/-init-.html"><span class="identifier">PuniWebSecurityConfig</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-web-security-config/authentication-manager.html"><span class="identifier">@Bean</span> <span class="keyword">protected</span> <span class="keyword">fun </span><span class="identifier">authenticationManager</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">AuthenticationManager</span></a></a><br/>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-web-security-config/configure.html"><span class="keyword">protected</span> <span class="keyword">fun </span><span class="identifier">configure</span><span class="symbol">(</span><span class="identifier" id="puni.spring.autoconfigure.PuniWebSecurityConfig$configure(org.springframework.security.config.annotation.web.builders.HttpSecurity)/http">http</span><span class="symbol">:</span>&nbsp;<span class="identifier">HttpSecurity</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-web-security-config/password-encode.html"><span class="identifier">@Bean</span> <span class="keyword">fun </span><span class="identifier">passwordEncode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">PasswordEncoder</span></a></a><br/>
 </BODY>
 </HTML>
 </ul>
@@ -3264,6 +3249,31 @@
 </HEAD>
 <BODY>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.zygarde.api.value/-value-provider/get-value.html"><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getValue</span><span class="symbol">(</span><span class="identifier" id="puni.zygarde.api.value.ValueProvider$getValue(puni.zygarde.api.value.ValueProvider.E)/v">v</span><span class="symbol">:</span>&nbsp;<span class="identifier">E</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+</BODY>
+</HTML>
+</ul>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.zygarde.autoconfigure/index.html"><span class="keyword">package</span>&nbsp;<span class="identifier">puni.zygarde.autoconfigure</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.zygarde.autoconfigure/-zygarde-auto-configure/index.html"><span class="identifier">@Configuration</span> <span class="identifier">@ComponentScan</span><span class="symbol">(</span>["puni.zygarde"]<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">ZygardeAutoConfigure</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.zygarde.autoconfigure/-zygarde-auto-configure/-init-.html"><span class="identifier">ZygardeAutoConfigure</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
 </BODY>
 </HTML>
 </ul>
