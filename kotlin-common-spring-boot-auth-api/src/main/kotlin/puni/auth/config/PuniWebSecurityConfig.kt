@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -26,7 +27,7 @@ abstract class PuniWebSecurityConfig : WebSecurityConfigurerAdapter() {
   }
 
   override fun configure(http: HttpSecurity) {
-    http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter::class.java)
+    setupAuthFilters(http)
 
     http
       .httpBasic().disable()
@@ -35,10 +36,22 @@ abstract class PuniWebSecurityConfig : WebSecurityConfigurerAdapter() {
       .and()
 
       .authorizeRequests()
-      .antMatchers("/api/**").authenticated()
+      .let {
+        configAuthorizeRequests(it)
+      }
 
       .anyRequest()
       .permitAll()
+  }
+
+  protected fun setupAuthFilters(http: HttpSecurity) {
+    http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter::class.java)
+  }
+
+  open fun configAuthorizeRequests(
+    registry: ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry
+  ): ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry {
+    return registry.antMatchers("/api/**").authenticated()
   }
 
   @ConditionalOnMissingBean
