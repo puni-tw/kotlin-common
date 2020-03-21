@@ -27,7 +27,7 @@ class AuthServiceImpl : AbstractAuthService() {
     return AuthenticationVo(username = username, password = BCryptPasswordEncoder().encode("bar"), authorities = emptyList())
   }
 
-  override fun loadAuthenticationByUserId(id: Long): AuthenticatedVo {
+  override fun loadAuthenticationByUserLogin(userLoginVo: UserLoginVo): AuthenticatedVo {
     return AuthenticatedVo(username = "foo", authorities = emptyList())
   }
 }

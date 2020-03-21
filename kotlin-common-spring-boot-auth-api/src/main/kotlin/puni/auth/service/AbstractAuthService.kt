@@ -34,7 +34,7 @@ abstract class AbstractAuthService : UserDetailsService {
 
   abstract fun loadAuthenticationByUsername(username: String): AuthenticationVo
 
-  abstract fun loadAuthenticationByUserId(id: Long): AuthenticatedVo
+  abstract fun loadAuthenticationByUserLogin(userLoginVo: UserLoginVo): AuthenticatedVo
 
   abstract fun loadUserLoginByUsername(username: String): UserLoginVo
 
@@ -69,7 +69,7 @@ abstract class AbstractAuthService : UserDetailsService {
         .body
         .get("userLogin", Map::class.java)
         .jsonMapToObject<UserLoginVo>()
-      val authentication = loadAuthenticationByUserId(userLogin.id)
+      val authentication = loadAuthenticationByUserLogin(userLogin)
       return PreAuthenticatedAuthenticationToken(
         authentication.username,
         null,
