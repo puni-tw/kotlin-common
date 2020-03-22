@@ -145,7 +145,8 @@ class ZygardeApiPropGenerator(
           )
         }
 
-        if (dtoFieldDescriptions.any { it.searchType != SearchType.NONE }) {
+        val isSearchDto = dtoFieldDescriptions.any { it.searchType != SearchType.NONE }
+        if (isSearchDto) {
           fileBuilderForExtension.addFunction(
             generateSearchExtensionFunction(element, dtoName, dtoFieldDescriptions.filter { it.searchType != SearchType.NONE })
           )
@@ -153,9 +154,14 @@ class ZygardeApiPropGenerator(
 
         dtoFieldDescriptions.forEach { dto ->
           val fieldName = dto.fieldName
-          val fieldType = dto.fieldType
+          val fieldType = dto.fieldType.let { if (isSearchDto) it.copy(nullable = true) else it }
           ParameterSpec
             .builder(fieldName, fieldType)
+            .also {
+              if (isSearchDto || fieldType.isNullable) {
+                it.defaultValue("null")
+              }
+            }
             .build().also { constructorBuilder.addParameter(it) }
           PropertySpec
             .builder(fieldName, fieldType)
