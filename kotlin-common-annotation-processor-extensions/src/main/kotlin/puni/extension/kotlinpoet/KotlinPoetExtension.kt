@@ -35,6 +35,7 @@ fun Element.tryGetInitializeCodeBlock(): CodeBlock? {
     "java.lang.Double" -> builder.addStatement("%L", "0.0")
     "java.lang.Float" -> builder.addStatement("%L", "0.0")
     "java.lang.Short" -> builder.addStatement("%L", "0")
+    "java.lang.Boolean" -> builder.addStatement("%L", "true")
     else -> return null
   }
   return builder.build()
@@ -47,6 +48,7 @@ fun TypeName.kotlin(canBeNullable: Boolean = true): TypeName {
     "java.lang.Double" -> Double::class.asTypeName()
     "java.lang.Float" -> Float::class.asTypeName()
     "java.lang.Short" -> Short::class.asTypeName()
+    "java.lang.Boolean" -> Boolean::class.asTypeName()
     else -> this
   }.copy(nullable = canBeNullable)
 }
@@ -58,6 +60,7 @@ fun TypeMirror.kotlinTypeName(canBeNullable: Boolean = true): TypeName {
     "java.lang.Double" -> Double::class.asTypeName()
     "java.lang.Float" -> Float::class.asTypeName()
     "java.lang.Short" -> Short::class.asTypeName()
+    "java.lang.Boolean" -> Boolean::class.asTypeName()
     else -> asTypeName()
   }.copy(nullable = canBeNullable)
 }

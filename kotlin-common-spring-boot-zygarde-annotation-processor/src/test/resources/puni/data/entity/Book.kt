@@ -21,6 +21,7 @@ import java.time.LocalDateTime
 import javax.persistence.Entity
 import javax.persistence.Lob
 import javax.persistence.ManyToOne
+import javax.persistence.Transient
 
 @Entity
 @AdditionalDtoProps(
@@ -128,4 +129,12 @@ class Book(
   )
   @Transient
   var names: Set<String>? = null
+
+  @ApiProp(
+    requestDto = [
+      RequestDto(REQ_BOOK_SEARCH, applyValueToEntity = false)
+    ]
+  )
+  @Transient
+  var released: Boolean? = null
 }

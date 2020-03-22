@@ -192,14 +192,14 @@ class ZygardeApiPropGenerator(
     val fieldType = when {
       ref.isNotEmpty() -> ClassName(dtoPackageName, ref).let {
         if (refCollection) {
-          Collection::class.generic(it)
+          Collection::class.generic(it.kotlin(it.isNullable))
         } else {
           it
         }
       }
       refClass.toString() != "java.lang.Object" -> {
         if (refCollection) {
-          Collection::class.generic(refClass)
+          Collection::class.generic(refClass.kotlin(refClass.isNullable))
         } else {
           refClass
         }
