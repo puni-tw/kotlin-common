@@ -4,7 +4,7 @@ import puni.data.entity.BookApiSpec.Companion.DTO_BOOK
 import puni.data.entity.BookApiSpec.Companion.DTO_BOOK_DETAIL
 import puni.data.entity.BookApiSpec.Companion.REQ_BOOK_CREATE
 import puni.data.entity.BookApiSpec.Companion.REQ_BOOK_SEARCH
-import puni.data.search.PadingAndSortingRequest
+import puni.data.search.PagingAndSortingRequest
 import puni.data.search.SearchDateTimeRange
 import puni.zygarde.api.AdditionalDtoProp
 import puni.zygarde.api.AdditionalDtoProps
@@ -36,7 +36,7 @@ import javax.persistence.ManyToOne
 )
 @DtoInherits(
   [
-    DtoInherit(dto = REQ_BOOK_SEARCH, inherit = PadingAndSortingRequest::class)
+    DtoInherit(dto = REQ_BOOK_SEARCH, inherit = PagingAndSortingRequest::class)
   ]
 )
 class Book(

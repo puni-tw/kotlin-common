@@ -27,7 +27,7 @@ fun <T> JpaSpecificationExecutor<T>.searchOne(searchContent: EnhancedSearch<T>.(
 }
 
 fun <T> JpaSpecificationExecutor<T>.searchPage(
-  req: PadingAndSortingRequest,
+  req: PagingAndSortingRequest,
   searchContent: EnhancedSearch<T>.() -> Unit
 ): Page<T> {
   return findAll(buildSpec(searchContent), req.paging.toPageRequest(req.sorting.asSort()))
