@@ -12,5 +12,6 @@ annotation class Dto(
   val refCollection: Boolean = false,
   val refClass: KClass<*> = Any::class,
   val applyValueFromEntity: Boolean = true,
+  val entityValueProvider: KClass<out ValueProvider<*, *>> = NoOpValueProvider::class,
   val valueProvider: KClass<out ValueProvider<*, *>> = NoOpValueProvider::class
 )

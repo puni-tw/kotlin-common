@@ -15,6 +15,7 @@ import puni.zygarde.api.DtoInherits
 import puni.zygarde.api.RequestDto
 import puni.zygarde.api.SearchType
 import puni.zygarde.api.value.AutoIdValueProvider
+import puni.zygarde.api.value.JsonStringToLongListValueProvider
 import puni.zygarde.api.value.ToJsonStringValueProvider
 import java.time.LocalDateTime
 import javax.persistence.Entity
@@ -29,7 +30,7 @@ import javax.persistence.ManyToOne
       field = "id",
       fieldType = Long::class,
       comment = "id of Book",
-      valueProvider = AutoIdValueProvider::class
+      entityValueProvider = AutoIdValueProvider::class
     )
   ]
 )
@@ -92,7 +93,7 @@ class Book(
         name = DTO_BOOK_DETAIL,
         refClass = String::class,
         refCollection = true,
-        valueProvider = BookTagsValueProvider::class
+        entityValueProvider = BookTagsValueProvider::class
       )
     ],
     requestDto = [
@@ -105,7 +106,19 @@ class Book(
     ]
   )
   @Lob
-  var tags: String
+  var tags: String,
+  @ApiProp(
+    dto = [
+      Dto(
+        name = DTO_BOOK_DETAIL,
+        refClass = Long::class,
+        refCollection = true,
+        valueProvider = JsonStringToLongListValueProvider::class
+      )
+    ]
+  )
+  @Lob
+  var categoryIds: String
 ) : AutoIdEntity() {
 
   @ApiProp(

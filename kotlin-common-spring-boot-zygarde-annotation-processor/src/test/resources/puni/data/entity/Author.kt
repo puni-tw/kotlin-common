@@ -19,7 +19,7 @@ import javax.persistence.OneToMany
       field = "id",
       fieldType = Long::class,
       comment = "id of Author",
-      valueProvider = AutoIdValueProvider::class
+      entityValueProvider = AutoIdValueProvider::class
     )
   ]
 )
