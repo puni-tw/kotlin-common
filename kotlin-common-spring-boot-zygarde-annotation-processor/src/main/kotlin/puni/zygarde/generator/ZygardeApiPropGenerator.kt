@@ -18,6 +18,7 @@ import javax.lang.model.element.Element
 import javax.persistence.Transient
 import puni.data.search.EnhancedSearch
 import puni.extension.kotlinpoet.fieldName
+import puni.extension.kotlinpoet.isNullable
 import puni.extension.kotlinpoet.kotlin
 import puni.extension.kotlinpoet.name
 import puni.extension.kotlinpoet.nullableTypeName
@@ -207,7 +208,7 @@ class ZygardeApiPropGenerator(
     }
     return DtoFieldDescriptionVo(
       fieldName = fieldName,
-      fieldType = fieldType,
+      fieldType = fieldType.copy(nullable = elem.isNullable()),
       dtoName = dtoName,
       comment = comment,
       dtoRef = ref,
@@ -233,6 +234,7 @@ class ZygardeApiPropGenerator(
     val codeBlockArgs = mutableListOf<Any>(ClassName(dtoPackageName, dtoName))
     val dtoFieldSetterStatements = dtoFieldDescriptions
       .map {
+        val q = if (it.fieldType.isNullable) "?" else ""
         if (it.entityValueProvider != null) {
           codeBlockArgs.add(it.entityValueProvider)
           "  ${it.fieldName} = %T().getValue(this)"
@@ -242,9 +244,9 @@ class ZygardeApiPropGenerator(
         } else if (it.dtoRef.isNotEmpty()) {
           codeBlockArgs.add(MemberName(dtoPackageName, "to${it.dtoRef}"))
           if (it.dtoRefCollection) {
-            "  ${it.fieldName} = this.${it.fieldName}.map{it.%M()}"
+            "  ${it.fieldName} = this.${it.fieldName}$q.map{it.%M()}"
           } else {
-            "  ${it.fieldName} = this.${it.fieldName}.%M()"
+            "  ${it.fieldName} = this.${it.fieldName}$q.%M()"
           }
         } else {
           "  ${it.fieldName} = this.${it.fieldName}"

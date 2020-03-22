@@ -74,7 +74,7 @@ class Book(
     comment = "author of book"
   )
   @ManyToOne(targetEntity = Author::class)
-  var author: Author = Author(),
+  var author: Author? = null,
 
   @ApiProp(
     dto = [
