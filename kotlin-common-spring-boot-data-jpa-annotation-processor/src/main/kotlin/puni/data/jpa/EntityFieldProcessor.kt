@@ -91,7 +91,8 @@ open class EntityFieldProcessor : AbstractProcessor() {
     val fileBuilderForExtension = FileSpec.builder(pack, fileNameForExtension)
     val rootEntityType = element.typeName()
 
-    element.allFields()
+    val allFields = element.allFields()
+    allFields
       .forEach { field ->
         val fieldName = field.simpleName.toString()
 
@@ -103,9 +104,14 @@ open class EntityFieldProcessor : AbstractProcessor() {
               .addStatement("return this.field(${className}Fields.$fieldName)")
               .build()
           )
+      }
 
-        val relatedTypeElement = allEntityElements.find { it.asType() == field.asType() }
-        relatedTypeElement?.allFields()?.forEach { fieldForRelativeType ->
+    allEntityElements
+      .filter {
+        allFields.any { f -> f.asType() == it.asType() }
+      }
+      .forEach { relatedTypeElement ->
+        relatedTypeElement.allFields().forEach { fieldForRelativeType ->
           fileBuilderForExtension
             .addFunction(
               fieldForRelativeType.buildRelateTypeConditionAction(element, relatedTypeElement)

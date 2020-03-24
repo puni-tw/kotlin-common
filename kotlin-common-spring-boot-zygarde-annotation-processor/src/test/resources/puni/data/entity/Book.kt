@@ -79,6 +79,16 @@ class Book(
 
   @ApiProp(
     dto = [
+      Dto(DTO_BOOK, ref = AuthorApiSpec.DTO_AUTHOR),
+      Dto(DTO_BOOK_DETAIL, ref = AuthorApiSpec.DTO_AUTHOR)
+    ],
+    comment = "recommend author of book"
+  )
+  @ManyToOne(targetEntity = Author::class)
+  var recommendAuthor: Author? = null,
+
+  @ApiProp(
+    dto = [
       Dto(DTO_BOOK),
       Dto(name = DTO_BOOK_DETAIL)
     ],
