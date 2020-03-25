@@ -1,6 +1,7 @@
 package puni.data.jpa
 
 import com.google.auto.service.AutoService
+import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
@@ -146,6 +147,11 @@ open class EntityFieldProcessor : AbstractProcessor() {
 
   private fun Element.buildRelateTypeConditionAction(rootEntityElement: Element, currentEntityElement: Element): FunSpec {
     return FunSpec.builder(fieldName())
+      .addAnnotation(
+        AnnotationSpec.builder(JvmName::class)
+          .addMember("%S", "${currentEntityElement.fieldName()}_${fieldName()}")
+          .build()
+      )
       .receiver(
         ConditionAction::class.asClassName().parameterizedBy(
           rootEntityElement.typeName(),

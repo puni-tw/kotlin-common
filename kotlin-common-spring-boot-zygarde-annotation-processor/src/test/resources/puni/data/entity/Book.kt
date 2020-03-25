@@ -129,7 +129,9 @@ class Book(
     ]
   )
   @Lob
-  var categoryIds: String
+  var categoryIds: String,
+
+  var user: User? = null
 ) : AutoIdEntity() {
 
   @ApiProp(
