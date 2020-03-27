@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
+import puni.extension.kotlinpoet.kotlin
 import puni.zygarde.api.ZygardeApi
 import puni.zygarde.data.dto.PageDto
 
@@ -70,7 +71,7 @@ class ZygardeApiGenerator(
             pathVariable = genApi.pathVariable.map { pathVariable ->
               ApiPathVariableVo(
                 pathVariable.value,
-                safeGetTypeFromAnnotation { pathVariable.type.asTypeName() }
+                safeGetTypeFromAnnotation { pathVariable.type.asTypeName() }.kotlin(false)
               )
             },
             apiName = apiName,
