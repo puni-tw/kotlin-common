@@ -44,6 +44,7 @@ fun Element.tryGetInitializeCodeBlock(): CodeBlock? {
 fun TypeName.kotlin(canBeNullable: Boolean = true): TypeName {
   return when (toString()) {
     "java.lang.String" -> String::class.asTypeName()
+    "java.lang.Integer" -> Int::class.asTypeName()
     "java.lang.Long" -> Long::class.asTypeName()
     "java.lang.Double" -> Double::class.asTypeName()
     "java.lang.Float" -> Float::class.asTypeName()
@@ -56,6 +57,7 @@ fun TypeName.kotlin(canBeNullable: Boolean = true): TypeName {
 fun TypeMirror.kotlinTypeName(canBeNullable: Boolean = true): TypeName {
   return when (asTypeName().toString()) {
     "java.lang.String" -> String::class.asTypeName()
+    "java.lang.Integer" -> Int::class.asTypeName()
     "java.lang.Long" -> Long::class.asTypeName()
     "java.lang.Double" -> Double::class.asTypeName()
     "java.lang.Float" -> Float::class.asTypeName()
