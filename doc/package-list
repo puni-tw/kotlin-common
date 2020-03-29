@@ -12,6 +12,7 @@ $dokka.location:puni.extension.jackson$jsonStringToMap(kotlin.String, kotlin.ref
 $dokka.location:puni.extension.jackson$jsonStringToObject(kotlin.String)puni.extension.jackson/kotlin.-string/json-string-to-object.html
 $dokka.location:puni.extension.jackson$jsonStringToObject(kotlin.String, kotlin.reflect.KClass((puni.extension.jackson.jsonStringToObject.T)))puni.extension.jackson/kotlin.-string/json-string-to-object.html
 $dokka.location:puni.extension.jackson$toJsonString(kotlin.Any)puni.extension.jackson/kotlin.-any/to-json-string.html
+$dokka.location:puni.extension.kotlinpoet$allFieldsIncludeSuper(javax.lang.model.element.Element, javax.annotation.processing.ProcessingEnvironment)puni.extension.kotlinpoet/javax.lang.model.element.-element/all-fields-include-super.html
 $dokka.location:puni.extension.kotlinpoet$fieldName(javax.lang.model.element.Element)puni.extension.kotlinpoet/javax.lang.model.element.-element/field-name.html
 $dokka.location:puni.extension.kotlinpoet$isNullable(javax.lang.model.element.Element)puni.extension.kotlinpoet/javax.lang.model.element.-element/is-nullable.html
 $dokka.location:puni.extension.kotlinpoet$isPrimitive(javax.lang.model.element.Element)puni.extension.kotlinpoet/javax.lang.model.element.-element/is-primitive.html
