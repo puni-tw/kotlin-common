@@ -21,9 +21,7 @@ import javax.annotation.processing.SupportedOptions
 import javax.annotation.processing.SupportedSourceVersion
 import javax.lang.model.SourceVersion
 import javax.lang.model.element.Element
-import javax.lang.model.element.ElementKind
 import javax.lang.model.element.TypeElement
-import javax.lang.model.type.DeclaredType
 import javax.lang.model.type.TypeMirror
 import javax.persistence.Entity
 import javax.persistence.ManyToMany
@@ -35,6 +33,7 @@ import puni.data.search.EnhancedSearch
 import puni.data.search.Searchable
 import puni.data.search.impl.SearchableImpl
 import puni.extension.kotlinpoet.KaptOptions
+import puni.extension.kotlinpoet.allFieldsIncludeSuper
 import puni.extension.kotlinpoet.fieldName
 import puni.extension.kotlinpoet.typeName
 
@@ -187,24 +186,11 @@ open class EntityFieldProcessor : AbstractProcessor() {
   }
 
   private fun Element.allFields(): List<Element> {
-    val superElements = processingEnv.typeUtils.directSupertypes(this.asType())
-      .flatMap {
-        if (it is DeclaredType) {
-          it.asElement().enclosedElements
-        } else {
-          emptyList()
-        }
-      }
-
-    return listOf(superElements, this.enclosedElements)
-      .flatten()
-      .filter { it.kind == ElementKind.FIELD }
+    return allFieldsIncludeSuper(processingEnv)
       .filter {
-        it.getAnnotation(Transient::class.java) == null
-      }
-      .filter {
-        // TODO OneToMany and ManyToMany are not supported right now
-        it.getAnnotation(OneToMany::class.java) == null && it.getAnnotation(ManyToMany::class.java) == null
+        it.getAnnotation(Transient::class.java) == null &&
+          it.getAnnotation(OneToMany::class.java) == null &&
+          it.getAnnotation(ManyToMany::class.java) == null
       }
   }
 }

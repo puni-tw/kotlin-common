@@ -3,7 +3,10 @@ package puni.extension.kotlinpoet
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.asTypeName
+import javax.annotation.processing.ProcessingEnvironment
 import javax.lang.model.element.Element
+import javax.lang.model.element.ElementKind
+import javax.lang.model.type.DeclaredType
 import javax.lang.model.type.TypeMirror
 import org.jetbrains.annotations.Nullable
 
@@ -65,6 +68,21 @@ fun TypeMirror.kotlinTypeName(canBeNullable: Boolean = true): TypeName {
     "java.lang.Boolean" -> Boolean::class.asTypeName()
     else -> asTypeName()
   }.copy(nullable = canBeNullable)
+}
+
+fun Element.allFieldsIncludeSuper(processingEnv: ProcessingEnvironment): List<Element> {
+  val superElements = processingEnv.typeUtils.directSupertypes(this.asType())
+    .flatMap {
+      if (it is DeclaredType) {
+        it.asElement().allFieldsIncludeSuper(processingEnv)
+      } else {
+        emptyList()
+      }
+    }
+
+  return listOf(superElements, this.enclosedElements)
+    .flatten()
+    .filter { it.kind == ElementKind.FIELD }
 }
 
 private fun Element.typeName(canBeNullable: Boolean = true): TypeName {
