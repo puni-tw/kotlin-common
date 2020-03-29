@@ -8,8 +8,16 @@ import puni.zygarde.api.AdditionalDtoProps
 import puni.zygarde.api.ApiProp
 import puni.zygarde.api.Dto
 import puni.zygarde.api.value.AutoIdValueProvider
+import java.time.LocalDateTime
 import javax.persistence.Entity
+import javax.persistence.MappedSuperclass
 import javax.persistence.OneToMany
+
+
+@MappedSuperclass
+abstract class FooEntity: AutoIdEntity() {
+  var createdAt: LocalDateTime? = null
+}
 
 @Entity
 @AdditionalDtoProps(
@@ -37,4 +45,4 @@ class Author(
   )
   @OneToMany(targetEntity = Book::class, mappedBy = "author")
   val books: MutableSet<Book> = mutableSetOf()
-) : AutoIdEntity()
+) : FooEntity()

@@ -20,7 +20,7 @@ abstract class PuniCodeGenerator(val processingEnv: ProcessingEnvironment) {
     val superElements = processingEnv.typeUtils.directSupertypes(this.asType())
       .flatMap {
         if (it is DeclaredType) {
-          it.asElement().enclosedElements
+          it.asElement().allFieldsIncludeSuper()
         } else {
           emptyList()
         }
