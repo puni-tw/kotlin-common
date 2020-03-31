@@ -23,6 +23,8 @@ $dokka.location:puni.extension.kotlinpoet$nullableTypeName(javax.lang.model.elem
 $dokka.location:puni.extension.kotlinpoet$tryGetInitializeCodeBlock(javax.lang.model.element.Element)puni.extension.kotlinpoet/javax.lang.model.element.-element/try-get-initialize-code-block.html
 $dokka.location:puni.extension.kotlinpoet$typeName(javax.lang.model.element.Element)puni.extension.kotlinpoet/javax.lang.model.element.-element/type-name.html
 $dokka.location:puni.extension.string$replaceByArgs(kotlin.String, kotlin.Array((kotlin.Any)))puni.extension.string/kotlin.-string/replace-by-args.html
+$dokka.location:puni.time$midnight(java.time.LocalDateTime)puni.time/java.time.-local-date-time/midnight.html
+$dokka.location:puni.time$startOfDay(java.time.LocalDateTime)puni.time/java.time.-local-date-time/start-of-day.html
 $dokka.location:puni.zygarde.extensions.page$toPageDto(org.springframework.data.domain.Page((puni.zygarde.extensions.page.toPageDto.T)), kotlin.Function1((puni.zygarde.extensions.page.toPageDto.T, puni.zygarde.extensions.page.toPageDto.DTO)))puni.zygarde.extensions.page/org.springframework.data.domain.-page/to-page-dto.html
 puni.auth
 puni.auth.api
@@ -53,6 +55,7 @@ puni.spring.web.exception
 puni.spring.web.exception.mapper
 puni.test.spring.config
 puni.test.support
+puni.time
 puni.web.filter
 puni.zygarde
 puni.zygarde.api
