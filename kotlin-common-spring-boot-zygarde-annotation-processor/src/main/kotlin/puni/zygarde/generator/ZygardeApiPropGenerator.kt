@@ -130,7 +130,7 @@ class ZygardeApiPropGenerator(
         val dtoBuilder = TypeSpec.classBuilder(dtoName)
           .addModifiers(KModifier.DATA)
           .addAnnotation(ApiModel::class)
-          .superclass(Serializable::class)
+          .addSuperinterface(Serializable::class)
 
         dtoInheritMap.get(dtoName)?.let(dtoBuilder::superclass)
 
