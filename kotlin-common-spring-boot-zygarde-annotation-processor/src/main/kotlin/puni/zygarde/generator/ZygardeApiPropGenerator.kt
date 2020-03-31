@@ -13,6 +13,7 @@ import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asTypeName
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
+import java.io.Serializable
 import javax.annotation.processing.ProcessingEnvironment
 import javax.lang.model.element.Element
 import javax.persistence.Transient
@@ -129,6 +130,7 @@ class ZygardeApiPropGenerator(
         val dtoBuilder = TypeSpec.classBuilder(dtoName)
           .addModifiers(KModifier.DATA)
           .addAnnotation(ApiModel::class)
+          .superclass(Serializable::class)
 
         dtoInheritMap.get(dtoName)?.let(dtoBuilder::superclass)
 
