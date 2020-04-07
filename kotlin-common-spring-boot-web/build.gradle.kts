@@ -11,6 +11,7 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   testApi(project(":kotlin-common-test-spring"))
+  kapt("org.springframework.boot:spring-boot-configuration-processor")
 }
 
 tasks.getByName("bootJar").enabled = false
