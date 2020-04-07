@@ -51,6 +51,7 @@ puni.extension.string
 puni.log
 puni.spring.autoconfigure
 puni.spring.fixture
+puni.spring.fixture.properties
 puni.spring.web.exception
 puni.spring.web.exception.mapper
 puni.test.spring.config

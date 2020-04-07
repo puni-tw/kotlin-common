@@ -1127,6 +1127,20 @@
 </BODY>
 </HTML>
 </ul>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.fixture.properties/-puni-fixture-properties/index.html"><span class="identifier">@Component</span> <span class="identifier">@ConfigurationProperties</span><span class="symbol">(</span>"puni.fixture"<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">PuniFixtureProperties</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.fixture.properties/-puni-fixture-properties/-init-.html"><span class="identifier">PuniFixtureProperties</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.fixture.properties/-puni-fixture-properties/enabled.html"><span class="keyword">var </span><span class="identifier">enabled</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-spring-fixture-config/index.html"><span class="identifier">@Configuration</span> <span class="keyword">class </span><span class="identifier">PuniSpringFixtureConfig</span></a></a><br/>
 <ul>
 <HTML>
@@ -1137,7 +1151,7 @@
 </HEAD>
 <BODY>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-spring-fixture-config/-init-.html"><span class="identifier">PuniSpringFixtureConfig</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-spring-fixture-config/fixture-runner.html"><span class="identifier">@Bean</span> <span class="identifier">@ConditionalOnMissingBean</span> <span class="keyword">fun </span><span class="identifier">fixtureRunner</span><span class="symbol">(</span><span class="identifier" id="puni.spring.autoconfigure.PuniSpringFixtureConfig$fixtureRunner(org.springframework.context.ApplicationContext)/applicationContext">applicationContext</span><span class="symbol">:</span>&nbsp;<span class="identifier">ApplicationContext</span><span class="symbol">)</span><span class="symbol">: </span><a href="puni.spring.fixture/-fixture-runner/index.html"><span class="identifier">FixtureRunner</span></a></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-spring-fixture-config/fixture-runner.html"><span class="identifier">@Bean</span> <span class="identifier">@ConditionalOnProperty</span><span class="symbol">(</span>"true"<span class="symbol">, </span>["puni.fixture.enabled"]<span class="symbol">)</span> <span class="identifier">@ConditionalOnMissingBean</span> <span class="keyword">fun </span><span class="identifier">fixtureRunner</span><span class="symbol">(</span><span class="identifier" id="puni.spring.autoconfigure.PuniSpringFixtureConfig$fixtureRunner(org.springframework.context.ApplicationContext)/applicationContext">applicationContext</span><span class="symbol">:</span>&nbsp;<span class="identifier">ApplicationContext</span><span class="symbol">)</span><span class="symbol">: </span><a href="puni.spring.fixture/-fixture-runner/index.html"><span class="identifier">FixtureRunner</span></a></a></a><br/>
 </BODY>
 </HTML>
 </ul>
@@ -2731,7 +2745,7 @@
 </HEAD>
 <BODY>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-spring-fixture-config/-init-.html"><span class="identifier">PuniSpringFixtureConfig</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
-<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-spring-fixture-config/fixture-runner.html"><span class="identifier">@Bean</span> <span class="identifier">@ConditionalOnMissingBean</span> <span class="keyword">fun </span><span class="identifier">fixtureRunner</span><span class="symbol">(</span><span class="identifier" id="puni.spring.autoconfigure.PuniSpringFixtureConfig$fixtureRunner(org.springframework.context.ApplicationContext)/applicationContext">applicationContext</span><span class="symbol">:</span>&nbsp;<span class="identifier">ApplicationContext</span><span class="symbol">)</span><span class="symbol">: </span><a href="puni.spring.fixture/-fixture-runner/index.html"><span class="identifier">FixtureRunner</span></a></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.autoconfigure/-puni-spring-fixture-config/fixture-runner.html"><span class="identifier">@Bean</span> <span class="identifier">@ConditionalOnProperty</span><span class="symbol">(</span>"true"<span class="symbol">, </span>["puni.fixture.enabled"]<span class="symbol">)</span> <span class="identifier">@ConditionalOnMissingBean</span> <span class="keyword">fun </span><span class="identifier">fixtureRunner</span><span class="symbol">(</span><span class="identifier" id="puni.spring.autoconfigure.PuniSpringFixtureConfig$fixtureRunner(org.springframework.context.ApplicationContext)/applicationContext">applicationContext</span><span class="symbol">:</span>&nbsp;<span class="identifier">ApplicationContext</span><span class="symbol">)</span><span class="symbol">: </span><a href="puni.spring.fixture/-fixture-runner/index.html"><span class="identifier">FixtureRunner</span></a></a></a><br/>
 </BODY>
 </HTML>
 </ul>
@@ -2791,6 +2805,32 @@
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.fixture/-fixture-runner/-init-.html"><span class="identifier">FixtureRunner</span><span class="symbol">(</span><span class="identifier" id="puni.spring.fixture.FixtureRunner$<init>(org.springframework.context.ApplicationContext)/applicationContext">applicationContext</span><span class="symbol">:</span>&nbsp;<span class="identifier">ApplicationContext</span><span class="symbol">)</span></a></a><br/>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.fixture/-fixture-runner/on-application-event.html"><span class="keyword">fun </span><span class="identifier">onApplicationEvent</span><span class="symbol">(</span><span class="identifier" id="puni.spring.fixture.FixtureRunner$onApplicationEvent(org.springframework.context.event.ContextRefreshedEvent)/event">event</span><span class="symbol">:</span>&nbsp;<span class="identifier">ContextRefreshedEvent</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
 <a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.fixture/-fixture-runner/run-all-fixtures.html"><span class="keyword">fun </span><span class="identifier">runAllFixtures</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+</BODY>
+</HTML>
+</ul>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.fixture.properties/index.html"><span class="keyword">package</span>&nbsp;<span class="identifier">puni.spring.fixture.properties</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.fixture.properties/-puni-fixture-properties/index.html"><span class="identifier">@Component</span> <span class="identifier">@ConfigurationProperties</span><span class="symbol">(</span>"puni.fixture"<span class="symbol">)</span> <span class="keyword">class </span><span class="identifier">PuniFixtureProperties</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.fixture.properties/-puni-fixture-properties/-init-.html"><span class="identifier">PuniFixtureProperties</span><span class="symbol">(</span><span class="symbol">)</span></a></a><br/>
+<a href="/home/runner/work/kotlin-common/kotlin-common/build/javadoc/doc/index"><a href="puni.spring.fixture.properties/-puni-fixture-properties/enabled.html"><span class="keyword">var </span><span class="identifier">enabled</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></a></a><br/>
 </BODY>
 </HTML>
 </ul>
