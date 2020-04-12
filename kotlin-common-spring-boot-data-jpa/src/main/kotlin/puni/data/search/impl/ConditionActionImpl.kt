@@ -42,6 +42,11 @@ open class ConditionActionImpl<RootEntityType, EntityType, FieldType>(
       path.`in`(v)
     }
 
+  override fun notInList(values: Collection<FieldType>?): EnhancedSearch<RootEntityType> =
+    applyNonNullAction(values?.takeIf { it.isNotEmpty() }) { path, v ->
+      path.`in`(v).not()
+    }
+
   override fun isNotNull(): EnhancedSearch<RootEntityType> = enhancedSearch.apply {
     predicates.add(cb.isNotNull(root.columnNameToPath(columnName)))
   }

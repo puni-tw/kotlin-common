@@ -15,6 +15,8 @@ interface ConditionAction<RootEntityType, EntityType, FieldType> {
 
   infix fun inList(values: Collection<FieldType>?): EnhancedSearch<RootEntityType>
 
+  infix fun notInList(values: Collection<FieldType>?): EnhancedSearch<RootEntityType>
+
   fun isNotNull(): EnhancedSearch<RootEntityType>
 
   fun isNull(): EnhancedSearch<RootEntityType>
