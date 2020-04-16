@@ -40,15 +40,14 @@ class EntityFieldProcessorTest : StringSpec({
     result.generatedFiles.find { it.name == "BookExtensions.kt" }.errWhenNull(CommonErrorCode.ERROR)
       .readText()
       .also {
-        it shouldContain """fun EnhancedSearch<Book>.name(): ComparableConditionAction<Book, Book, String> =
-    this.field(BookFields.name)"""
+        it shouldContain """fun EnhancedSearch<Book>.name(): StringConditionAction<Book, Book> = this.field(BookFields.name)"""
         it shouldContain """fun EnhancedSearch<Book>.price(): ComparableConditionAction<Book, Book, Int> =
     this.field(BookFields.price)"""
         it shouldContain """fun EnhancedSearch<Book>.author(): ConditionAction<Book, Book, Author> =
     this.field(BookFields.author)"""
-        it shouldContain """fun ConditionAction<Book, Book, Author>.name(): ComparableConditionAction<Book, Author, String> =
+        it shouldContain """fun ConditionAction<Book, Book, Author>.name(): StringConditionAction<Book, Author> =
     this.field(AuthorFields.name)"""
-        it shouldContain """fun ConditionAction<Book, Book, Author>.country(): ComparableConditionAction<Book, Author, String> =
+        it shouldContain """fun ConditionAction<Book, Book, Author>.country(): StringConditionAction<Book, Author> =
     this.field(AuthorFields.country)"""
         it shouldContain """fun EnhancedSearch<Book>.releaseAt(): ComparableConditionAction<Book, Book, LocalDateTime> =
     this.field(BookFields.releaseAt)"""
@@ -64,9 +63,9 @@ class EntityFieldProcessorTest : StringSpec({
     result.generatedFiles.find { it.name == "AuthorExtensions.kt" }.errWhenNull(CommonErrorCode.ERROR)
       .readText()
       .also {
-        it shouldContain """fun EnhancedSearch<Author>.name(): ComparableConditionAction<Author, Author, String> =
+        it shouldContain """fun EnhancedSearch<Author>.name(): StringConditionAction<Author, Author> =
     this.field(AuthorFields.name)"""
-        it shouldContain """fun EnhancedSearch<Author>.country(): ComparableConditionAction<Author, Author, String> =
+        it shouldContain """fun EnhancedSearch<Author>.country(): StringConditionAction<Author, Author> =
     this.field(AuthorFields.country)"""
       }
   }

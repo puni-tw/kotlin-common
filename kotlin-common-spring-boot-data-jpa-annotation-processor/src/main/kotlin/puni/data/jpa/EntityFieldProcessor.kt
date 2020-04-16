@@ -31,6 +31,7 @@ import puni.data.search.ComparableConditionAction
 import puni.data.search.ConditionAction
 import puni.data.search.EnhancedSearch
 import puni.data.search.Searchable
+import puni.data.search.StringConditionAction
 import puni.data.search.impl.SearchableImpl
 import puni.extension.kotlinpoet.KaptOptions
 import puni.extension.kotlinpoet.allFieldsIncludeSuper
@@ -171,11 +172,18 @@ open class EntityFieldProcessor : AbstractProcessor() {
 
   private fun Element.toConditionAction(rootEntityTypeName: TypeName, currentEntityTypeName: TypeName): TypeName {
     return if (isComparable()) {
-      ComparableConditionAction::class.asClassName().parameterizedBy(
-        rootEntityTypeName,
-        currentEntityTypeName,
-        typeName()
-      )
+      if (this.typeName().toString() == "kotlin.String") {
+        StringConditionAction::class.asClassName().parameterizedBy(
+          rootEntityTypeName,
+          currentEntityTypeName
+        )
+      } else {
+        ComparableConditionAction::class.asClassName().parameterizedBy(
+          rootEntityTypeName,
+          currentEntityTypeName,
+          typeName()
+        )
+      }
     } else {
       ConditionAction::class.asClassName().parameterizedBy(
         rootEntityTypeName,

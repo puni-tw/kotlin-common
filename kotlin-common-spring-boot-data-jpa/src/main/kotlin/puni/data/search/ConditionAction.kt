@@ -9,6 +9,10 @@ interface ConditionAction<RootEntityType, EntityType, FieldType> {
     searchable: Searchable<FieldType, AnotherFieldType>
   ): ComparableConditionAction<RootEntityType, FieldType, AnotherFieldType>
 
+  fun field(
+    searchable: Searchable<FieldType, String>
+  ): StringConditionAction<RootEntityType, FieldType>
+
   infix fun eq(value: FieldType?): EnhancedSearch<RootEntityType>
 
   infix fun notEq(value: FieldType?): EnhancedSearch<RootEntityType>

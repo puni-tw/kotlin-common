@@ -3,7 +3,7 @@ package puni.data.search.impl
 import puni.data.search.ComparableConditionAction
 import puni.data.search.EnhancedSearch
 
-class ComparableConditionActionImpl<RootEntityType, EntityType, FieldType : Comparable<FieldType>>(
+open class ComparableConditionActionImpl<RootEntityType, EntityType, FieldType : Comparable<FieldType>>(
   enhancedSearch: EnhancedSearchImpl<RootEntityType>,
   columnName: String
 ) : ConditionActionImpl<RootEntityType, EntityType, FieldType>(enhancedSearch, columnName),

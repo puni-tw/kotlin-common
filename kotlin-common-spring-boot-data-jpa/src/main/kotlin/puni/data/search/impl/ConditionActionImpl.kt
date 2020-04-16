@@ -7,6 +7,7 @@ import puni.data.search.ComparableConditionAction
 import puni.data.search.ConditionAction
 import puni.data.search.EnhancedSearch
 import puni.data.search.Searchable
+import puni.data.search.StringConditionAction
 
 open class ConditionActionImpl<RootEntityType, EntityType, FieldType>(
   private val enhancedSearch: EnhancedSearchImpl<RootEntityType>,
@@ -27,6 +28,10 @@ open class ConditionActionImpl<RootEntityType, EntityType, FieldType>(
     return ComparableConditionActionImpl<RootEntityType, FieldType, AnotherFieldType>(
       enhancedSearch, "$columnName.${searchable.fieldName()}"
     )
+  }
+
+  override fun field(searchable: Searchable<FieldType, String>): StringConditionAction<RootEntityType, FieldType> {
+    return StringConditionActionImpl<RootEntityType, FieldType>(enhancedSearch, "$columnName.${searchable.fieldName()}")
   }
 
   override fun eq(value: FieldType?): EnhancedSearch<RootEntityType> = applyNonNullAction(value) { path, v ->

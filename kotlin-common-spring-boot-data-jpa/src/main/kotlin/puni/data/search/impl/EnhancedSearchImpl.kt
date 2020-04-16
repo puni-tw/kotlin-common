@@ -8,6 +8,7 @@ import puni.data.search.ComparableConditionAction
 import puni.data.search.ConditionAction
 import puni.data.search.EnhancedSearch
 import puni.data.search.Searchable
+import puni.data.search.StringConditionAction
 
 class EnhancedSearchImpl<EntityType>(
   val predicates: MutableList<Predicate>,
@@ -24,6 +25,10 @@ class EnhancedSearchImpl<EntityType>(
     return ComparableConditionActionImpl(this, fieldName)
   }
 
+  override fun stringField(fieldName: String): StringConditionAction<EntityType, EntityType> {
+    return StringConditionActionImpl(this, fieldName)
+  }
+
   override fun <FieldType> field(
     searchable: Searchable<EntityType, FieldType>
   ): ConditionAction<EntityType, EntityType, FieldType> {
@@ -34,6 +39,10 @@ class EnhancedSearchImpl<EntityType>(
     searchable: Searchable<EntityType, FieldType>
   ): ComparableConditionAction<EntityType, EntityType, FieldType> {
     return ComparableConditionActionImpl(this, searchable.fieldName())
+  }
+
+  override fun field(searchable: Searchable<EntityType, String>): StringConditionAction<EntityType, EntityType> {
+    return StringConditionActionImpl(this, searchable.fieldName())
   }
 
   override fun or(searchContent: (enhancedSearch: EnhancedSearch<EntityType>) -> Unit): EnhancedSearch<EntityType> {

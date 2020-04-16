@@ -5,7 +5,7 @@ import java.time.LocalDate
 /**
  * @author leo
  */
-data class SearchDateRange(
-  val from: LocalDate? = null,
-  val to: LocalDate? = null
+open class SearchDateRange(
+  var from: LocalDate? = null,
+  var to: LocalDate? = null
 )

@@ -11,6 +11,8 @@ import puni.data.dao.TestGroupDao
 import puni.data.entity.Author
 import puni.data.entity.AuthorGroup
 import puni.data.entity.Book
+import puni.data.search.SearchKeyword
+import puni.data.search.SearchKeywordType
 import puni.data.search.impl.SearchableImpl
 import puni.data.search.search
 
@@ -44,6 +46,10 @@ class DaoSearchTest(
       field(SearchableImpl<Book, String>("name")).notEq("puni2")
       field(SearchableImpl<Book, String>("name")).eq(null) // will be ignored
       field(SearchableImpl<Book, String>("name")).notEq(null) // will be ignored
+      stringField("name").startsWith("puni")
+      stringField("name").endsWith("puni")
+      stringField("name").contains("puni")
+      stringField("name").keyword(SearchKeyword("puni", SearchKeywordType.MATCH))
 
       or {
         field<String>("name").eq("puni")
