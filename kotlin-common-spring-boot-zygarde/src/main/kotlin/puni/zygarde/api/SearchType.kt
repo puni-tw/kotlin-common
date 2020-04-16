@@ -11,4 +11,8 @@ enum class SearchType {
   IN_LIST,
   DATE_RANGE,
   DATE_TIME_RANGE,
+  KEYWORD,
+  STARTS_WITH,
+  ENDS_WITH,
+  CONTAINS,
 }

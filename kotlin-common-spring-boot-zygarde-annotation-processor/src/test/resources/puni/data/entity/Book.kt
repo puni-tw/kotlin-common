@@ -17,6 +17,7 @@ import puni.zygarde.api.SearchType
 import puni.zygarde.api.value.AutoIdValueProvider
 import puni.zygarde.api.value.JsonStringToLongListValueProvider
 import puni.zygarde.api.value.ToJsonStringValueProvider
+import puni.zygarde.data.dto.ApiSearchKeyword
 import java.time.LocalDateTime
 import javax.persistence.Entity
 import javax.persistence.Lob
@@ -133,6 +134,38 @@ class Book(
 
   var user: User? = null
 ) : AutoIdEntity() {
+
+  @ApiProp(
+    requestDto = [
+      RequestDto(REQ_BOOK_SEARCH, refClass = ApiSearchKeyword::class, searchType = SearchType.KEYWORD, searchForField = "name")
+    ]
+  )
+  @Transient
+  var nameKeyWord: ApiSearchKeyword? = null
+
+  @ApiProp(
+    requestDto = [
+      RequestDto(REQ_BOOK_SEARCH, refClass = String::class, searchType = SearchType.STARTS_WITH, searchForField = "name")
+    ]
+  )
+  @Transient
+  var nameStartsWith: String? = null
+
+  @ApiProp(
+    requestDto = [
+      RequestDto(REQ_BOOK_SEARCH, refClass = String::class, searchType = SearchType.ENDS_WITH, searchForField = "name")
+    ]
+  )
+  @Transient
+  var nameEndsWith: String? = null
+
+  @ApiProp(
+    requestDto = [
+      RequestDto(REQ_BOOK_SEARCH, refClass = String::class, searchType = SearchType.CONTAINS, searchForField = "name")
+    ]
+  )
+  @Transient
+  var nameContains: String? = null
 
   @ApiProp(
     requestDto = [
