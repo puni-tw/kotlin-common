@@ -91,7 +91,7 @@ class Book(
   @ApiProp(
     dto = [
       Dto(DTO_BOOK),
-      Dto(name = DTO_BOOK_DETAIL)
+      Dto(name = DTO_BOOK_DETAIL, fieldName = "releaseDateTime")
     ],
     requestDto = [
       RequestDto(REQ_BOOK_SEARCH, refClass = SearchDateTimeRange::class, searchType = SearchType.DATE_TIME_RANGE)

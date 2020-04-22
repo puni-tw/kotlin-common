@@ -35,9 +35,10 @@ class ZygardeApiPropGenerator(
 ) : AbstractZygardeGenerator(processingEnv) {
 
   data class DtoFieldDescriptionVo(
-    val fieldName: String,
+    val entityFieldName: String,
     val fieldType: TypeName,
     val dtoName: String,
+    val dtoFieldName: String,
     val comment: String,
     val dtoRef: String = "",
     val dtoRefCollection: Boolean = false,
@@ -62,9 +63,10 @@ class ZygardeApiPropGenerator(
           additionalDtoProps.props.flatMap { additionalDtoProp ->
             additionalDtoProp.forDto.map {
               DtoFieldDescriptionVo(
-                fieldName = additionalDtoProp.field,
+                entityFieldName = additionalDtoProp.field,
                 fieldType = safeGetTypeFromAnnotation { additionalDtoProp.fieldType.asTypeName() },
                 dtoName = it,
+                dtoFieldName = additionalDtoProp.field,
                 comment = additionalDtoProp.comment,
                 valueProvider = safeGetTypeFromAnnotation { additionalDtoProp.valueProvider.asTypeName() }.validValueProvider(),
                 entityValueProvider = safeGetTypeFromAnnotation { additionalDtoProp.entityValueProvider.asTypeName() }.validValueProvider(),
@@ -90,7 +92,7 @@ class ZygardeApiPropGenerator(
                   refClass = safeGetTypeFromAnnotation { dto.refClass.asTypeName() }.kotlin(false),
                   refCollection = dto.refCollection,
                   dtoName = dto.name,
-                  fieldName = dto.fieldName,
+                  dtoFieldName = dto.fieldName,
                   comment = apiProp.comment,
                   valueProvider = safeGetTypeFromAnnotation { dto.valueProvider.asTypeName() }.kotlin(false).validValueProvider(),
                   entityValueProvider = safeGetTypeFromAnnotation { dto.entityValueProvider.asTypeName() }.kotlin(false).validValueProvider()
@@ -106,7 +108,7 @@ class ZygardeApiPropGenerator(
                   refClass = safeGetTypeFromAnnotation { dto.refClass.asTypeName() }.kotlin(false),
                   refCollection = dto.refCollection,
                   dtoName = dto.name,
-                  fieldName = "",
+                  dtoFieldName = "",
                   comment = apiProp.comment,
                   valueProvider = safeGetTypeFromAnnotation { dto.valueProvider.asTypeName() }.kotlin(false).validValueProvider(),
                   forceNotNull = dto.notNullInReq
@@ -158,7 +160,7 @@ class ZygardeApiPropGenerator(
         }
 
         dtoFieldDescriptions.forEach { dto ->
-          val fieldName = dto.fieldName
+          val fieldName = dto.dtoFieldName
           val fieldType = dto.fieldType.let { if (isSearchDto) it.copy(nullable = true) else it }
           ParameterSpec
             .builder(fieldName, fieldType)
@@ -195,7 +197,7 @@ class ZygardeApiPropGenerator(
     refCollection: Boolean,
     elem: Element,
     dtoName: String,
-    fieldName: String,
+    dtoFieldName: String,
     comment: String,
     valueProvider: TypeName? = null,
     entityValueProvider: TypeName? = null,
@@ -218,10 +220,12 @@ class ZygardeApiPropGenerator(
       }
       else -> elem.nullableTypeName()
     }
+    val entityFieldName = elem.fieldName()
     return DtoFieldDescriptionVo(
-      fieldName = if (fieldName.isNotEmpty()) fieldName else elem.fieldName(),
+      entityFieldName = entityFieldName,
       fieldType = fieldType.copy(nullable = !forceNotNull && elem.isNullable()),
       dtoName = dtoName,
+      dtoFieldName = if (dtoFieldName.isNotEmpty()) dtoFieldName else entityFieldName,
       comment = comment,
       dtoRef = ref,
       dtoRefCollection = refCollection,
@@ -249,19 +253,19 @@ class ZygardeApiPropGenerator(
         val q = if (it.fieldType.isNullable) "?" else ""
         if (it.entityValueProvider != null) {
           codeBlockArgs.add(it.entityValueProvider)
-          "  ${it.fieldName} = %T().getValue(this)"
+          "  ${it.dtoFieldName} = %T().getValue(this)"
         } else if (it.valueProvider != null) {
           codeBlockArgs.add(it.valueProvider)
-          "  ${it.fieldName} = %T().getValue(this.${it.fieldName})"
+          "  ${it.dtoFieldName} = %T().getValue(this.${it.entityFieldName})"
         } else if (it.dtoRef.isNotEmpty()) {
           codeBlockArgs.add(MemberName(dtoPackageName, "to${it.dtoRef}"))
           if (it.dtoRefCollection) {
-            "  ${it.fieldName} = this.${it.fieldName}$q.map{it.%M()}"
+            "  ${it.dtoFieldName} = this.${it.entityFieldName}$q.map{it.%M()}"
           } else {
-            "  ${it.fieldName} = this.${it.fieldName}$q.%M()"
+            "  ${it.dtoFieldName} = this.${it.entityFieldName}$q.%M()"
           }
         } else {
-          "  ${it.fieldName} = this.${it.fieldName}"
+          "  ${it.dtoFieldName} = this.${it.entityFieldName}"
         }
       }
     return FunSpec.builder("to$dtoName")
@@ -288,11 +292,11 @@ ${dtoFieldSetterStatements.joinToString(",\r\n")}
       .forEach {
         if (it.valueProvider != null) {
           functionBuilder.addStatement(
-            "this.${it.fieldName} = %T().getValue(req.${it.fieldName})",
+            "this.${it.entityFieldName} = %T().getValue(req.${it.dtoFieldName})",
             it.valueProvider
           )
         } else {
-          functionBuilder.addStatement("this.${it.fieldName} = req.${it.fieldName}")
+          functionBuilder.addStatement("this.${it.entityFieldName} = req.${it.dtoFieldName}")
         }
       }
 
@@ -311,8 +315,8 @@ ${dtoFieldSetterStatements.joinToString(",\r\n")}
 
     dtoFieldDescriptions
       .forEach {
-        val searchForField = it.searchForField ?: it.fieldName
-        val fieldName = it.fieldName
+        val searchForField = it.searchForField ?: it.entityFieldName
+        val fieldName = it.entityFieldName
         val fieldExtensionMember = MemberName("puni.zygarde.data.entity.search", searchForField)
         when (it.searchType) {
           SearchType.EQ -> functionBuilder.addStatement("%M() eq req.$fieldName", fieldExtensionMember)
