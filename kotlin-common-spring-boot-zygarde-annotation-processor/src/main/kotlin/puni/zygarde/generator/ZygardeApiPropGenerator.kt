@@ -90,6 +90,7 @@ class ZygardeApiPropGenerator(
                   refClass = safeGetTypeFromAnnotation { dto.refClass.asTypeName() }.kotlin(false),
                   refCollection = dto.refCollection,
                   dtoName = dto.name,
+                  fieldName = dto.fieldName,
                   comment = apiProp.comment,
                   valueProvider = safeGetTypeFromAnnotation { dto.valueProvider.asTypeName() }.kotlin(false).validValueProvider(),
                   entityValueProvider = safeGetTypeFromAnnotation { dto.entityValueProvider.asTypeName() }.kotlin(false).validValueProvider()
@@ -105,6 +106,7 @@ class ZygardeApiPropGenerator(
                   refClass = safeGetTypeFromAnnotation { dto.refClass.asTypeName() }.kotlin(false),
                   refCollection = dto.refCollection,
                   dtoName = dto.name,
+                  fieldName = "",
                   comment = apiProp.comment,
                   valueProvider = safeGetTypeFromAnnotation { dto.valueProvider.asTypeName() }.kotlin(false).validValueProvider(),
                   forceNotNull = dto.notNullInReq
@@ -193,12 +195,12 @@ class ZygardeApiPropGenerator(
     refCollection: Boolean,
     elem: Element,
     dtoName: String,
+    fieldName: String,
     comment: String,
     valueProvider: TypeName? = null,
     entityValueProvider: TypeName? = null,
     forceNotNull: Boolean = false
   ): DtoFieldDescriptionVo {
-    val fieldName = elem.fieldName()
     val fieldType = when {
       ref.isNotEmpty() -> ClassName(dtoPackageName, ref).let {
         if (refCollection) {
@@ -217,7 +219,7 @@ class ZygardeApiPropGenerator(
       else -> elem.nullableTypeName()
     }
     return DtoFieldDescriptionVo(
-      fieldName = fieldName,
+      fieldName = if (fieldName.isNotEmpty()) fieldName else elem.fieldName(),
       fieldType = fieldType.copy(nullable = !forceNotNull && elem.isNullable()),
       dtoName = dtoName,
       comment = comment,
