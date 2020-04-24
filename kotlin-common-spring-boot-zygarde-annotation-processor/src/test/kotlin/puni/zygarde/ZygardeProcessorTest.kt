@@ -7,7 +7,7 @@ import io.kotlintest.specs.StringSpec
 import org.jetbrains.kotlin.config.JvmTarget
 import org.springframework.core.io.ClassPathResource
 
-class EntityApiProcessorTest : StringSpec({
+class ZygardeProcessorTest : StringSpec({
 
   "should able to compile" {
     val result = KotlinCompilation().apply {
@@ -17,11 +17,12 @@ class EntityApiProcessorTest : StringSpec({
         "puni/data/entity/BookApiSpec.kt",
         "puni/data/entity/Author.kt",
         "puni/data/entity/AuthorApiSpec.kt",
-        "puni/data/entity/BookTagsValueProvider.kt"
+        "puni/data/entity/BookTagsValueProvider.kt",
+        "puni/data/model/SummaryModel.kt"
       ).map { ClassPathResource(it).file }.map { SourceFile.fromPath(it) }
       jvmTarget = JvmTarget.JVM_1_8.description
       // pass your own instance of an annotation processor
-      annotationProcessors = listOf(EntityApiProcessor())
+      annotationProcessors = listOf(ZygardeProcessor())
 
       // pass your own instance of a compiler plugin
 

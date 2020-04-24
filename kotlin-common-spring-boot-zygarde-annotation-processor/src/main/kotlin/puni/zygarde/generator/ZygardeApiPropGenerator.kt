@@ -223,7 +223,7 @@ class ZygardeApiPropGenerator(
     val entityFieldName = elem.fieldName()
     return DtoFieldDescriptionVo(
       entityFieldName = entityFieldName,
-      fieldType = fieldType.copy(nullable = !forceNotNull && elem.isNullable()),
+      fieldType = fieldType.kotlin(canBeNullable = !forceNotNull && elem.isNullable()),
       dtoName = dtoName,
       dtoFieldName = if (dtoFieldName.isNotEmpty()) dtoFieldName else entityFieldName,
       comment = comment,

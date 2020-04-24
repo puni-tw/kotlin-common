@@ -6,6 +6,7 @@ import puni.zygarde.api.Dto
 import puni.zygarde.api.GenApi
 import puni.zygarde.api.RequestDto
 import puni.zygarde.api.ZygardeApi
+import puni.zygarde.api.ZygardeModel
 import javax.persistence.Entity
 import javax.persistence.Transient
 
@@ -38,6 +39,7 @@ private const val REQ_DO_VALIDATE_PHONE = "ValidatePhoneRequest"
   ]
 )
 @Entity
+@ZygardeModel
 class User(
   @ApiProp(
     comment = "手機號碼",

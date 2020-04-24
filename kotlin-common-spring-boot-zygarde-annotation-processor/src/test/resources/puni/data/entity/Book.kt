@@ -14,6 +14,7 @@ import puni.zygarde.api.DtoInherit
 import puni.zygarde.api.DtoInherits
 import puni.zygarde.api.RequestDto
 import puni.zygarde.api.SearchType
+import puni.zygarde.api.ZygardeModel
 import puni.zygarde.api.value.AutoIdValueProvider
 import puni.zygarde.api.value.JsonStringToLongListValueProvider
 import puni.zygarde.api.value.ToJsonStringValueProvider
@@ -41,6 +42,7 @@ import javax.persistence.Transient
     DtoInherit(dto = REQ_BOOK_SEARCH, inherit = PagingAndSortingRequest::class)
   ]
 )
+@ZygardeModel
 class Book(
   @ApiProp(
     dto = [Dto(DTO_BOOK), Dto(DTO_BOOK_DETAIL)],

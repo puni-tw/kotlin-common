@@ -1,6 +1,9 @@
 package puni.extension.kotlinpoet
 
+import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
+import com.squareup.kotlinpoet.ParameterizedTypeName
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.TypeName
 import com.squareup.kotlinpoet.asTypeName
 import javax.annotation.processing.ProcessingEnvironment
@@ -45,7 +48,13 @@ fun Element.tryGetInitializeCodeBlock(): CodeBlock? {
 }
 
 fun TypeName.kotlin(canBeNullable: Boolean = true): TypeName {
-  return when (toString()) {
+  val typeString = toString()
+  if (this is ParameterizedTypeName) {
+    return (this.rawType.kotlin() as ClassName).parameterizedBy(
+      *this.typeArguments.map { it.kotlin(it.isNullable) }.toTypedArray()
+    )
+  }
+  return when (typeString) {
     "java.lang.String" -> String::class.asTypeName()
     "java.lang.Integer" -> Int::class.asTypeName()
     "java.lang.Long" -> Long::class.asTypeName()
@@ -53,21 +62,14 @@ fun TypeName.kotlin(canBeNullable: Boolean = true): TypeName {
     "java.lang.Float" -> Float::class.asTypeName()
     "java.lang.Short" -> Short::class.asTypeName()
     "java.lang.Boolean" -> Boolean::class.asTypeName()
+    "java.util.Map" -> Map::class.asTypeName()
+    "java.util.List" -> List::class.asTypeName()
     else -> this
   }.copy(nullable = canBeNullable)
 }
 
 fun TypeMirror.kotlinTypeName(canBeNullable: Boolean = true): TypeName {
-  return when (asTypeName().toString()) {
-    "java.lang.String" -> String::class.asTypeName()
-    "java.lang.Integer" -> Int::class.asTypeName()
-    "java.lang.Long" -> Long::class.asTypeName()
-    "java.lang.Double" -> Double::class.asTypeName()
-    "java.lang.Float" -> Float::class.asTypeName()
-    "java.lang.Short" -> Short::class.asTypeName()
-    "java.lang.Boolean" -> Boolean::class.asTypeName()
-    else -> asTypeName()
-  }.copy(nullable = canBeNullable)
+  return asTypeName().kotlin(canBeNullable)
 }
 
 fun Element.allFieldsIncludeSuper(processingEnv: ProcessingEnvironment): List<Element> {

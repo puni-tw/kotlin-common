@@ -7,6 +7,7 @@ import puni.zygarde.api.AdditionalDtoProp
 import puni.zygarde.api.AdditionalDtoProps
 import puni.zygarde.api.ApiProp
 import puni.zygarde.api.Dto
+import puni.zygarde.api.ZygardeModel
 import puni.zygarde.api.value.AutoIdValueProvider
 import java.time.LocalDateTime
 import javax.persistence.Entity
@@ -31,6 +32,7 @@ abstract class FooEntity: AutoIdEntity() {
     )
   ]
 )
+@ZygardeModel
 class Author(
   @ApiProp(
     dto = [Dto(DTO_AUTHOR), Dto(DTO_AUTHOR_DETAIL)]
