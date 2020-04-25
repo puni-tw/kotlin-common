@@ -10,6 +10,6 @@ class TestFixture2 : Fixture() {
   override fun order(): Int = 2
   override fun run() {
     TestFixtureContext.counter shouldBe 1
-    TestFixtureContext.counter++
+    TestFixtureContext.counter += 1
   }
 }

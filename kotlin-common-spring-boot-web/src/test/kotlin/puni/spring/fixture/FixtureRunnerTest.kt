@@ -9,12 +9,8 @@ import puni.test.TestApplication
  * @author leo
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = [TestApplication::class])
-class FixtureRunnerTest(
-  val fixtureRunner: FixtureRunner
-) : StringSpec({
+class FixtureRunnerTest : StringSpec({
   "should have correct value after fixture ran" {
-    TestFixtureContext.counter = 0
-    fixtureRunner.runAllFixtures()
     TestFixtureContext.counter shouldBe 2
   }
 })

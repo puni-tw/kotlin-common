@@ -12,11 +12,17 @@ class FixtureRunner(
   private val applicationContext: ApplicationContext
 ) : Loggable, ApplicationListener<ContextRefreshedEvent> {
 
+  var fixtureRan = false
+
   override fun onApplicationEvent(event: ContextRefreshedEvent) {
     runAllFixtures()
   }
 
   fun runAllFixtures() {
+    if (fixtureRan) {
+      return
+    }
+    fixtureRan = true
     applicationContext.getBeansOfType(Fixture::class.java)
       .map { it.value }
       .also {
