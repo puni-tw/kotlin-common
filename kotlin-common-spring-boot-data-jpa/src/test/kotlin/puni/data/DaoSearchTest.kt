@@ -80,4 +80,40 @@ class DaoSearchTest(
       field<String>("price").isNotNull()
     }.size shouldBe 0
   }
+  "should able to do order and limit search" {
+    testBookDao.deleteAllInBatch()
+    testBookDao.saveAll(
+      listOf(
+        Book(
+          "puni",
+          100,
+          testAuthorDao.save(
+            Author(
+              "author",
+              testGroupDao.save(AuthorGroup("puni"))
+            )
+          )
+        ),
+        Book(
+          "puni2",
+          101,
+          testAuthorDao.save(
+            Author(
+              "author",
+              testGroupDao.save(AuthorGroup("puni"))
+            )
+          )
+        )
+      )
+    )
+
+    testBookDao.search { field<Int>("price").desc() }.first().name shouldBe "puni2"
+    testBookDao.search(
+      {
+        stringField("name").startsWith("puni")
+        field<Int>("price").desc()
+      },
+      1
+    ).size shouldBe 1
+  }
 })

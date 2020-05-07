@@ -24,4 +24,8 @@ interface ConditionAction<RootEntityType, EntityType, FieldType> {
   fun isNotNull(): EnhancedSearch<RootEntityType>
 
   fun isNull(): EnhancedSearch<RootEntityType>
+
+  fun asc(): EnhancedSearch<RootEntityType>
+
+  fun desc(): EnhancedSearch<RootEntityType>
 }

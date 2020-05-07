@@ -60,6 +60,12 @@ open class ConditionActionImpl<RootEntityType, EntityType, FieldType>(
     predicates.add(cb.isNull(root.columnNameToPath(columnName)))
   }
 
+  override fun asc(): EnhancedSearch<RootEntityType> =
+    enhancedSearch.apply { orders.add(cb.asc(root.columnNameToPath(columnName))) }
+
+  override fun desc(): EnhancedSearch<RootEntityType> =
+    enhancedSearch.apply { orders.add(cb.desc(root.columnNameToPath(columnName))) }
+
   protected fun Root<RootEntityType>.columnNameToPath(columnName: String): Path<FieldType> {
     val splited = columnName.split(".")
     return splited.takeLast(splited.size - 1)

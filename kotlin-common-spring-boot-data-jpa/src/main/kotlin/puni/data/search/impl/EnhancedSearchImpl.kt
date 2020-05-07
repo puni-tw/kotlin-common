@@ -2,6 +2,7 @@ package puni.data.search.impl
 
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
+import javax.persistence.criteria.Order
 import javax.persistence.criteria.Predicate
 import javax.persistence.criteria.Root
 import puni.data.search.ComparableConditionAction
@@ -14,7 +15,8 @@ class EnhancedSearchImpl<EntityType>(
   val predicates: MutableList<Predicate>,
   val root: Root<EntityType>,
   val query: CriteriaQuery<*>,
-  val cb: CriteriaBuilder
+  val cb: CriteriaBuilder,
+  val orders: MutableList<Order> = mutableListOf()
 ) : EnhancedSearch<EntityType> {
 
   override fun <FieldType> field(fieldName: String): ConditionAction<EntityType, EntityType, FieldType> {
