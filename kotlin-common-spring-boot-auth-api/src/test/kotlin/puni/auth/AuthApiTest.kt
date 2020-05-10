@@ -86,6 +86,17 @@ class AuthApiTest : SpringTestSupport() {
   }
 
   @Test
+  fun `should not able to get currentUser when token is invalid`() {
+    bean<TestRestTemplate>().exchange<UserLoginVo>(
+      RequestEntity.get(URI("/user"))
+        .header("Authorization", "invalid-token")
+        .build()
+    ).also {
+      it.statusCode shouldBe HttpStatus.UNAUTHORIZED
+    }
+  }
+
+  @Test
   fun `should not able to get api when not authenticated`() {
     bean<TestRestTemplate>().exchange<Map<*, *>>(
       RequestEntity.get(URI("/api/user/bar")).build()

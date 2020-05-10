@@ -1,6 +1,7 @@
 package puni.auth.service
 
 import io.jsonwebtoken.ExpiredJwtException
+import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import java.util.Date
@@ -60,7 +61,7 @@ abstract class AbstractAuthService : UserDetailsService {
       .compact()
   }
 
-  fun validateTokenAndGetUserLogin(token: String): Authentication {
+  fun validateTokenAndGetUserLogin(token: String): Authentication? {
     try {
       val userLogin = Jwts.parserBuilder()
         .setSigningKey(signingKeyBytes)
@@ -79,6 +80,8 @@ abstract class AbstractAuthService : UserDetailsService {
       }
     } catch (e: ExpiredJwtException) {
       throw BusinessException(AuthErrorCode.TOKEN_EXPIRED)
+    } catch (e: JwtException) {
+      return null
     }
   }
 }
