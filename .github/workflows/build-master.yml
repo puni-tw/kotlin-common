@@ -47,8 +47,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUNI_TW_BINTRAY_USER: ${{ secrets.PUNI_TW_BINTRAY_USER }}
           PUNI_TW_BINTRAY_API_KEY: ${{ secrets.PUNI_TW_BINTRAY_API_KEY }}
-        run: ./gradlew -Pversion="0.0.${GITHUB_RUN_NUMBER}" bintrayUpload
-#        run: ./gradlew -Pversion="0.0.${GITHUB_RUN_NUMBER}" publish bintrayUpload
+#        run: ./gradlew -Pversion="0.0.${GITHUB_RUN_NUMBER}" bintrayUpload
+        run: ./gradlew -Pversion="0.0.${GITHUB_RUN_NUMBER}" publish
       - name: GH Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
