@@ -1,4 +1,4 @@
-import com.jfrog.bintray.gradle.BintrayExtension
+
 import io.gitlab.arturbosch.detekt.detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -144,25 +144,25 @@ subprojects {
     }
   }
 
-  bintray {
-    user = System.getenv("PUNI_TW_BINTRAY_USER")
-    key = System.getenv("PUNI_TW_BINTRAY_API_KEY")
-    publish = true
-    setPublications("default")
-    pkg(
-      delegateClosureOf<BintrayExtension.PackageConfig> {
-        repo = "maven"
-        name = subproject.name
-        websiteUrl = "https://puni-tw.github.io/kotlin-common/doc/"
-        githubRepo = "puni-tw/kotlin-common"
-        vcsUrl = "https://github.com/puni-tw/kotlin-common"
-        description = "Kotlin common utils and extensions"
-        setLabels("kotlin")
-        setLicenses("Apache-2.0")
-        desc = description
-      }
-    )
-  }
+  // bintray {
+  //   user = System.getenv("PUNI_TW_BINTRAY_USER")
+  //   key = System.getenv("PUNI_TW_BINTRAY_API_KEY")
+  //   publish = true
+  //   setPublications("default")
+  //   pkg(
+  //     delegateClosureOf<BintrayExtension.PackageConfig> {
+  //       repo = "maven"
+  //       name = subproject.name
+  //       websiteUrl = "https://puni-tw.github.io/kotlin-common/doc/"
+  //       githubRepo = "puni-tw/kotlin-common"
+  //       vcsUrl = "https://github.com/puni-tw/kotlin-common"
+  //       description = "Kotlin common utils and extensions"
+  //       setLabels("kotlin")
+  //       setLicenses("Apache-2.0")
+  //       desc = description
+  //     }
+  //   )
+  // }
 }
 
 val jacocoIgnoreProjects = listOf<String>(

@@ -9,16 +9,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Notify slack success
-        if: success()
-        id: slack
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-        uses: voxmedia/github-action-slack-notify-build@v1
-        with:
-          channel: ci
-          status: STARTING
-          color: warning
+#      - name: Notify slack success
+#        if: success()
+#        id: slack
+#        env:
+#          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+#        uses: voxmedia/github-action-slack-notify-build@v1
+#        with:
+#          channel: ci
+#          status: STARTING
+#          color: warning
       - name: Checkout latest code
         uses: actions/checkout@v2
 
@@ -45,32 +45,29 @@ jobs:
       - name: Publish artifact
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUNI_TW_BINTRAY_USER: ${{ secrets.PUNI_TW_BINTRAY_USER }}
-          PUNI_TW_BINTRAY_API_KEY: ${{ secrets.PUNI_TW_BINTRAY_API_KEY }}
-#        run: ./gradlew -Pversion="0.0.${GITHUB_RUN_NUMBER}" bintrayUpload
         run: ./gradlew -Pversion="0.0.${GITHUB_RUN_NUMBER}" publish
       - name: GH Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.GH_PERSONAL_TOKEN }}
           publish_dir: ./build/javadoc
-      - name: Notify slack success
-        if: success()
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-        uses: voxmedia/github-action-slack-notify-build@v1
-        with:
-          message_id: ${{ steps.slack.outputs.message_id }}
-          channel: ci
-          status: SUCCESS
-          color: good
-      - name: Notify slack fail
-        if: failure()
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-        uses: voxmedia/github-action-slack-notify-build@v1
-        with:
-          message_id: ${{ steps.slack.outputs.message_id }}
-          channel: ci
-          status: FAILED
-          color: danger
+#      - name: Notify slack success
+#        if: success()
+#        env:
+#          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+#        uses: voxmedia/github-action-slack-notify-build@v1
+#        with:
+#          message_id: ${{ steps.slack.outputs.message_id }}
+#          channel: ci
+#          status: SUCCESS
+#          color: good
+#      - name: Notify slack fail
+#        if: failure()
+#        env:
+#          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+#        uses: voxmedia/github-action-slack-notify-build@v1
+#        with:
+#          message_id: ${{ steps.slack.outputs.message_id }}
+#          channel: ci
+#          status: FAILED
+#          color: danger
